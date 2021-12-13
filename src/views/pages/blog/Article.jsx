@@ -79,7 +79,7 @@ const Article = () => {
                         </figcaption>
                       </figure>
                     </div>
-                    <h3>Microsoft Patch Management For Home Users</h3>
+                    <h3>What is Ceus?</h3>
                     <p>
                       Last month, my wife, Anne Doe, took me to Las Vegas
                       because she had to go for a business convention. Needless
@@ -91,7 +91,7 @@ const Article = () => {
                       thought. And no. I did not enter a single casino while I
                       was there.
                     </p>
-                    <h4>Entertainment</h4>
+                    <h3>Entertainment</h3>
                     <p>
                       One of the greatest things about Las Vegas, Reno and
                       Atlantic City (but especially Las Vegas) is the number of
@@ -109,47 +109,45 @@ const Article = () => {
                       Jazz, Rock, Heavy Mettle to Trance. All you have to do is
                       look at the itenary offered during your visit.
                     </p>
-                    <h4>Food</h4>
+                    <h3>How Ceus Work?</h3>
                     <p>
-                      Chinese to Japanese to Korean to Jewish and even
-                      Vegetarian and proper meat eating establishments await
-                      your every delight in Vegas. Do not opt for the cheap and
-                      oily fried dishes served for free while you play. Stop a
-                      while and take in the delightful scenery and smells of
-                      East Asian or European dishes. What is wondrous is that
-                      you get to see man’s ability to mix. A real melting pot if
-                      I may say so myself.
+                      One of the greatest things about Las Vegas, Reno and
+                      Atlantic City (but especially Las Vegas) is the number of
+                      shows that are available. You can get to watch top class
+                      comedians like Jay Leno, Jerry Seinfeld, Ray Romano, Tim
+                      Allen and even the likes of Bill Cosby and Chris Rock. If
+                      you are into music you can watch female singers like
+                      Celine Dion, Mariah Carey, Britney Spears, Christina
+                      Aguilera and Beyonc?, male performers like Phil Collins,
+                      Eric Clapton, Snoopy Dog and bands like Oasis and Bon
+                      Jovi. I could go on and on but the list is endless. If you
+                      are into magic you can watch magicians like David
+                      Copperfield do their thing meters from you. Whatever you
+                      like, you can find it here from Western music to oldies to
+                      Jazz, Rock, Heavy Mettle to Trance. All you have to do is
+                      look at the itenary offered during your visit.
                     </p>
+                    <h3>Why Ceus?</h3>
                     <p>
-                      But is that all what casino cities like Las Vegas are
-                      about? Do you have to remain in the city to really and
-                      truly enjoy your stay? No.
-                    </p>
-                    <p>
-                      While looking at the Dam and Canyon is from above, to see
-                      the true beauty of the river, you have to go down. The
-                      Colorado river is excellent for river-rafting and water
-                      sports, but you do not have to take part if it is not your
-                      thing. Instead just sit back and enjoy another of nature’s
-                      marvels.
-                    </p>
-                    <h4>Bonnie Springs</h4>
-                    <p>
-                      Who can not resist going to one of the old towns like
-                      those in the Western gun slinging movies? Your destination
-                      needs to be Old Nevada. There you can delight in an old
-                      western town right in the middle of Red Rock Canyon. They
-                      host western shootouts too so come prepared, partner! I
-                      could go on and on about other attractions like the theme
-                      park in Circus Circus, the Gilcrease Nature Sanctuary, the
-                      Henderson Bird Viewing Preserve and Mt. Charleston but I
-                      think you get the picture. In Las Vegas and hate gambling?
-                      Do not despair. Just go out and have some clean
-                      un-gambling fun.
+                      One of the greatest things about Las Vegas, Reno and
+                      Atlantic City (but especially Las Vegas) is the number of
+                      shows that are available. You can get to watch top class
+                      comedians like Jay Leno, Jerry Seinfeld, Ray Romano, Tim
+                      Allen and even the likes of Bill Cosby and Chris Rock. If
+                      you are into music you can watch female singers like
+                      Celine Dion, Mariah Carey, Britney Spears, Christina
+                      Aguilera and Beyonc?, male performers like Phil Collins,
+                      Eric Clapton, Snoopy Dog and bands like Oasis and Bon
+                      Jovi. I could go on and on but the list is endless. If you
+                      are into magic you can watch magicians like David
+                      Copperfield do their thing meters from you. Whatever you
+                      like, you can find it here from Western music to oldies to
+                      Jazz, Rock, Heavy Mettle to Trance. All you have to do is
+                      look at the itenary offered during your visit.
                     </p>
                   </div>
                 </div>
-                <h4 className="h3 mb-30">Comment </h4>
+                {/* <h4 className="h3 mb-30">Comment </h4>
                 <div className="comments_article">
                   <ul className="article-comments mb-4 mb-sm-5">
                     <li>
@@ -294,7 +292,8 @@ const Article = () => {
                       </div>
                     </li>
                   </ul>
-                </div>
+                </div> */}
+                
                 <h4 className="h3 mb-30">Leave a reply</h4>
                 <div className="reply">
                   <form>

@@ -50,27 +50,27 @@ export default function TopArtist() {
 
   const ArtistItems = [
     {
-      img: '1',
+      img: 'https://image-us.24h.com.vn/upload/3-2021/images/2021-07-06/Xon-xao-Son-Tung-M-TP-va-loat-youtuber-dinh-dam-bi-cuom-mat-thuong-hieu-photo-1-16094117624341764656274-1625582209-452-width620height827.jpg',
       name: 'xander_hall',
       price: '16.58',
     },
     {
-      img: '2',
+      img: 'https://znews-stc.zdn.vn/static/topic/person/chi%20pu.jpg',
       name: 'hamza_pitts',
       price: '14.55',
     },
     {
-      img: '3',
+      img: 'https://cly.1cdn.vn/2021/04/23/z2450384911701_67dfa2c9526fe9085216815136915eeb.jpg',
       name: 'nathan_walls',
       price: '24.13',
     },
     {
-      img: '4',
+      img: 'https://cdn-img.thethao247.vn/upload/chihieu/2018/11/24/misthy-1.jpg',
       name: 'kelton_collier',
       price: '62.68',
     },
     {
-      img: '5',
+      img: 'https://image.thanhnien.vn/1080/uploaded/haoph/2021_03_06/img_0467_lsvb.jpg',
       name: 'cade_glover',
       price: '32.48',
     },
@@ -94,7 +94,7 @@ export default function TopArtist() {
                         </div>
                         <Link to="profile">
                           <img
-                            src={`img/avatars/avatar_${val.img}.png`}
+                            src={`${val.img}`}
                             alt="Avatar"
                             className="avatar avatar-md"
                           />

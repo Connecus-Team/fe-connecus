@@ -10,7 +10,7 @@ import TopArtist from '../../components/creators/TopArtist';
 import Collection1 from '../../components/collection/Collection1';
 
 const Home1 = () => {
-  useDocumentTitle(' Home 1');
+  useDocumentTitle('Home');
   return (
     <div>
       <Header />

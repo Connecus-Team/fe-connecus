@@ -34,8 +34,20 @@ const PagesMenu = [
     link: '/profile',
   },
   {
-    title: 'Creators',
+    title: ' Creators',
     link: '/creators',
+  },
+  {
+    title: ' Token',
+    link: '/token',
+  },
+  {
+    title: ' Article',
+    link: '/article',
+  },
+  {
+    title: ' Community',
+    link: '/community',
   },
 ];
 
@@ -56,7 +68,7 @@ const Header = () => {
                 <img
                   className="header__logo"
                   id="logo_js"
-                  src="img/logos/Logo.svg"
+                  src="img/logos/logo.png"
                   alt="logo"
                 />
               </Link>
@@ -66,9 +78,10 @@ const Header = () => {
               <ul className="d-flex space-x-20">
                 <li className="has_popup">
                   <Link className="color_black is_new" to="/">
-                    Homes <i className="ri-more-2-fill" />
+                    Home
+                    {/* <i className="ri-more-2-fill" /> */}
                   </Link>
-                  <ul className="menu__popup space-y-20">
+                  {/* <ul className="menu__popup space-y-20">
                     {HomesMenu.map((val, i) => (
                       <li key={i}>
                         <Link to={val.link}>
@@ -77,7 +90,7 @@ const Header = () => {
                         </Link>
                       </li>
                     ))}
-                  </ul>
+                  </ul> */}
                 </li>
                 {PagesMenu.map((val, i) => (
                   <li key={i}>

@@ -28,19 +28,19 @@
     }
     .header__logo {
         img {
-            height: 2.2rem;
+            height: 5rem;
         }
     }
     .is_new {
         position: relative;
-        @include before {
-            left: -6px;
-            top: -3px;
-            height: 5px;
-            width: 5px;
-            border-radius: 22px;
-            background: $color_red;
-        }
+        // @include before {
+        //     left: -6px;
+        //     top: -3px;
+        //     height: 5px;
+        //     width: 5px;
+        //     border-radius: 22px;
+        //     background: $color_red;
+        // }
     }
     .has_popup,
     .has_popup2 {

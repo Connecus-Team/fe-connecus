@@ -15,12 +15,16 @@ import Login from "../views/pages/account/Login"
 import Profile from "../views/pages/account/Profile"
 import Register from "../views/pages/account/Register"
 
+// Token inner pages
+import CreateToken from "../views/pages/token/CreateToken"
+import CommunityList from "../views/pages/token/CommunityList"
+
+
 //  Blog inner pages
 import Blog from "../views/pages/blog/Blog"
 import Article from "../views/pages/blog/Article"
 
 //  item inner pages
-
 import ItemDetails from "../views/pages/item/ItemDetails"
 import Upload from "../views/pages/item/Upload"
 import UploadType from "../views/pages/item/UploadType"
@@ -58,10 +62,10 @@ const Routes = () => {
         <>
             <Router>
                 <Switch>
-                    <Route exact path="/" component={Preview} />
-                    <Route path="/home-1" component={Home1} />
+                    <Route exact path="/" component={Home1} />
+                    {/* <Route path="/home-1" component={Home1} />
                     <Route path="/home-2" component={Home2} />
-                    <Route path="/home-3" component={Home3} />
+                    <Route path="/home-3" component={Home3} /> */}
                     {/* inner pages */}
                     <Route path="/connect-wallet" component={ConnectWalllet} />
                     <Route path="/login" component={Login} />
@@ -89,6 +93,12 @@ const Routes = () => {
                     <Route path="/forum" component={Forum} />
                     <Route path="/post-details" component={PostDetails} />
                     <Route path="/contact" component={Contact} />
+
+
+                    <Route path="/token" component={CreateToken} />
+                    <Route path="/community" component={CommunityList} />
+
+                    {/* my contomize */}
                     <Route component={NotFound} />
 
                 </Switch>
