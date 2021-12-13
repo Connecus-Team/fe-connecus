@@ -16,8 +16,8 @@ const Home1 = () => {
       <Header />
       <Hero1 />
       <TopArtist />
-      <Cards1 />
-      <Collection1 />
+      {/* <Cards1 /> */}
+      {/* <Collection1 /> */}
       <Call2action />
       <Logos />
       <Footer />

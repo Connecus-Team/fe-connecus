@@ -23,7 +23,7 @@ const HeroProfile = () => {
     <div className="mb-100">
       <div className="hero__profile">
         <div className="cover">
-          <img src="img/bg/prrofile.png" alt="ImgPreview" />
+          <img src="https://nghesiviet.vn/storage/files/7/viruss/viruss-2.jpg" alt="ImgPreview" />
         </div>
         <div className="infos">
           <div className="container">
@@ -33,7 +33,7 @@ const HeroProfile = () => {
                   <div className="avatar_wrap">
                     <img
                       className="avatar avatar-lg"
-                      src="img/avatars/avatar_4.png"
+                      src="https://nghesiviet.vn/storage/files/7/viruss/viruss-2.jpg"
                       alt="avatar"
                     />
                   </div>

@@ -107,7 +107,7 @@ export default function TopArtist() {
                           </p>
                         </Link>
                         <span className="price color_green">
-                          {val.price} ETH
+                          {val.price} CEUS
                         </span>
                       </div>
                     </div>

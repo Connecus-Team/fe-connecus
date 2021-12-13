@@ -21,34 +21,38 @@ const HomesMenu = [
   },
 ];
 const PagesMenu = [
-  {
-    title: 'Marketplace',
-    link: '/marketplace',
-  },
+  // {
+  //   title: 'Marketplace',
+  //   link: '/marketplace',
+  // },
   {
     title: 'Collections',
     link: '/collections',
   },
-  {
-    title: ' Profile',
-    link: '/profile',
-  },
-  {
-    title: ' Creators',
-    link: '/creators',
-  },
+  // {
+  //   title: ' Profile',
+  //   link: '/profile',
+  // },
+  // {
+  //   title: ' Creators',
+  //   link: '/creators',
+  // },
   {
     title: ' Token',
     link: '/token',
   },
   {
-    title: ' Article',
-    link: '/article',
-  },
-  {
     title: ' Community',
     link: '/community',
   },
+  {
+    title: ' Document',
+    link: '/article',
+  },
+  {
+    title: ' FAQ',
+    link: '/faq',
+  }
 ];
 
 const Header = () => {

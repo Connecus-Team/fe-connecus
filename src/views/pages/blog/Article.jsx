@@ -91,7 +91,7 @@ const Article = () => {
                       thought. And no. I did not enter a single casino while I
                       was there.
                     </p>
-                    <h3>Entertainment</h3>
+                    {/* <h3>Entertainment</h3>
                     <p>
                       One of the greatest things about Las Vegas, Reno and
                       Atlantic City (but especially Las Vegas) is the number of
@@ -108,7 +108,7 @@ const Article = () => {
                       like, you can find it here from Western music to oldies to
                       Jazz, Rock, Heavy Mettle to Trance. All you have to do is
                       look at the itenary offered during your visit.
-                    </p>
+                    </p> */}
                     <h3>How Ceus Work?</h3>
                     <p>
                       One of the greatest things about Las Vegas, Reno and

@@ -20,10 +20,10 @@ const Hero1 = () => {
                 className="space-x-20 d-flex flex-column flex-md-row
 							sm:space-y-20">
                 <Link className="btn btn-primary" to="marketplace">
-                  View market
+                  View Community
                 </Link>
                 <Link className="btn btn-white" to="upload-type">
-                  Upload your item
+                  Create Token
                 </Link>
               </div>
             </div>
@@ -32,7 +32,7 @@ const Hero1 = () => {
             <img
               className="img-fluid w-full"
               id="img_js"
-              src="img/bg/in_hero1.png"
+              src="img/logos/logo.png"
               alt="img"
             />
           </div>

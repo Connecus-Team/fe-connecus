@@ -22,7 +22,7 @@ const CreateToken = () => {
         </div>
       </div>
       <div className="container">
-        <div className="box in__upload mb-120">
+        <div className="box in__upload mb-50">
           <div className="row">
             <div className="col-lg-6">
               <div className="left__part space-y-40 md:mb-20 upload_file">
@@ -50,7 +50,7 @@ const CreateToken = () => {
               <div className="form-group space-y-10">
                 <div className="space-y-20">
                   <div className="space-y-10">
-                    <span className="nameInput">Title</span>
+                    <span className="nameInput">Name</span>
                     <input
                       type="text"
                       className="form-control"
@@ -59,8 +59,8 @@ const CreateToken = () => {
                   </div>
                   <div className="space-y-10">
                     <span className="nameInput">
-                      Description
-                      <span className="color_text">(optional) </span>
+                      Label
+                      {/* <span className="color_text">(optional) </span> */}
                     </span>
                     <input
                       type="text"
@@ -69,8 +69,13 @@ const CreateToken = () => {
                     />
                   </div>
                   <div className="space-y-10">
-                    <span className="variationInput">Price</span>
-                    <select
+                    <span className="variationInput">Amount</span>
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="e. g. `raroin design art`"
+                    />
+                    {/* <select
                       className="form-select custom-select"
                       aria-label="Default select example">
                       <option> 00.00 ETH</option>
@@ -78,7 +83,7 @@ const CreateToken = () => {
                       <option>02.00 ETH</option>
                       <option>10.00 ETH</option>
                       <option>20.00 ETH</option>
-                    </select>
+                    </select> */}
                   </div>
                   <div className="space-y-10">
                     <span className="variationInput">Choose collection</span>

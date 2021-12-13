@@ -2,10 +2,11 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import Footer from '../../../components/footer/Footer';
 import Header from '../../../components/header/Header';
-import HeroForum from '../../../components/hero/HeroForum';
+import HeroProfile from '../../../components/hero/HeroProfile';
 import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
 import Countdown from 'react-countdown';
 import useDocumentTitle from '../../../components/useDocumentTitle';
+import SidebarProfile from '../../../components/sidebars/SidebarProfile';
 
 const CardItems = [
   {
@@ -59,11 +60,18 @@ function Forum() {
   return (
     <div>
       <Header />
-      <HeroForum />
-      <section className="section forum mt-100">
+      <HeroProfile />
+      <section className="section forum mt-20">
         <div className="container-md">
           <div className="row sm:space-y-30">
-            <div className="col-lg-8">
+            <div className="col-lg-3">
+              <SidebarProfile />
+            </div>
+            <div className="col-lg-6 mt-40">
+              <div className="box is__big space-y-20 mb-20">
+                <input type="text" className="form-control" />
+                <button className="btn btn-primary ">Submit</button>
+              </div>
               <Tabs className="forum__content">
                 <TabList className="d-flex space-x-10 mb-30 nav-tabs">
                   <Tab className="nav-item">
@@ -703,7 +711,7 @@ function Forum() {
                 </div>
               </Tabs>
             </div>
-            <div className="col-lg-4">
+            <div className="col-lg-3">
               <div className="sidebar space-y-30">
                 <div className="space-y-10">
                   <h5>Categories</h5>
