@@ -1,6 +1,7 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
-function Call2action() {
+import { Link } from 'react-router-dom';
+function Call2action()
+{
   return (
     <div>
       <div className="call2action">
@@ -10,7 +11,7 @@ function Call2action() {
                         sm:space-y-20">
             <div className="col-md-6">
               <div className="space-y-20">
-                <h1 className="text-white">Start your own collection today</h1>
+                <h1 className="text-white">Turn your fans <span className="d-inline-block">into your partners now</span></h1>
                 <p className="color_light section__text">
                   raroin is a shared liquidity NFT market smart contract which
                   is used by multiple websites to provide the users the best
@@ -18,17 +19,17 @@ function Call2action() {
                 </p>
                 <Link
                   to="connect-wallet"
-                  className="btn
-                                    btn-primary">
-                  Start Collecting
+                  className="btn btn-primary">
+                  Create an Account
+                  <i className="ri-arrow-right-s-line"></i>
                 </Link>
               </div>
             </div>
-            <div className="col-md-auto">
+            <div className="col-md-6">
               <img
                 className="img-fluid img__logo"
                 alt="rr"
-                src={`img/logos/Logo_illustrstion.png`}
+                src={`img/bg/home1/community.svg`}
               />
             </div>
           </div>

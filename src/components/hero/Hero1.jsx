@@ -9,7 +9,7 @@ const Hero1 = () => {
           <div className="col-lg-6">
             <div className="hero__left space-y-20">
               <h1 className="hero__title">
-                Discover digital art and collect NFTs
+                Your Community <span className="d-inline-block">Your Partners</span>
               </h1>
               <p className="hero__text txt">
                 raroin is a shared liquidity NFT market smart contract which is
@@ -20,19 +20,19 @@ const Hero1 = () => {
                 className="space-x-20 d-flex flex-column flex-md-row
 							sm:space-y-20">
                 <Link className="btn btn-primary" to="marketplace">
-                  View Community
+                  Reach out your idol
                 </Link>
-                <Link className="btn btn-white" to="upload-type">
-                  Create Token
+                <Link className="btn btn-dark" to="upload-type">
+                  Create an Account
                 </Link>
               </div>
             </div>
           </div>
           <div className="col-lg-6">
             <img
-              className="img-fluid w-full"
+              className="img-fluid w-full p-5"
               id="img_js"
-              src="img/logos/logo.png"
+              src="img/bg/home1/community1.svg"
               alt="img"
             />
           </div>

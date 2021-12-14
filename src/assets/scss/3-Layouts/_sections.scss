@@ -1241,3 +1241,56 @@
         line-height: 1.188;
     }
 }
+
+.connecus-explain {
+    background: rgb(238,174,202);
+    background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(212,171,225,1) 38%, rgba(162,200,221,1) 71%, rgba(148,154,233,1) 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    padding: 3rem;
+
+    section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .icon-wrapper-1,
+        .icon-wrapper-2 {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 35px;
+            line-height: 35px;
+            padding: 1rem;
+            border-radius: 100rem;
+            background: rgba($color_brand, 0.75);
+            color: white;
+        }
+        .icon-wrapper-1 {
+            background: rgba($color_brand, 0.5);
+        }
+
+        .divider {
+            border: 1px dashed #ffffff75;
+            height: 2rem;
+            width: 1px;
+        }
+        .content {
+            width: 25rem;
+            padding: 4rem 3rem;
+            border-radius: 2rem;
+            background: #ffffff80
+        }
+
+        &.how {
+            margin-top: 12rem;
+        }
+
+        &.why {
+            margin-top: 6rem;
+        }
+    }
+}
