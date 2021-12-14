@@ -230,6 +230,31 @@
         @include tablet_vert_screen {
             display: none;
         }
+        > a {
+            display: flex;
+        }
+        > a i{
+            margin-top: 0 !important;
+        }
+    }
+    .header__wallet-adr {
+        width: 100px;
+        display: inline-block;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        margin-left: 10px;
+
+        -webkit-animation: fadeIn 0.7s;
+        animation: fadeIn 0.7s;
+    }
+    @-webkit-keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
     }
     .header__avatar {
         border-radius: $border_radius * 100;
