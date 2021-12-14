@@ -237,14 +237,15 @@
             margin-top: 0 !important;
         }
     }
-    .header__wallet-adr {
-        width: 100px;
+    .header__wallet-adr, .header__wallet-text {
+        width: 120px;
         display: inline-block;
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
         margin-left: 10px;
-
+    }
+    .header__wallet-adr {
         -webkit-animation: fadeIn 0.7s;
         animation: fadeIn 0.7s;
     }

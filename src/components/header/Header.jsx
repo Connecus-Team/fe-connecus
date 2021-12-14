@@ -1,30 +1,30 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState, useEffect , useRef} from 'react';
 import {Link} from 'react-router-dom';
 import Web3 from 'web3';
 import {useDispatch} from 'react-redux';
+import { gsap } from "gsap";
 
 import MobileMenu from './Menu/MobileMenu';
 import MegaMenu from './Menu/MegaMenu';
 import web3Action from '../../components/header/redux/Web3.Action';
 
-const HomesMenu = [
-  {
-    icon: 'home-smile-2',
-    title: ' Home page 1',
-    link: '/home-1',
-  },
-  {
-    icon: 'home-2',
-    title: ' Home page 2',
-    link: '/home-2',
-  },
-  {
-    icon: 'home-5',
-    title: ' Home page 3',
-    link: '/home-3',
-  },
-];
+// const HomesMenu = [
+//   {
+//     icon: 'home-smile-2',
+//     title: ' Home page 1',
+//     link: '/home-1',
+//   },
+//   {
+//     icon: 'home-2',
+//     title: ' Home page 2',
+//     link: '/home-2',
+//   },
+//   {
+//     icon: 'home-5',
+//     title: ' Home page 3',
+//     link: '/home-3',
+//   },
+// ];
 const PagesMenu = [
   // {
   //   title: 'Marketplace',
@@ -61,6 +61,15 @@ const PagesMenu = [
 ];
 
 const Header = () => {
+  const boxRef = useRef();
+  // useEffect(() => {
+  //   gsap.from(boxRef.current, {
+  //     opacity: 0, 
+  //     y: -50, 
+  //     duration: 0.7
+  //   });
+  // }, []);
+
   const [isActive, setActive] = useState(false);
   const [currentAccount, setCurrentAcount] = useState(null);
 
@@ -114,8 +123,7 @@ const Header = () => {
   }
 
   return (
-    <div>
-
+    <div className="box" ref={boxRef}>
       <header className="header__1">
         <div className="container">
           <div className="wrapper js-header-wrapper">
@@ -176,7 +184,7 @@ const Header = () => {
             <div className="header__btns">
               <Link className="btn btn-grad btn-sm" to="#" onClick = {() => handleConnectWallet()}>
                 <i className="ri-wallet-3-line" />
-                {currentAccount ? <span className="header__wallet-adr">{currentAccount}</span> : "Connect wallet"}
+                {currentAccount ? <span className="header__wallet-adr">{currentAccount}</span> : <span className="header__wallet-text">Connect wallet</span>}
               </Link>
             </div>
             <div className="header__burger js-header-burger" onClick={toggleClass}/>

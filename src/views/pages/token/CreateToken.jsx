@@ -69,7 +69,7 @@ const CreateToken = () => {
                     />
                   </div>
                   <div className="space-y-10">
-                    <span className="variationInput">Amount</span>
+                    <span className="variationInput">Total Supply</span>
                     <input
                       type="text"
                       className="form-control"

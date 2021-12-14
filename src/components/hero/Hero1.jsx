@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect , useRef} from 'react';
 import {Link} from 'react-router-dom';
+import { gsap } from "gsap";
 
 const Hero1 = () => {
+  const boxRef = useRef();
+  useEffect(() => {
+    gsap.from(boxRef.current, {
+      opacity: 0, 
+      y: -50, 
+      duration: 0.7
+    });
+  });
+
   return (
-    <div className="hero__1">
+    <div rel={boxRef} className="hero__1 box">
       <div className="container">
         <div className="row align-items-center">
           <div className="col-lg-6">
