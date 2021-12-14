@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 import Footer from '../../../components/footer/Footer';
 import Header from '../../../components/header/Header';
@@ -37,6 +37,7 @@ const CardItems = [
     price: '0.074',
   },
 ];
+
 // Random component
 const Completionist = () => <span>auction ending soon now!</span>;
 // Renderer callback with condition
@@ -46,6 +47,7 @@ const renderer = ({hours, minutes, seconds, completed}) => {
     return <Completionist />;
   } else {
     // Render a countdown
+
     return (
       <span>
         {hours} : {minutes} : {seconds}
@@ -54,8 +56,149 @@ const renderer = ({hours, minutes, seconds, completed}) => {
   }
 };
 
+const FundingContainer = () => {
+  return (
+    <form>
+      <div className="form-row">
+        <div className="col-sm">
+          <div className="form-group">
+            <input
+              type="text"
+              className="form-control"
+              name="reply-name"
+              placeholder="Title"
+            />
+          </div>
+        </div>
+        <div className="col-sm">
+          <div className="form-group">
+            <input
+              type="email"
+              className="form-control"
+              name="reply-email"
+              placeholder="Total money $"
+            />
+          </div>
+        </div>
+      </div>
+      <div className="form-group">
+        <textarea
+          name="reply-message"
+          rows={8}
+          className="form-control"
+          placeholder="Description"
+          defaultValue={''}
+        />
+      </div>
+      <div id="boxUpload">
+        <Link to="#" className="btn btn-sm btn-dark">
+          Upload
+        </Link>
+        <input
+          id="imageUpload"
+          type="file"
+          name="profile_photo"
+          placeholder="Photo"
+          required
+          capture
+        />
+      </div>
+      <div className="d-flex justify-content-end">
+        <Link
+          to="#"
+          className="btn btn-primary sweep_letter sweep_top">
+          <div className="inside_item">
+            <span data-hover="Reply"> Reply </span>
+          </div>
+        </Link>
+      </div>
+    </form>
+  );
+};
+
+const VoteContainer = () => {
+  return (
+    <form>
+      <div className="form-row">
+        <div className="col-sm">
+          <div className="form-group">
+            <input
+              type="text"
+              className="form-control"
+              name="reply-name"
+              placeholder="Title"
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="text"
+              className="form-control"
+              name="reply-name"
+              placeholder="Description"
+            />
+          </div>
+          <div className="form-group">
+            <p>Option</p>
+            <div>
+              <input
+                type="text"
+                className="form-control mb-20"
+                name="reply-name"
+                placeholder="Option 1"
+              />
+              <input
+                type="text"
+                className="form-control mb-20"
+                name="reply-name"
+                placeholder="Option 1"
+              />
+              <input
+                type="text"
+                className="form-control mb-20"
+                name="reply-name"
+                placeholder="Option 1"
+              />
+            </div>
+            <div className="w-full">
+              <button className="btn btn-primary w-full">+ Add option</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="boxUpload">
+        <Link to="#" className="btn btn-sm btn-dark">
+          Upload
+        </Link>
+        <input
+          id="imageUpload"
+          type="file"
+          name="profile_photo"
+          placeholder="Photo"
+          required
+          capture
+        />
+      </div>
+      <div className="d-flex justify-content-end">
+        <Link
+          to="#"
+          className="btn btn-primary sweep_letter sweep_top">
+          <div className="inside_item">
+            <span data-hover="Reply"> Reply </span>
+          </div>
+        </Link>
+      </div>
+    </form>
+  );
+};
+
+const TaskContainer = () => {
+  return (<div>task Container</div>);
+};
+
 function Forum() {
   useDocumentTitle(' Forum');
+
+  const [formType, setFormType] = useState('funding');
 
   return (
     <div>
@@ -69,7 +212,16 @@ function Forum() {
             </div>
             <div className="col-lg-6 mt-40">
               <div className="box is__big space-y-20 mb-20">
-                <input type="text" className="form-control" />
+                <div className="w-full d-flex justify-content-between">
+                  <select className="form-control" value={formType} onChange={(e) => setFormType(e.target.value)}>
+                    <option value="funding">Funding</option>
+                    <option value="voting">Voting</option>
+                    <option value="task">Task</option>
+                  </select>
+                </div>
+                {
+                  formType === 'funding' ? <FundingContainer /> : formType === 'voting' ? <VoteContainer /> : <TaskContainer />
+                }
                 <button className="btn btn-primary ">Submit</button>
               </div>
               <Tabs className="forum__content">
@@ -80,7 +232,7 @@ function Forum() {
                       data-toggle="tab"
                       to="#tabs-1"
                       role="tab">
-                      Recent Questions
+                      Funding
                     </Link>
                   </Tab>
                   <Tab className="nav-item">
@@ -89,7 +241,7 @@ function Forum() {
                       data-toggle="tab"
                       to="#tabs-1"
                       role="tab">
-                      Most Answered
+                      Voting
                     </Link>
                   </Tab>
                   <Tab className="nav-item">
@@ -98,16 +250,7 @@ function Forum() {
                       data-toggle="tab"
                       to="#tabs-1"
                       role="tab">
-                      Bump Question
-                    </Link>
-                  </Tab>
-                  <Tab className="nav-item">
-                    <Link
-                      className="btn btn-white btn-sm"
-                      data-toggle="tab"
-                      to="#tabs-1"
-                      role="tab">
-                      Most Voted
+                      Task
                     </Link>
                   </Tab>
                 </TabList>
@@ -206,453 +349,6 @@ function Forum() {
                               <Link to="post-details">
                                 <h3 className="forum__title">
                                 Thank you you all for making this community
-                                </h3>
-                              </Link>
-                              <p className="forum__desc">
-                                Hey guys! New exploration about NFT Marketplace
-                                Web Design, this time I'm inspired by one of my
-                                favorite NFT website called Rarible (with crypto
-                                payment)! What do you
-                              </p>
-                              <div className="tags">
-                                <span>#NFT Marketplace</span>
-                                <span>#crypto Artists</span>
-                                <span>#NFT Artists</span>
-                              </div>
-                              <div className="hr" />
-                              <div
-                                className="d-flex
-                                                justify-content-between flex-wrap">
-                                <div className="reaction">
-                                  <Link
-                                    to="#"
-                                    className="likes
-                                                        space-x-3">
-                                    <i className="ri-heart-3-fill" />
-                                    <span className="txt_sm">2.1k</span>
-                                  </Link>
-                                  <Link
-                                    to="post-details"
-                                    className="comments space-x-3">
-                                    <i className="ri-chat-1-line" />
-                                    <span className="txt_sm">257 Comments</span>
-                                  </Link>
-                                  <span className="views space-x-3">
-                                    <i className="ri-eye-line" />
-                                    <span>257 Views</span>
-                                  </span>
-                                  <span className="time space-x-3">
-                                    <i className="ri-time-line" />
-                                    <span>2 days ago</span>
-                                  </span>
-                                </div>
-                                <div className="answer">
-                                <Link
-                                    to="post-details"
-                                    className="btn btn-dark
-                                                        btn-sm">
-                                    Answer
-                                  </Link>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </TabPanel>
-                  <TabPanel>
-                    <div className="space-y-20">
-                      {[...Array(3)].map((e, i) => (
-                        <div className="box is__big space-y-20" key={i}>
-                          <div
-                            className="d-flex justify-content-between
-                                        align-items-center">
-                            <div
-                              className="d-flex align-items-center
-                                            space-x-15">
-                              <div className="avatars space-x-10">
-                                <div className="media has_border">
-                                  <Link to="profile">
-                                    <img
-                                      src={`img/avatars/avatar_3.png`}
-                                      alt="Avatar"
-                                      className="avatar avatar-forum"
-                                    />
-                                  </Link>
-                                </div>
-                                <div className="text-center">
-                                  <Link to="profile">
-                                    <p
-                                      className="avatars_name
-                                                            color_brand">
-                                      @ayoub
-                                    </p>
-                                  </Link>
-                                </div>
-                              </div>
-                              <div className="category">
-                                <p className="color_black">
-                                  <span className="color_text">in:</span>
-                                  General
-                                </p>
-                              </div>
-                            </div>
-                            <div>
-                              <div className="avatars space-x-3">
-                                <div className="-space-x-20">
-                                  <Link
-                                    className="d-none d-sm-inline"
-                                    to="profile">
-                                    <img
-                                      src={`img/avatars/avatar_1.png`}
-                                      alt="Avatar"
-                                      className="avatar avatar-sm"
-                                    />
-                                  </Link>
-                                  <Link
-                                    className="d-none d-sm-inline"
-                                    to="profile">
-                                    <img
-                                      src={`img/avatars/avatar_2.png`}
-                                      alt="Avatar"
-                                      className="avatar avatar-sm"
-                                    />
-                                  </Link>
-                                  <Link
-                                    className="d-none d-sm-inline"
-                                    to="profil">
-                                    <img
-                                      src={`img/avatars/avatar_4.png`}
-                                      alt="Avatar"
-                                      className="avatar avatar-sm"
-                                    />
-                                  </Link>
-                                  <Link to="profil">
-                                    <img
-                                      src={`img/avatars/avatar_5.png`}
-                                      alt="Avatar"
-                                      className="avatar avatar-sm"
-                                    />
-                                  </Link>
-                                  <Link to="profil">
-                                    <img
-                                      src={`img/avatars/avatar_6.png`}
-                                      alt="Avatar"
-                                      className="avatar avatar-sm"
-                                    />
-                                  </Link>
-                                  <span className="total__avatars">+20</span>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="d-flex">
-                            <div className="number">
-                              <span>42</span>
-                            </div>
-                            <div className="space-y-20">
-                              <Link to="post-details">
-                                <h3 className="forum__title">
-                                Native Tokens of Decentraland
-                                </h3>
-                              </Link>
-                              <p className="forum__desc">
-                                Hey guys! New exploration about NFT Marketplace
-                                Web Design, this time I'm inspired by one of my
-                                favorite NFT website called Rarible (with crypto
-                                payment)! What do you
-                              </p>
-                              <div className="tags">
-                                <span>#NFT Marketplace</span>
-                                <span>#crypto Artists</span>
-                                <span>#NFT Artists</span>
-                              </div>
-                              <div className="hr" />
-                              <div
-                                className="d-flex
-                                                justify-content-between flex-wrap">
-                                <div className="reaction">
-                                  <Link
-                                    to="#"
-                                    className="likes
-                                                        space-x-3">
-                                    <i className="ri-heart-3-fill" />
-                                    <span className="txt_sm">2.1k</span>
-                                  </Link>
-                                  <Link
-                                    to="post-details"
-                                    className="comments space-x-3">
-                                    <i className="ri-chat-1-line" />
-                                    <span className="txt_sm">257 Comments</span>
-                                  </Link>
-                                  <span className="views space-x-3">
-                                    <i className="ri-eye-line" />
-                                    <span>257 Views</span>
-                                  </span>
-                                  <span className="time space-x-3">
-                                    <i className="ri-time-line" />
-                                    <span>2 days ago</span>
-                                  </span>
-                                </div>
-                                <div className="answer">
-                                <Link
-                                    to="post-details"
-                                    className="btn btn-dark
-                                                        btn-sm">
-                                    Answer
-                                  </Link>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </TabPanel>
-                  <TabPanel>
-                    <div className="space-y-20">
-                      {[...Array(2)].map((e, i) => (
-                        <div className="box is__big space-y-20" key={i}>
-                          <div
-                            className="d-flex justify-content-between
-                                        align-items-center">
-                            <div
-                              className="d-flex align-items-center
-                                            space-x-15">
-                              <div className="avatars space-x-10">
-                                <div className="media has_border">
-                                  <Link to="profile">
-                                    <img
-                                      src={`img/avatars/avatar_3.png`}
-                                      alt="Avatar"
-                                      className="avatar avatar-forum"
-                                    />
-                                  </Link>
-                                </div>
-                                <div className="text-center">
-                                  <Link to="profile">
-                                    <p
-                                      className="avatars_name
-                                                            color_brand">
-                                      @ayoub
-                                    </p>
-                                  </Link>
-                                </div>
-                              </div>
-                              <div className="category">
-                                <p className="color_black">
-                                  <span className="color_text">in:</span>
-                                  General
-                                </p>
-                              </div>
-                            </div>
-                            <div>
-                              <div className="avatars space-x-3">
-                                <div className="-space-x-20">
-                                  <Link
-                                    className="d-none d-sm-inline"
-                                    to="profile">
-                                    <img
-                                      src={`img/avatars/avatar_1.png`}
-                                      alt="Avatar"
-                                      className="avatar avatar-sm"
-                                    />
-                                  </Link>
-                                  <Link
-                                    className="d-none d-sm-inline"
-                                    to="profile">
-                                    <img
-                                      src={`img/avatars/avatar_2.png`}
-                                      alt="Avatar"
-                                      className="avatar avatar-sm"
-                                    />
-                                  </Link>
-                                  <Link
-                                    className="d-none d-sm-inline"
-                                    to="profil">
-                                    <img
-                                      src={`img/avatars/avatar_4.png`}
-                                      alt="Avatar"
-                                      className="avatar avatar-sm"
-                                    />
-                                  </Link>
-                                  <Link to="profil">
-                                    <img
-                                      src={`img/avatars/avatar_5.png`}
-                                      alt="Avatar"
-                                      className="avatar avatar-sm"
-                                    />
-                                  </Link>
-                                  <Link to="profil">
-                                    <img
-                                      src={`img/avatars/avatar_6.png`}
-                                      alt="Avatar"
-                                      className="avatar avatar-sm"
-                                    />
-                                  </Link>
-                                  <span className="total__avatars">+20</span>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="d-flex">
-                            <div className="number">
-                              <span>42</span>
-                            </div>
-                            <div className="space-y-20">
-                              <Link to="post-details">
-                                <h3 className="forum__title">
-                                Launch the Pancakeswap software built with effective
-                                </h3>
-                              </Link>
-                              <p className="forum__desc">
-                                Hey guys! New exploration about NFT Marketplace
-                                Web Design, this time I'm inspired by one of my
-                                favorite NFT website called Rarible (with crypto
-                                payment)! What do you
-                              </p>
-                              <div className="tags">
-                                <span>#NFT Marketplace</span>
-                                <span>#crypto Artists</span>
-                                <span>#NFT Artists</span>
-                              </div>
-                              <div className="hr" />
-                              <div
-                                className="d-flex
-                                                justify-content-between flex-wrap">
-                                <div className="reaction">
-                                  <Link
-                                    to="#"
-                                    className="likes
-                                                        space-x-3">
-                                    <i className="ri-heart-3-fill" />
-                                    <span className="txt_sm">2.1k</span>
-                                  </Link>
-                                  <Link
-                                    to="post-details"
-                                    className="comments space-x-3">
-                                    <i className="ri-chat-1-line" />
-                                    <span className="txt_sm">257 Comments</span>
-                                  </Link>
-                                  <span className="views space-x-3">
-                                    <i className="ri-eye-line" />
-                                    <span>257 Views</span>
-                                  </span>
-                                  <span className="time space-x-3">
-                                    <i className="ri-time-line" />
-                                    <span>2 days ago</span>
-                                  </span>
-                                </div>
-                                <div className="answer">
-                                <Link
-                                    to="post-details"
-                                    className="btn btn-dark
-                                                        btn-sm">
-                                    Answer
-                                  </Link>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </TabPanel>
-                  <TabPanel>
-                    <div className="space-y-20">
-                      {[...Array(1)].map((e, i) => (
-                        <div className="box is__big space-y-20" key={i}>
-                          <div
-                            className="d-flex justify-content-between
-                                        align-items-center">
-                            <div
-                              className="d-flex align-items-center
-                                            space-x-15">
-                              <div className="avatars space-x-10">
-                                <div className="media has_border">
-                                  <Link to="profile">
-                                    <img
-                                      src={`img/avatars/avatar_3.png`}
-                                      alt="Avatar"
-                                      className="avatar avatar-forum"
-                                    />
-                                  </Link>
-                                </div>
-                                <div className="text-center">
-                                  <Link to="profile">
-                                    <p
-                                      className="avatars_name
-                                                            color_brand">
-                                      @ayoub
-                                    </p>
-                                  </Link>
-                                </div>
-                              </div>
-                              <div className="category">
-                                <p className="color_black">
-                                  <span className="color_text">in:</span>
-                                  General
-                                </p>
-                              </div>
-                            </div>
-                            <div>
-                              <div className="avatars space-x-3">
-                                <div className="-space-x-20">
-                                  <Link
-                                    className="d-none d-sm-inline"
-                                    to="profile">
-                                    <img
-                                      src={`img/avatars/avatar_1.png`}
-                                      alt="Avatar"
-                                      className="avatar avatar-sm"
-                                    />
-                                  </Link>
-                                  <Link
-                                    className="d-none d-sm-inline"
-                                    to="profile">
-                                    <img
-                                      src={`img/avatars/avatar_2.png`}
-                                      alt="Avatar"
-                                      className="avatar avatar-sm"
-                                    />
-                                  </Link>
-                                  <Link
-                                    className="d-none d-sm-inline"
-                                    to="profil">
-                                    <img
-                                      src={`img/avatars/avatar_4.png`}
-                                      alt="Avatar"
-                                      className="avatar avatar-sm"
-                                    />
-                                  </Link>
-                                  <Link to="profil">
-                                    <img
-                                      src={`img/avatars/avatar_5.png`}
-                                      alt="Avatar"
-                                      className="avatar avatar-sm"
-                                    />
-                                  </Link>
-                                  <Link to="profil">
-                                    <img
-                                      src={`img/avatars/avatar_6.png`}
-                                      alt="Avatar"
-                                      className="avatar avatar-sm"
-                                    />
-                                  </Link>
-                                  <span className="total__avatars">+20</span>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="d-flex">
-                            <div className="number">
-                              <span>42</span>
-                            </div>
-                            <div className="space-y-20">
-                              <Link to="post-details">
-                                <h3 className="forum__title">
-                                Create NFT Gaming Virtual World With Sellbitbuy
                                 </h3>
                               </Link>
                               <p className="forum__desc">
