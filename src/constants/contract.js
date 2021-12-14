@@ -2,19 +2,51 @@ const ABI = [
   {
     'inputs': [
       {
-        'internalType': 'address',
-        'name': '_vrfCoordinator',
-        'type': 'address',
+        'internalType': 'string',
+        'name': 'name',
+        'type': 'string',
       },
       {
-        'internalType': 'address',
-        'name': '_linkToken',
-        'type': 'address',
+        'internalType': 'string',
+        'name': 'symbol',
+        'type': 'string',
       },
       {
-        'internalType': 'bytes32',
-        'name': '_keyhash',
-        'type': 'bytes32',
+        'internalType': 'uint256',
+        'name': 'supply',
+        'type': 'uint256',
+      },
+    ],
+    'name': 'createToken',
+    'outputs': [
+      {
+        'internalType': 'address',
+        'name': '',
+        'type': 'address',
+      },
+    ],
+    'stateMutability': 'nonpayable',
+    'type': 'function',
+  },
+  {
+    'inputs': [
+      {
+        'internalType': 'uint256',
+        'name': 'fee_',
+        'type': 'uint256',
+      },
+    ],
+    'name': 'staking',
+    'outputs': [],
+    'stateMutability': 'nonpayable',
+    'type': 'function',
+  },
+  {
+    'inputs': [
+      {
+        'internalType': 'address',
+        'name': 'rewardToken_',
+        'type': 'address',
       },
     ],
     'stateMutability': 'nonpayable',
@@ -25,24 +57,24 @@ const ABI = [
     'inputs': [
       {
         'indexed': true,
-        'internalType': 'address',
-        'name': 'owner',
+        'internalType': 'contract IERC20',
+        'name': 'token',
         'type': 'address',
       },
       {
         'indexed': true,
         'internalType': 'address',
-        'name': 'approved',
+        'name': 'beneficiary',
         'type': 'address',
       },
       {
-        'indexed': true,
+        'indexed': false,
         'internalType': 'uint256',
-        'name': 'tokenId',
+        'name': 'balance',
         'type': 'uint256',
       },
     ],
-    'name': 'Approval',
+    'name': 'SweepToken',
     'type': 'event',
   },
   {
@@ -51,42 +83,17 @@ const ABI = [
       {
         'indexed': true,
         'internalType': 'address',
-        'name': 'owner',
+        'name': 'tokenAddress',
         'type': 'address',
-      },
-      {
-        'indexed': true,
-        'internalType': 'address',
-        'name': 'operator',
-        'type': 'address',
-      },
-      {
-        'indexed': false,
-        'internalType': 'bool',
-        'name': 'approved',
-        'type': 'bool',
-      },
-    ],
-    'name': 'ApprovalForAll',
-    'type': 'event',
-  },
-  {
-    'anonymous': false,
-    'inputs': [
-      {
-        'indexed': false,
-        'internalType': 'bytes32',
-        'name': 'requestId',
-        'type': 'bytes32',
       },
       {
         'indexed': false,
         'internalType': 'uint256',
-        'name': 'tokenId',
+        'name': 'startingSupply',
         'type': 'uint256',
       },
     ],
-    'name': 'CreatedColection',
+    'name': 'TokenCreated',
     'type': 'event',
   },
   {
@@ -95,52 +102,41 @@ const ABI = [
       {
         'indexed': true,
         'internalType': 'address',
-        'name': 'from',
+        'name': 'oldBeneficiary',
         'type': 'address',
       },
       {
         'indexed': true,
         'internalType': 'address',
-        'name': 'to',
+        'name': 'beneficiary',
         'type': 'address',
       },
-      {
-        'indexed': true,
-        'internalType': 'uint256',
-        'name': 'tokenId',
-        'type': 'uint256',
-      },
     ],
-    'name': 'Transfer',
+    'name': 'TransferBeneficiary',
     'type': 'event',
   },
   {
     'inputs': [
       {
-        'internalType': 'address',
-        'name': 'to',
-        'type': 'address',
-      },
-      {
         'internalType': 'uint256',
-        'name': 'tokenId',
+        'name': '',
         'type': 'uint256',
       },
     ],
-    'name': 'approve',
-    'outputs': [],
-    'stateMutability': 'nonpayable',
-    'type': 'function',
-  },
-  {
-    'inputs': [
+    'name': 'allTokens',
+    'outputs': [
       {
         'internalType': 'address',
-        'name': 'owner',
+        'name': '',
         'type': 'address',
       },
     ],
-    'name': 'balanceOf',
+    'stateMutability': 'view',
+    'type': 'function',
+  },
+  {
+    'inputs': [],
+    'name': 'allTokensLength',
     'outputs': [
       {
         'internalType': 'uint256',
@@ -153,12 +149,12 @@ const ABI = [
   },
   {
     'inputs': [],
-    'name': 'baseURI',
+    'name': 'beneficiary',
     'outputs': [
       {
-        'internalType': 'string',
+        'internalType': 'address',
         'name': '',
-        'type': 'string',
+        'type': 'address',
       },
     ],
     'stateMutability': 'view',
@@ -166,81 +162,7 @@ const ABI = [
   },
   {
     'inputs': [],
-    'name': 'counter',
-    'outputs': [
-      {
-        'internalType': 'uint256',
-        'name': '',
-        'type': 'uint256',
-      },
-    ],
-    'stateMutability': 'view',
-    'type': 'function',
-  },
-  {
-    'inputs': [
-      {
-        'internalType': 'string',
-        'name': 'tokenURI',
-        'type': 'string',
-      },
-      {
-        'internalType': 'string',
-        'name': 'productText',
-        'type': 'string',
-      },
-    ],
-    'name': 'create',
-    'outputs': [],
-    'stateMutability': 'nonpayable',
-    'type': 'function',
-  },
-  {
-    'inputs': [],
-    'name': 'fee',
-    'outputs': [
-      {
-        'internalType': 'uint256',
-        'name': '',
-        'type': 'uint256',
-      },
-    ],
-    'stateMutability': 'view',
-    'type': 'function',
-  },
-  {
-    'inputs': [
-      {
-        'internalType': 'uint256',
-        'name': 'tokenId',
-        'type': 'uint256',
-      },
-    ],
-    'name': 'getApproved',
-    'outputs': [
-      {
-        'internalType': 'address',
-        'name': '',
-        'type': 'address',
-      },
-    ],
-    'stateMutability': 'view',
-    'type': 'function',
-  },
-  {
-    'inputs': [
-      {
-        'internalType': 'address',
-        'name': 'owner',
-        'type': 'address',
-      },
-      {
-        'internalType': 'address',
-        'name': 'operator',
-        'type': 'address',
-      },
-    ],
-    'name': 'isApprovedForAll',
+    'name': 'checkStake',
     'outputs': [
       {
         'internalType': 'bool',
@@ -253,399 +175,10 @@ const ABI = [
   },
   {
     'inputs': [],
-    'name': 'keyHash',
+    'name': 'token',
     'outputs': [
       {
-        'internalType': 'bytes32',
-        'name': '',
-        'type': 'bytes32',
-      },
-    ],
-    'stateMutability': 'view',
-    'type': 'function',
-  },
-  {
-    'inputs': [],
-    'name': 'linkToken',
-    'outputs': [
-      {
-        'internalType': 'address',
-        'name': '',
-        'type': 'address',
-      },
-    ],
-    'stateMutability': 'view',
-    'type': 'function',
-  },
-  {
-    'inputs': [],
-    'name': 'name',
-    'outputs': [
-      {
-        'internalType': 'string',
-        'name': '',
-        'type': 'string',
-      },
-    ],
-    'stateMutability': 'view',
-    'type': 'function',
-  },
-  {
-    'inputs': [
-      {
-        'internalType': 'uint256',
-        'name': 'tokenId',
-        'type': 'uint256',
-      },
-    ],
-    'name': 'ownerOf',
-    'outputs': [
-      {
-        'internalType': 'address',
-        'name': '',
-        'type': 'address',
-      },
-    ],
-    'stateMutability': 'view',
-    'type': 'function',
-  },
-  {
-    'inputs': [
-      {
-        'internalType': 'bytes32',
-        'name': '',
-        'type': 'bytes32',
-      },
-    ],
-    'name': 'products',
-    'outputs': [
-      {
-        'internalType': 'string',
-        'name': '',
-        'type': 'string',
-      },
-    ],
-    'stateMutability': 'view',
-    'type': 'function',
-  },
-  {
-    'inputs': [
-      {
-        'internalType': 'bytes32',
-        'name': 'requestId',
-        'type': 'bytes32',
-      },
-      {
-        'internalType': 'uint256',
-        'name': 'randomness',
-        'type': 'uint256',
-      },
-    ],
-    'name': 'rawFulfillRandomness',
-    'outputs': [],
-    'stateMutability': 'nonpayable',
-    'type': 'function',
-  },
-  {
-    'inputs': [
-      {
-        'internalType': 'bytes32',
-        'name': '',
-        'type': 'bytes32',
-      },
-    ],
-    'name': 'requestIdToSender',
-    'outputs': [
-      {
-        'internalType': 'address',
-        'name': '',
-        'type': 'address',
-      },
-    ],
-    'stateMutability': 'view',
-    'type': 'function',
-  },
-  {
-    'inputs': [
-      {
-        'internalType': 'bytes32',
-        'name': '',
-        'type': 'bytes32',
-      },
-    ],
-    'name': 'requestIdToTokenId',
-    'outputs': [
-      {
-        'internalType': 'uint256',
-        'name': '',
-        'type': 'uint256',
-      },
-    ],
-    'stateMutability': 'view',
-    'type': 'function',
-  },
-  {
-    'inputs': [
-      {
-        'internalType': 'bytes32',
-        'name': '',
-        'type': 'bytes32',
-      },
-    ],
-    'name': 'requestIdToTokenURI',
-    'outputs': [
-      {
-        'internalType': 'string',
-        'name': '',
-        'type': 'string',
-      },
-    ],
-    'stateMutability': 'view',
-    'type': 'function',
-  },
-  {
-    'inputs': [
-      {
-        'internalType': 'address',
-        'name': 'from',
-        'type': 'address',
-      },
-      {
-        'internalType': 'address',
-        'name': 'to',
-        'type': 'address',
-      },
-      {
-        'internalType': 'uint256',
-        'name': 'tokenId',
-        'type': 'uint256',
-      },
-    ],
-    'name': 'safeTransferFrom',
-    'outputs': [],
-    'stateMutability': 'nonpayable',
-    'type': 'function',
-  },
-  {
-    'inputs': [
-      {
-        'internalType': 'address',
-        'name': 'from',
-        'type': 'address',
-      },
-      {
-        'internalType': 'address',
-        'name': 'to',
-        'type': 'address',
-      },
-      {
-        'internalType': 'uint256',
-        'name': 'tokenId',
-        'type': 'uint256',
-      },
-      {
-        'internalType': 'bytes',
-        'name': '_data',
-        'type': 'bytes',
-      },
-    ],
-    'name': 'safeTransferFrom',
-    'outputs': [],
-    'stateMutability': 'nonpayable',
-    'type': 'function',
-  },
-  {
-    'inputs': [
-      {
-        'internalType': 'address',
-        'name': 'operator',
-        'type': 'address',
-      },
-      {
-        'internalType': 'bool',
-        'name': 'approved',
-        'type': 'bool',
-      },
-    ],
-    'name': 'setApprovalForAll',
-    'outputs': [],
-    'stateMutability': 'nonpayable',
-    'type': 'function',
-  },
-  {
-    'inputs': [
-      {
-        'internalType': 'bytes4',
-        'name': 'interfaceId',
-        'type': 'bytes4',
-      },
-    ],
-    'name': 'supportsInterface',
-    'outputs': [
-      {
-        'internalType': 'bool',
-        'name': '',
-        'type': 'bool',
-      },
-    ],
-    'stateMutability': 'view',
-    'type': 'function',
-  },
-  {
-    'inputs': [],
-    'name': 'symbol',
-    'outputs': [
-      {
-        'internalType': 'string',
-        'name': '',
-        'type': 'string',
-      },
-    ],
-    'stateMutability': 'view',
-    'type': 'function',
-  },
-  {
-    'inputs': [
-      {
-        'internalType': 'uint256',
-        'name': 'index',
-        'type': 'uint256',
-      },
-    ],
-    'name': 'tokenByIndex',
-    'outputs': [
-      {
-        'internalType': 'uint256',
-        'name': '',
-        'type': 'uint256',
-      },
-    ],
-    'stateMutability': 'view',
-    'type': 'function',
-  },
-  {
-    'inputs': [
-      {
-        'internalType': 'uint256',
-        'name': '',
-        'type': 'uint256',
-      },
-    ],
-    'name': 'tokenIdToGene',
-    'outputs': [
-      {
-        'internalType': 'uint256',
-        'name': '',
-        'type': 'uint256',
-      },
-    ],
-    'stateMutability': 'view',
-    'type': 'function',
-  },
-  {
-    'inputs': [
-      {
-        'internalType': 'uint256',
-        'name': '',
-        'type': 'uint256',
-      },
-    ],
-    'name': 'tokenIdToRequestId',
-    'outputs': [
-      {
-        'internalType': 'bytes32',
-        'name': '',
-        'type': 'bytes32',
-      },
-    ],
-    'stateMutability': 'view',
-    'type': 'function',
-  },
-  {
-    'inputs': [
-      {
-        'internalType': 'address',
-        'name': 'owner',
-        'type': 'address',
-      },
-      {
-        'internalType': 'uint256',
-        'name': 'index',
-        'type': 'uint256',
-      },
-    ],
-    'name': 'tokenOfOwnerByIndex',
-    'outputs': [
-      {
-        'internalType': 'uint256',
-        'name': '',
-        'type': 'uint256',
-      },
-    ],
-    'stateMutability': 'view',
-    'type': 'function',
-  },
-  {
-    'inputs': [
-      {
-        'internalType': 'uint256',
-        'name': 'tokenId',
-        'type': 'uint256',
-      },
-    ],
-    'name': 'tokenURI',
-    'outputs': [
-      {
-        'internalType': 'string',
-        'name': '',
-        'type': 'string',
-      },
-    ],
-    'stateMutability': 'view',
-    'type': 'function',
-  },
-  {
-    'inputs': [],
-    'name': 'totalSupply',
-    'outputs': [
-      {
-        'internalType': 'uint256',
-        'name': '',
-        'type': 'uint256',
-      },
-    ],
-    'stateMutability': 'view',
-    'type': 'function',
-  },
-  {
-    'inputs': [
-      {
-        'internalType': 'address',
-        'name': 'from',
-        'type': 'address',
-      },
-      {
-        'internalType': 'address',
-        'name': 'to',
-        'type': 'address',
-      },
-      {
-        'internalType': 'uint256',
-        'name': 'tokenId',
-        'type': 'uint256',
-      },
-    ],
-    'name': 'transferFrom',
-    'outputs': [],
-    'stateMutability': 'nonpayable',
-    'type': 'function',
-  },
-  {
-    'inputs': [],
-    'name': 'vrfCoordinator',
-    'outputs': [
-      {
-        'internalType': 'address',
+        'internalType': 'contract IERC20',
         'name': '',
         'type': 'address',
       },
@@ -655,7 +188,7 @@ const ABI = [
   },
 ];
 
-const address = '0x3742A23d44a3f1bBA6AfAa451a379839825613Ea';
+const address = '0xD52d9Bb4437Ff34C86D1ECA3cB1e01C02F042ad7';
 const webDomain = 'http://ratp.link';
 
 const contracts = {

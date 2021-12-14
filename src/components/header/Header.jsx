@@ -1,8 +1,8 @@
-import React, { useState, useEffect , useRef} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {Link} from 'react-router-dom';
 import Web3 from 'web3';
 import {useDispatch} from 'react-redux';
-import { gsap } from "gsap";
+import {gsap} from 'gsap';
 
 import MobileMenu from './Menu/MobileMenu';
 import MegaMenu from './Menu/MegaMenu';
@@ -57,15 +57,15 @@ const PagesMenu = [
   {
     title: ' FAQ',
     link: '/faq',
-  }
+  },
 ];
 
 const Header = () => {
   const boxRef = useRef();
   // useEffect(() => {
   //   gsap.from(boxRef.current, {
-  //     opacity: 0, 
-  //     y: -50, 
+  //     opacity: 0,
+  //     y: -50,
   //     duration: 0.7
   //   });
   // }, []);
@@ -88,7 +88,7 @@ const Header = () => {
         try {
           await window.ethereum.enable();
         } catch (error) {
-          alert('hello')
+          alert('hello');
           console.error('User denied account access');
         }
       }// Legacy dapp browsers...
@@ -106,7 +106,7 @@ const Header = () => {
       // console.log(web3);
       let web3 = new Web3(web3Provider);
       const chainId = await web3.eth.getChainId();
-      if (chainId != 97) {
+      if (chainId != 3) {
         alert('Vui lòng liên kết với mạng Binace');
         return;
       }
@@ -115,12 +115,11 @@ const Header = () => {
       localStorage.setItem('connect-wallet', true);
       dispatch(web3Action.setWeb3(web3));
       setCurrentAcount(accounts[0]);
-
     } catch (error) {
-      alert('error')
+      alert('error');
       console.log(error);
     }
-  }
+  };
 
   return (
     <div className="box" ref={boxRef}>
@@ -189,7 +188,7 @@ const Header = () => {
             </div>
             <div className="header__burger js-header-burger" onClick={toggleClass}/>
             <div className={` header__mobile js-header-mobile  ${isActive ? 'visible': null} `}>
-            <MobileMenu />
+              <MobileMenu />
             </div>
           </div>
         </div>

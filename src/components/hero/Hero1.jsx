@@ -1,14 +1,14 @@
-import React, { useState, useEffect , useRef} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {Link} from 'react-router-dom';
-import { gsap } from "gsap";
+import {gsap} from 'gsap';
 
 const Hero1 = () => {
   const boxRef = useRef();
   useEffect(() => {
     gsap.from(boxRef.current, {
-      opacity: 0, 
-      y: -50, 
-      duration: 0.7
+      opacity: 0,
+      y: -50,
+      duration: 0.7,
     });
   });
 
@@ -27,8 +27,7 @@ const Hero1 = () => {
                 experience.
               </p>
               <div
-                className="space-x-20 d-flex flex-column flex-md-row
-							sm:space-y-20">
+                className="space-x-20 d-flex flex-column flex-md-row sm:space-y-20">
                 <Link className="btn btn-primary" to="marketplace">
                   View Community
                 </Link>
