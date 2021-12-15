@@ -10,7 +10,7 @@ function Footer() {
             <div className="col-lg-6 space-y-20">
               <div className="footer__logo">
                 <Link to="/">
-                  <img src={`img/logos/Logo.svg`} alt="logo" id="logo_js_f" />
+                  <img src={`img/logos/logo.png`} alt="logo" id="logo_js_f" style={{ width: '120px' }} />
                 </Link>
               </div>
               <p className="footer__text">
