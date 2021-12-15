@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-function Call2action()
-{
+function Call2action() {
   return (
     <div>
       <div className="call2action">

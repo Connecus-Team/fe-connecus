@@ -122,7 +122,7 @@ const Header = () => {
   };
 
   return (
-    <div className="box" ref={boxRef}>
+    // <div className="box" ref={boxRef}>
       <header className="header__1">
         <div className="container">
           <div className="wrapper js-header-wrapper">
@@ -193,7 +193,7 @@ const Header = () => {
           </div>
         </div>
       </header>
-    </div>
+    // </div>
   );
 };
 

@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
+import React, { useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Footer from '../../../components/footer/Footer';
 import Header from '../../../components/header/Header';
 import HeroProfile from '../../../components/hero/HeroProfile';
-import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import Countdown from 'react-countdown';
 import useDocumentTitle from '../../../components/useDocumentTitle';
 import SidebarProfile from '../../../components/sidebars/SidebarProfile';
@@ -41,7 +41,7 @@ const CardItems = [
 // Random component
 const Completionist = () => <span>auction ending soon now!</span>;
 // Renderer callback with condition
-const renderer = ({hours, minutes, seconds, completed}) => {
+const renderer = ({ hours, minutes, seconds, completed }) => {
   if (completed) {
     // Render a complete state
     return <Completionist />;
@@ -61,16 +61,8 @@ const FundingContainer = () => {
     <form>
       <div className="form-row">
         <div className="col-sm">
-          <div className="form-group">
-            <input
-              type="text"
-              className="form-control"
-              name="reply-name"
-              placeholder="Title"
-            />
-          </div>
         </div>
-        <div className="col-sm">
+        {/* <div className="col-sm">
           <div className="form-group">
             <input
               type="email"
@@ -79,29 +71,7 @@ const FundingContainer = () => {
               placeholder="Total money $"
             />
           </div>
-        </div>
-      </div>
-      <div className="form-group">
-        <textarea
-          name="reply-message"
-          rows={8}
-          className="form-control"
-          placeholder="Description"
-          defaultValue={''}
-        />
-      </div>
-      <div id="boxUpload">
-        <Link to="#" className="btn btn-sm btn-dark">
-          Upload
-        </Link>
-        <input
-          id="imageUpload"
-          type="file"
-          name="profile_photo"
-          placeholder="Photo"
-          required
-          capture
-        />
+        </div> */}
       </div>
       <div className="d-flex justify-content-end">
         <Link
@@ -199,7 +169,7 @@ function Forum() {
   useDocumentTitle(' Forum');
 
   const [formType, setFormType] = useState('funding');
-
+  const imageUploadRef = useRef()
   return (
     <div>
       <Header />
@@ -212,16 +182,99 @@ function Forum() {
             </div>
             <div className="col-lg-6 mt-40">
               <div className="box is__big space-y-20 mb-20">
-                <div className="w-full d-flex justify-content-between">
-                  <select className="form-control" value={formType} onChange={(e) => setFormType(e.target.value)}>
-                    <option value="funding">Funding</option>
-                    <option value="voting">Voting</option>
-                    <option value="task">Task</option>
-                  </select>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="reply-name"
+                    placeholder="Title"
+                  />
                 </div>
-                {
-                  formType === 'funding' ? <FundingContainer /> : formType === 'voting' ? <VoteContainer /> : <TaskContainer />
-                }
+                <div className="form-group">
+                  <textarea
+                    name="reply-message"
+                    rows={4}
+                    className="form-control"
+                    placeholder="Description"
+                    defaultValue={''}
+                  />
+                </div>
+                <div class="mb-50">
+                  <h3 class="mb-30">Choose your image or video</h3>
+                  <div class="row profile-img">
+                    <div class="col-6 col-md-2">
+                      <div class="box
+			                        image_upload
+			                        d-flex
+			                        justify-content-center
+			                        align-items-center"
+                        onClick={() => imageUploadRef.current.click()} >
+                        <img class="icon" src="img/icons/upload-plus.svg" alt="" />
+                        <input
+                          id="imageUpload"
+                          type="file"
+                          name="profile_photo"
+                          placeholder="Photo"
+                          required
+                          hidden
+                          ref={imageUploadRef}
+                        />
+                      </div>
+                    </div>
+                    <div class="col-6 col-md-2">
+                      <div class="pro_img is_active">
+                        <img src="assets/img/bg/cover_active.png" alt="" />
+                      </div>
+                    </div>
+                    <div class="col-6 col-md-2">
+                      <div class="pro_img">
+                        <img src="assets/img/bg/edit1.png" alt="" />
+                      </div>
+                    </div>
+                    <div class="col-6 col-md-2">
+                      <div class="pro_img">
+                        <img src="assets/img/bg/edit1.png" alt="" />
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+                <Tabs className="form__content">
+                  <TabList className="d-flex space-x-10 mb-30 nav-tabs">
+                    <Tab className="nav-item">
+                      <span
+                        className="btn btn-white btn-sm"
+                        data-toggle="tab"
+                        onClick={() => setFormType('funding')}
+                        role="tab">
+                        Funding
+                      </span>
+                    </Tab>
+                    <Tab className="nav-item">
+                      <span
+                        className="btn btn-white btn-sm"
+                        data-toggle="tab"
+                        onClick={() => setFormType('voting')}
+                        role="tab">
+                        Voting
+                      </span>
+                    </Tab>
+                    <Tab className="nav-item">
+                      <button
+                        className="btn btn-white btn-sm"
+                        data-toggle="tab"
+                        onClick={() => setFormType('task')}
+                        role="tab">
+                        Task
+                      </button>
+                    </Tab>
+                    <div className="tab-content">
+                      {
+                        formType === 'funding' ? <FundingContainer /> : formType === 'voting' ? <VoteContainer /> : <TaskContainer />
+                      }
+                    </div>
+                  </TabList>
+                </Tabs>
                 <button className="btn btn-primary ">Submit</button>
               </div>
               <Tabs className="forum__content">
@@ -348,7 +401,7 @@ function Forum() {
                             <div className="space-y-20">
                               <Link to="post-details">
                                 <h3 className="forum__title">
-                                Thank you you all for making this community
+                                  Thank you you all for making this community
                                 </h3>
                               </Link>
                               <p className="forum__desc">
@@ -453,7 +506,7 @@ function Forum() {
                     <img
                       src={`img/icons/live.svg`}
                       alt="live"
-                      style={{width: 13}}
+                      style={{ width: 13 }}
                     />
 
                     <h5>Live auctions</h5>
@@ -487,7 +540,7 @@ function Forum() {
                                 <div
                                   className="progress-bar"
                                   role="progressbar"
-                                  style={{width: '80%'}}
+                                  style={{ width: '80%' }}
                                   aria-valuenow={80}
                                   aria-valuemin={0}
                                   aria-valuemax={100}
