@@ -68,22 +68,22 @@ const HeroProfile = () => {
                           } `}>
                           <ul className="space-y-10">
                             <li>
-                            <a href="https://www.facebook.com/" rel="noreferrer"  target="_blank">
+                              <a href="https://www.facebook.com/" rel="noreferrer" target="_blank">
                                 <i className="ri-facebook-line"></i>
                               </a>
                             </li>
                             <li>
-                            <a href="https://www.messenger.com/" rel="noreferrer"  target="_blank">
+                              <a href="https://www.messenger.com/" rel="noreferrer" target="_blank">
                                 <i className="ri-messenger-line"></i>
                               </a>
                             </li>
                             <li>
-                            <a href="https://whatsapp.com" target="_blank" rel="noreferrer" >
+                              <a href="https://whatsapp.com" target="_blank" rel="noreferrer" >
                                 <i className="ri-whatsapp-line"></i>
                               </a>
                             </li>
                             <li>
-                            <a href="https://youtube.com" target="_blank" rel="noreferrer" >
+                              <a href="https://youtube.com" target="_blank" rel="noreferrer" >
                                 <i className="ri-youtube-line"></i>
                               </a>
                             </li>
