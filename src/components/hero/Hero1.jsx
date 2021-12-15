@@ -1,6 +1,6 @@
-import React, {useState, useEffect, useRef} from 'react';
-import {Link} from 'react-router-dom';
-import {gsap} from 'gsap';
+import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import { gsap } from 'gsap';
 
 const Hero1 = () => {
   const boxRef = useRef();
@@ -13,7 +13,7 @@ const Hero1 = () => {
   });
 
   return (
-    <div rel={boxRef} className="hero__1 box">
+    <div rel={boxRef} className="hero__1">
       <div className="container">
         <div className="row align-items-center">
           <div className="col-lg-6">

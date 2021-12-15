@@ -1,3 +1,5 @@
+@import '../1-helpers/colors';
+
 .forum {
   .forum__content {
     overflow: hidden;
@@ -224,7 +226,7 @@
   .image_upload {
     width: 10rem;
     height: 15rem;
-    background-color: #7e8eb11f;
+    background-color: $color_input;
   }
 }
 .post__details {
@@ -249,4 +251,21 @@
 
 .forum_border {
   border: solid 2px $color_brand;
+}
+
+.create-post {
+  &-task {
+    .close-icon-wrapper {
+      align-self: center;
+      padding: 8px;
+      border-radius: 100px;
+      background: $color_stroke;
+      border: 1px solid $color_stroke;
+    }
+
+    .btn.btn-add {
+      border-radius: 12px !important;
+      background-color: $color-grey-icon;
+    }
+  }
 }

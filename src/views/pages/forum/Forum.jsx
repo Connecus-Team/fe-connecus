@@ -7,6 +7,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 import Countdown from 'react-countdown'
 import useDocumentTitle from '../../../components/useDocumentTitle'
 import SidebarProfile from '../../../components/sidebars/SidebarProfile'
+import { getDataURLFromFile } from '../../../utils/getDataUrlFromFile'
 
 const CardItems = [
   {
@@ -152,14 +153,50 @@ const VoteContainer = () => {
 }
 
 const TaskContainer = () => {
-  return <div>task ...</div>
+  return (
+    <div className='create-post-task'>
+      <div className='d-flex w-100 gap-4'>
+        <div className="form-group w-75">
+          <p>Task Name</p>
+          <input
+            type="text"
+            className="form-control"
+            name="reply-name"
+            placeholder="Task name"
+          />
+        </div>
+        <div className="form-group w-25">
+          <p>Token Amount</p>
+          <input
+            type="number"
+            className="form-control"
+            name="token-amount"
+            placeholder="Amount"
+          />
+        </div>
+        <button className='btn close-icon-wrapper'>
+          <i class="ri-close-fill"></i>
+        </button>
+      </div>
+      <button className='btn btn-add w-100'>
+        <i class="ri-add-circle-fill mr-2"></i>
+        Add a task
+      </button>
+    </div>
+  )
 }
 
 function Forum() {
   useDocumentTitle(' Forum')
 
   const [formType, setFormType] = useState('funding')
+  const [fileDataUrls, setFileDataUrls] = useState([])
   const imageUploadRef = useRef()
+
+  const onInputChange = (event) => {
+    Promise.all(Array.from(event.target?.files || []).map(getDataURLFromFile)).then(dataUrls => setFileDataUrls(dataUrls))
+  }
+
   return (
     <div>
       <Header />
@@ -172,6 +209,7 @@ function Forum() {
             </div>
             <div className="col-lg-6 mt-40">
               <div className="box is__big space-y-20 mb-20">
+                <h3>Create your post</h3>
                 <div className="form-group">
                   <input
                     type="text"
@@ -190,35 +228,40 @@ function Forum() {
                   />
                 </div>
                 <div className="mb-50">
-                  <h3 className="mb-30">Choose your image or video</h3>
+                  <p className="mb-2">Choose your image or video</p>
                   <div className="row profile-img">
-                    <div className="col-6 col-md-2">
-                      <div className="d-flex gap-3">
-                        <div
-                          className="box image_upload d-flex justify-content-center align-items-center"
-                          onClick={() => imageUploadRef.current.click()}>
-                          <img className="icon" src="img/icons/upload-plus.svg" alt="" />
-                          <input
-                            id="imageUpload"
-                            type="file"
-                            name="profile_photo"
-                            placeholder="Photo"
-                            required
-                            hidden
-                            ref={imageUploadRef}
-                          />
-                        </div>
-                        <div
-                          className="box image_upload d-flex justify-content-center align-items-center">
-                          <img src="img/bg/cover_active.png" alt="" className="w-100" />
-                        </div>
+                    <div className="d-flex gap-3">
+                      <div
+                        className="box image_upload d-flex justify-content-center align-items-center"
+                        onClick={() => imageUploadRef.current.click()}>
+                        <img className="icon" src="img/icons/upload-plus.svg" alt="" />
+                        <input
+                          id="imageUpload"
+                          type="file"
+                          name="profile_photo"
+                          placeholder="Photo"
+                          required
+                          multiple
+                          accept='image/png,image/jpg,image/jpeg'
+                          hidden
+                          ref={imageUploadRef}
+                          onChange={event => onInputChange(event)}
+                        />
                       </div>
+                      {
+                        fileDataUrls.map(dataUrl =>
+                          <div
+                            className="box image_upload d-flex justify-content-center align-items-center"
+                            style={{ backgroundImage: `url('${dataUrl}')`, backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}
+                          >
+                          </div>
+                        )}
                     </div>
                   </div>
                 </div>
                 <Tabs className="form__content">
                   <TabList className="d-flex space-x-10 mb-30 nav-tabs">
-                    <Tab className="nav-item">
+                    <Tab>
                       <span
                         className="btn btn-white btn-sm"
                         data-toggle="tab"
@@ -227,7 +270,7 @@ function Forum() {
                         Funding
                       </span>
                     </Tab>
-                    <Tab className="nav-item">
+                    <Tab>
                       <span
                         className="btn btn-white btn-sm"
                         data-toggle="tab"
@@ -236,7 +279,7 @@ function Forum() {
                         Voting
                       </span>
                     </Tab>
-                    <Tab className="nav-item">
+                    <Tab>
                       <button
                         className="btn btn-white btn-sm"
                         data-toggle="tab"
@@ -245,16 +288,16 @@ function Forum() {
                         Task
                       </button>
                     </Tab>
-                    <div className="tab-content">
-                      {formType === 'funding' ? (
-                        <FundingContainer />
-                      ) : formType === 'voting' ? (
-                        <VoteContainer />
-                      ) : (
-                        <TaskContainer />
-                      )}
-                    </div>
                   </TabList>
+                  <div className="tab-content">
+                    {formType === 'funding' ? (
+                      <FundingContainer />
+                    ) : formType === 'voting' ? (
+                      <VoteContainer />
+                    ) : (
+                      <TaskContainer />
+                    )}
+                  </div>
                 </Tabs>
                 <button className="btn btn-primary ">Submit</button>
               </div>
