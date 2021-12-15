@@ -13,9 +13,9 @@ const CreateToken = () => {
   const [symBol, setSymBol] = useState('');
   const [totalSupply, setTotalSupply] = useState(0);
   const [totalStake, setTotalStake] = useState(0);
-  const web3 = useSelector(web3Selector.selectWeb3);
-  const [loadingListingEventSC, setLoadingListingEventSC] = useState(false);
+  const [loadingEvent, setLoadingEvent] = useState(false);
 
+  const web3 = useSelector(web3Selector.selectWeb3);
   const handleClickCreateToken = async () => {
     try {
       // console.log(moment(productDate).format('L'));
@@ -30,42 +30,15 @@ const CreateToken = () => {
         return;
       }
 
+      setLoadingEvent(true);
       const accounts = await web3.eth.getAccounts();
       let contract = new web3.eth.Contract(contractValue.ABI, contractValue.address);
       await contract.methods.createToken(name, symBol, totalSupply).send({from: accounts[0]});
-      setLoadingListingEventSC(true);
-      // contract.events.CreatedColection({}, (err, event) => {
-      //   if (err) {
-      //     alert('Sự kiện trả về phát sinh lỗi, Vui lòng thử lại sau');
-      //     console.log(err);
-      //     return;
-      //   }
-      //   console.log( 'eror', err, event);
-      // }).on('connected', function(subscriptionId) {
-      //   console.log('subscriptionId', subscriptionId);
-      // }).on('data', async function(event) {
-      //   console.log('data', event);
-      //   const {event: eventName} = event;
-      //   if (eventName === 'CreatedColection') {
-      //     const {returnValues} = event;
-      //     const {requestId} = returnValues;
-
-      //     const qrURL = `${contractValue.webDomain}/search?rqid=${requestId}`;
-      //     const response = await QRCode.toDataURL(qrURL);
-      //     setQrImageUrl(response);
-      //     setLoadingListingEventSC(false);
-      //   }
-      // }).on('changed', function(event) {
-      //   console.log('change');
-      //   // remove event from local database
-      // }).on('error', function(error, receipt) {
-      //   // If the transaction was rejected by the network with a receipt, the second parameter will be the receipt.
-      //   alert('Sự kiện chả về thất bại, Vui lòng thử lại sau');
-      //   return;
-      // }); ;
+      setLoadingEvent(false);
     } catch (error) {
       alert('Truy cập có lỗi, Vui lòng thử lại sau. Hãy đọc qua phần hướng dẫn sử dụng !!!');
       console.log(error);
+      setLoadingEvent(false);
     }
   };
 
@@ -82,48 +55,18 @@ const CreateToken = () => {
         alert('Vui lòng kiểm tra lại thông tin');
         return;
       }
-
-      setLoadingListingEventSC(false);
+      setLoadingEvent(true);
       const accounts = await web3.eth.getAccounts();
-
       const tokenContract = new web3.eth.Contract(contractValue.ABIToken, contractValue.addressToken);
       tokenContract.methods.approve(contractValue.addressContractBuilder, web3.utils.toWei(totalStake, 'Ether')).send({from: accounts[0]}).on('transactionHash', async (hash) => {
         let contractBuilder = new web3.eth.Contract(contractValue.ABIContractBuilder, contractValue.addressContractBuilder);
         contractBuilder.methods.staking(totalStake).send({from: accounts[0]});
       });
-      setLoadingListingEventSC(true);
-      // contract.events.CreatedColection({}, (err, event) => {
-      //   if (err) {
-      //     alert('Sự kiện trả về phát sinh lỗi, Vui lòng thử lại sau');
-      //     console.log(err);
-      //     return;
-      //   }
-      //   console.log( 'eror', err, event);
-      // }).on('connected', function(subscriptionId) {
-      //   console.log('subscriptionId', subscriptionId);
-      // }).on('data', async function(event) {
-      //   console.log('data', event);
-      //   const {event: eventName} = event;
-      //   if (eventName === 'CreatedColection') {
-      //     const {returnValues} = event;
-      //     const {requestId} = returnValues;
-
-      //     const qrURL = `${contractValue.webDomain}/search?rqid=${requestId}`;
-      //     const response = await QRCode.toDataURL(qrURL);
-      //     setQrImageUrl(response);
-      //     setLoadingListingEventSC(false);
-      //   }
-      // }).on('changed', function(event) {
-      //   console.log('change');
-      //   // remove event from local database
-      // }).on('error', function(error, receipt) {
-      //   // If the transaction was rejected by the network with a receipt, the second parameter will be the receipt.
-      //   alert('Sự kiện chả về thất bại, Vui lòng thử lại sau');
-      //   return;
-      // }); ;
+      setLoadingEvent(false);
     } catch (error) {
       alert('Truy cập có lỗi, Vui lòng thử lại sau. Hãy đọc qua phần hướng dẫn sử dụng !!!');
       console.log(error);
+      setLoadingEvent(false);
     }
   };
   return (
