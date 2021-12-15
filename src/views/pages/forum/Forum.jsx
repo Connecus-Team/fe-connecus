@@ -1,12 +1,12 @@
-import React, { useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
-import Footer from '../../../components/footer/Footer';
-import Header from '../../../components/header/Header';
-import HeroProfile from '../../../components/hero/HeroProfile';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import Countdown from 'react-countdown';
-import useDocumentTitle from '../../../components/useDocumentTitle';
-import SidebarProfile from '../../../components/sidebars/SidebarProfile';
+import React, { useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
+import Footer from '../../../components/footer/Footer'
+import Header from '../../../components/header/Header'
+import HeroProfile from '../../../components/hero/HeroProfile'
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
+import Countdown from 'react-countdown'
+import useDocumentTitle from '../../../components/useDocumentTitle'
+import SidebarProfile from '../../../components/sidebars/SidebarProfile'
 
 const CardItems = [
   {
@@ -16,7 +16,7 @@ const CardItems = [
     avatar_img1: '10',
     avatar_img2: '11',
     avatar_name: 'darian_barry',
-    price: '0.001',
+    price: '0.001'
   },
   {
     img: '2',
@@ -25,7 +25,7 @@ const CardItems = [
     avatar_img1: '12',
     avatar_img2: '13',
     avatar_name: 'makinzi_beck',
-    price: '0.047',
+    price: '0.047'
   },
   {
     img: '3',
@@ -34,17 +34,17 @@ const CardItems = [
     avatar_img1: '14',
     avatar_img2: '15',
     avatar_name: 'jaxon_duffy',
-    price: '0.074',
-  },
-];
+    price: '0.074'
+  }
+]
 
 // Random component
-const Completionist = () => <span>auction ending soon now!</span>;
+const Completionist = () => <span>auction ending soon now!</span>
 // Renderer callback with condition
 const renderer = ({ hours, minutes, seconds, completed }) => {
   if (completed) {
     // Render a complete state
-    return <Completionist />;
+    return <Completionist />
   } else {
     // Render a countdown
 
@@ -52,16 +52,15 @@ const renderer = ({ hours, minutes, seconds, completed }) => {
       <span>
         {hours} : {minutes} : {seconds}
       </span>
-    );
+    )
   }
-};
+}
 
 const FundingContainer = () => {
   return (
     <form>
       <div className="form-row">
-        <div className="col-sm">
-        </div>
+        <div className="col-sm"></div>
         {/* <div className="col-sm">
           <div className="form-group">
             <input
@@ -74,17 +73,15 @@ const FundingContainer = () => {
         </div> */}
       </div>
       <div className="d-flex justify-content-end">
-        <Link
-          to="#"
-          className="btn btn-primary sweep_letter sweep_top">
+        <Link to="#" className="btn btn-primary sweep_letter sweep_top">
           <div className="inside_item">
             <span data-hover="Reply"> Reply </span>
           </div>
         </Link>
       </div>
     </form>
-  );
-};
+  )
+}
 
 const VoteContainer = () => {
   return (
@@ -92,12 +89,7 @@ const VoteContainer = () => {
       <div className="form-row">
         <div className="col-sm">
           <div className="form-group">
-            <input
-              type="text"
-              className="form-control"
-              name="reply-name"
-              placeholder="Title"
-            />
+            <input type="text" className="form-control" name="reply-name" placeholder="Title" />
           </div>
           <div className="form-group">
             <input
@@ -149,26 +141,24 @@ const VoteContainer = () => {
         />
       </div>
       <div className="d-flex justify-content-end">
-        <Link
-          to="#"
-          className="btn btn-primary sweep_letter sweep_top">
+        <Link to="#" className="btn btn-primary sweep_letter sweep_top">
           <div className="inside_item">
             <span data-hover="Reply"> Reply </span>
           </div>
         </Link>
       </div>
     </form>
-  );
-};
+  )
+}
 
 const TaskContainer = () => {
-  return (<div>task ...</div>);
-};
+  return <div>task ...</div>
+}
 
 function Forum() {
-  useDocumentTitle(' Forum');
+  useDocumentTitle(' Forum')
 
-  const [formType, setFormType] = useState('funding');
+  const [formType, setFormType] = useState('funding')
   const imageUploadRef = useRef()
   return (
     <div>
@@ -199,44 +189,31 @@ function Forum() {
                     defaultValue={''}
                   />
                 </div>
-                <div class="mb-50">
-                  <h3 class="mb-30">Choose your image or video</h3>
-                  <div class="row profile-img">
-                    <div class="col-6 col-md-2">
-                      <div class="box
-			                        image_upload
-			                        d-flex
-			                        justify-content-center
-			                        align-items-center"
-                        onClick={() => imageUploadRef.current.click()} >
-                        <img class="icon" src="img/icons/upload-plus.svg" alt="" />
-                        <input
-                          id="imageUpload"
-                          type="file"
-                          name="profile_photo"
-                          placeholder="Photo"
-                          required
-                          hidden
-                          ref={imageUploadRef}
-                        />
+                <div className="mb-50">
+                  <h3 className="mb-30">Choose your image or video</h3>
+                  <div className="row profile-img">
+                    <div className="col-6 col-md-2">
+                      <div className="d-flex gap-3">
+                        <div
+                          className="box image_upload d-flex justify-content-center align-items-center"
+                          onClick={() => imageUploadRef.current.click()}>
+                          <img className="icon" src="img/icons/upload-plus.svg" alt="" />
+                          <input
+                            id="imageUpload"
+                            type="file"
+                            name="profile_photo"
+                            placeholder="Photo"
+                            required
+                            hidden
+                            ref={imageUploadRef}
+                          />
+                        </div>
+                        <div
+                          className="box image_upload d-flex justify-content-center align-items-center">
+                          <img src="img/bg/cover_active.png" alt="" className="w-100" />
+                        </div>
                       </div>
                     </div>
-                    <div class="col-6 col-md-2">
-                      <div class="pro_img is_active">
-                        <img src="assets/img/bg/cover_active.png" alt="" />
-                      </div>
-                    </div>
-                    <div class="col-6 col-md-2">
-                      <div class="pro_img">
-                        <img src="assets/img/bg/edit1.png" alt="" />
-                      </div>
-                    </div>
-                    <div class="col-6 col-md-2">
-                      <div class="pro_img">
-                        <img src="assets/img/bg/edit1.png" alt="" />
-                      </div>
-                    </div>
-
                   </div>
                 </div>
                 <Tabs className="form__content">
@@ -269,9 +246,13 @@ function Forum() {
                       </button>
                     </Tab>
                     <div className="tab-content">
-                      {
-                        formType === 'funding' ? <FundingContainer /> : formType === 'voting' ? <VoteContainer /> : <TaskContainer />
-                      }
+                      {formType === 'funding' ? (
+                        <FundingContainer />
+                      ) : formType === 'voting' ? (
+                        <VoteContainer />
+                      ) : (
+                        <TaskContainer />
+                      )}
                     </div>
                   </TabList>
                 </Tabs>
@@ -348,27 +329,21 @@ function Forum() {
                             <div>
                               <div className="avatars space-x-3">
                                 <div className="-space-x-20">
-                                  <Link
-                                    className="d-none d-sm-inline"
-                                    to="profile">
+                                  <Link className="d-none d-sm-inline" to="profile">
                                     <img
                                       src={`img/avatars/avatar_1.png`}
                                       alt="Avatar"
                                       className="avatar avatar-sm"
                                     />
                                   </Link>
-                                  <Link
-                                    className="d-none d-sm-inline"
-                                    to="profile">
+                                  <Link className="d-none d-sm-inline" to="profile">
                                     <img
                                       src={`img/avatars/avatar_2.png`}
                                       alt="Avatar"
                                       className="avatar avatar-sm"
                                     />
                                   </Link>
-                                  <Link
-                                    className="d-none d-sm-inline"
-                                    to="profil">
+                                  <Link className="d-none d-sm-inline" to="profil">
                                     <img
                                       src={`img/avatars/avatar_4.png`}
                                       alt="Avatar"
@@ -405,10 +380,9 @@ function Forum() {
                                 </h3>
                               </Link>
                               <p className="forum__desc">
-                                Hey guys! New exploration about NFT Marketplace
-                                Web Design, this time I'm inspired by one of my
-                                favorite NFT website called Rarible (with crypto
-                                payment)! What do you
+                                Hey guys! New exploration about NFT Marketplace Web Design, this
+                                time I'm inspired by one of my favorite NFT website called Rarible
+                                (with crypto payment)! What do you
                               </p>
                               <div className="tags">
                                 <span>#NFT Marketplace</span>
@@ -427,9 +401,7 @@ function Forum() {
                                     <i className="ri-heart-3-fill" />
                                     <span className="txt_sm">2.1k</span>
                                   </Link>
-                                  <Link
-                                    to="post-details"
-                                    className="comments space-x-3">
+                                  <Link to="post-details" className="comments space-x-3">
                                     <i className="ri-chat-1-line" />
                                     <span className="txt_sm">257 Comments</span>
                                   </Link>
@@ -503,11 +475,7 @@ function Forum() {
                 </div>
                 <div className="space-y-10">
                   <div className="d-flex space-x-10">
-                    <img
-                      src={`img/icons/live.svg`}
-                      alt="live"
-                      style={{ width: 13 }}
-                    />
+                    <img src={`img/icons/live.svg`} alt="live" style={{ width: 13 }} />
 
                     <h5>Live auctions</h5>
                   </div>
@@ -518,19 +486,13 @@ function Forum() {
                           {/* =============== */}
                           <div className="card_head">
                             <Link to="item-details">
-                              <img
-                                src={`img/items/item_${val.img}.png`}
-                                alt="item"
-                              />
+                              <img src={`img/items/item_${val.img}.png`} alt="item" />
                             </Link>
                             <div className="block_timer">
                               <div
                                 className="d-flex justify-content-center
                                                 align-items-center txt_sm _bold box_counter">
-                                <Countdown
-                                  date={Date.now() + 60000000}
-                                  renderer={renderer}
-                                />
+                                <Countdown date={Date.now() + 60000000} renderer={renderer} />
                               </div>
                             </div>
                             <div
@@ -605,7 +567,7 @@ function Forum() {
       </section>
       <Footer />
     </div>
-  );
+  )
 }
 
-export default Forum;
+export default Forum
