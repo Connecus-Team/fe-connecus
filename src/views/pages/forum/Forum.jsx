@@ -192,7 +192,7 @@ const VoteContainer = () => {
 };
 
 const TaskContainer = () => {
-  return (<div>task Container</div>);
+  return (<div>task ...</div>);
 };
 
 function Forum() {
