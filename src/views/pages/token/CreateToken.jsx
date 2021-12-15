@@ -87,12 +87,7 @@ const CreateToken = () => {
       const accounts = await web3.eth.getAccounts();
 
       const tokenContract = new web3.eth.Contract(contractValue.ABIToken, contractValue.addressToken);
-      tokenContract.methods.approve(contractValue.addressToken, web3.utils.toWei(totalStake)).send({from: accounts[0]}).on('transactionHash', async (hash) => {
-        function sleep(ms) {
-          return new Promise((resolve) => setTimeout(resolve, ms));
-        }
-        // await sleep(30 * 1000);
-        // alert('staking');
+      tokenContract.methods.approve(contractValue.addressContractBuilder, web3.utils.toWei(totalStake, 'Ether')).send({from: accounts[0]}).on('transactionHash', async (hash) => {
         let contractBuilder = new web3.eth.Contract(contractValue.ABIContractBuilder, contractValue.addressContractBuilder);
         contractBuilder.methods.staking(totalStake).send({from: accounts[0]});
       });

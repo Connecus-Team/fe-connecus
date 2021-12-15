@@ -10,3 +10,4 @@
 - Full Skill : https://github.com/scaffold-eth/scaffold-eth
 - Token vendor: https://github.com/scaffold-eth/scaffold-eth/tree/challenge-2-token-vendor
 - Smart Contract : https://github.com/slim12kg/tokenzendr-contract
+- Stake : https://github.com/ibnzUK/Token-Staking-dApp
