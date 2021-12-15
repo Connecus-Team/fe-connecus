@@ -85,10 +85,16 @@ const CreateToken = () => {
 
       setLoadingListingEventSC(false);
       const accounts = await web3.eth.getAccounts();
-      let contract = new web3.eth.Contract(contractValue.ABI, contractValue.address);
 
-      contract.methods.approve(contractValue.address, totalStake * 10 ^ 18).send({from: accounts[0]}).on('transactionHash', (hash) => {
-        contract.methods.staking(totalStake).send({from: accounts[0]});
+      const tokenContract = new web3.eth.Contract(contractValue.ABIToken, contractValue.addressToken);
+      tokenContract.methods.approve(contractValue.addressToken, web3.utils.toWei(totalStake)).send({from: accounts[0]}).on('transactionHash', async (hash) => {
+        function sleep(ms) {
+          return new Promise((resolve) => setTimeout(resolve, ms));
+        }
+        // await sleep(30 * 1000);
+        // alert('staking');
+        let contractBuilder = new web3.eth.Contract(contractValue.ABIContractBuilder, contractValue.addressContractBuilder);
+        contractBuilder.methods.staking(totalStake).send({from: accounts[0]});
       });
       setLoadingListingEventSC(true);
       // contract.events.CreatedColection({}, (err, event) => {
