@@ -12,6 +12,7 @@ import {getDataURLFromFile} from '../../../utils/getDataUrlFromFile';
 import web3Selector from '../../../components/header/redux/Web3.Selector';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import moment from 'moment';
 
 const CardItems = [
   {
@@ -70,8 +71,8 @@ function Forum() {
   const [formType, setFormType] = useState('funding');
   const [fileDataUrls, setFileDataUrls] = useState([]);
 
-  const [title, setTitle] = useState('funding');
-  const [description, setDescription] = useState('funding');
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
   const [date, setDate] = useState(new Date());
 
   // funding
@@ -94,6 +95,32 @@ function Forum() {
       alert('Can\'t connect to wallet');
       return;
     }
+
+    let convertDate = moment(date).format('YYYY-MM-DD HH:mm:ss');
+    const currentTime = new Date(moment().locale('ko').format('YYYY-MM-DD HH:mm:ss')).getTime();
+    let convertDateTime = new Date(convertDate).getTime();
+
+    if (convertDateTime <= currentTime) {
+      alert('Please, Check selected time!!!');
+    }
+
+    let params = {
+      title, description, date,
+    };
+
+    if (formType === 'funding') {
+
+    } else if (formType === 'voting') {
+
+    } else if (formType === 'task') {
+
+    } else {
+      alert('Error form post');
+    }
+
+    setTitle('');
+    setDescription('');
+    setDate(new Date());
   };
   const onInputChange = (event) => {
     Promise.all(Array.from(event.target?.files || []).map(getDataURLFromFile)).then((dataUrls) => setFileDataUrls(dataUrls));
