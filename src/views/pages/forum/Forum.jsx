@@ -1,14 +1,14 @@
-import React, {useRef, useState} from 'react';
-import {useSelector} from 'react-redux';
-import {Link} from 'react-router-dom';
+import React, { useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Footer from '../../../components/footer/Footer';
 import Header from '../../../components/header/Header';
 import HeroProfile from '../../../components/hero/HeroProfile';
-import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import Countdown from 'react-countdown';
 import useDocumentTitle from '../../../components/useDocumentTitle';
 import SidebarProfile from '../../../components/sidebars/SidebarProfile';
-import {getDataURLFromFile} from '../../../utils/getDataUrlFromFile';
+import { getDataURLFromFile } from '../../../utils/getDataUrlFromFile';
 import web3Selector from '../../../components/header/redux/Web3.Selector';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -55,7 +55,7 @@ const CardItems = [
 const Completionist = () => <span>auction ending soon now!</span>;
 
 // Renderer callback with condition
-const renderer = ({hours, minutes, seconds, completed}) => {
+const renderer = ({ hours, minutes, seconds, completed }) => {
   if (completed) {
     // Render a complete state
     return <Completionist />;
@@ -89,10 +89,10 @@ function Forum() {
 
 
   // voting
-  const [options, setOptions] = useState([{content: ''}]);
+  const [options, setOptions] = useState([{ content: '' }]);
 
   // task
-  const [tasks, setTasks] = useState([{content: '', amount: '0'}]);
+  const [tasks, setTasks] = useState([{ content: '', amount: '0' }]);
 
 
   const handlePost = async () => {
@@ -122,15 +122,15 @@ function Forum() {
       title, description, date: convertDate, fileDataUrls,
     };
     if (formType === 'funding') {
-      params = {...params, totalFunding, interest};
+      params = { ...params, totalFunding, interest };
       const response = await apis.postFunding(params);
       console.log(response);
     } else if (formType === 'voting') {
       // VOTE
-      params = {...params, options};
+      params = { ...params, options };
       const response = await apis.postVoting(params);
-      const {data} = response;
-      await contract.methods.CreateVote(data, title, options.length).send({from: accounts[0]});
+      const { data } = response;
+      await contract.methods.CreateVote(data, title, options.length).send({ from: accounts[0] });
 
       contract.events.NewVote({}, (err, event) => {
         if (err) {
@@ -140,21 +140,21 @@ function Forum() {
           return;
         }
         // console.log( 'eror', err, event);
-      }).on('connected', function(subscriptionId) {
+      }).on('connected', function (subscriptionId) {
         console.log('subscriptionId', subscriptionId);
-      }).on('data', async function(event) {
+      }).on('data', async function (event) {
         alert('Create Voting Successful \r\b Press ok to confirm');
         console.log('data', event);
-      }).on('changed', function(event) {
+      }).on('changed', function (event) {
         console.log('change');
-      }).on('error', function(error, receipt) {
+      }).on('error', function (error, receipt) {
         alert('Event Error');
 
         // TODO delete vote in database
         return;
-      }); ;
+      });;
     } else if (formType === 'task') {
-      params = {...params, tasks};
+      params = { ...params, tasks };
       const response = await apis.postTask(params);
       console.log(response);
     } else {
@@ -163,22 +163,28 @@ function Forum() {
     setTitle('');
     setDescription('');
     setDate(new Date());
-    setOptions([{content: ''}]);
-    setTasks([{content: '', amount: '0'}]);
+    setOptions([{ content: '' }]);
+    setTasks([{ content: '', amount: '0' }]);
   };
 
   const handleClickAddOption = () => {
-    setOptions([...options, {content: ''}]);
+    setOptions([...options, { content: '' }]);
+  };
+
+  const handleRemoveOption = (index) => {
+    console.log(index);
+    console.log(options);
+    setOptions(options.filter((_, i) => i !== index));
   };
 
   const handleInputVote = (idx, value) => {
     const _options = Object.assign([], options);
-    _options[idx] = {content: value};
+    _options[idx] = { content: value };
     setOptions(_options);
   };
 
   const handleClickAddTask = () => {
-    setTasks([...tasks, {content: '', amount: 0}]);
+    setTasks([...tasks, { content: '', amount: 0 }]);
   };
 
   const handleInputTask = (idx, type, value) => {
@@ -195,7 +201,9 @@ function Forum() {
   };
 
   const onInputChange = (event) => {
-    Promise.all(Array.from(event.target?.files || []).map(getDataURLFromFile)).then((dataUrls) => setFileDataUrls(dataUrls));
+    Promise.all(Array.from(event.target?.files || [])
+      .map(getDataURLFromFile))
+      .then((dataUrls) => setFileDataUrls(dataUrls));
   };
 
 
@@ -211,7 +219,7 @@ function Forum() {
               <SidebarProfile />
             </div>
             <div className="col-lg-6 mt-40">
-              <div className="box is__big space-y-20 mb-20">
+              <div className="box is__big space-y-20 mb-20 create-post">
                 <h3>Create your post</h3>
                 <div className="form-group">
                   <input
@@ -230,7 +238,7 @@ function Forum() {
                     rows={4}
                     className="form-control"
                     placeholder="Description"
-                    dvalue={description}
+                    value={description}
                     defaultValue={description}
                     onChange={(e) => setDescription(e.target.value)}
                   />
@@ -260,14 +268,14 @@ function Forum() {
                         fileDataUrls.map((dataUrl) =>
                           <div
                             className="box image_upload d-flex justify-content-center align-items-center"
-                            style={{backgroundImage: `url('${dataUrl}')`, backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}}
+                            style={{ backgroundImage: `url('${dataUrl}')`, backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}
                           >
                           </div>,
                         )}
                     </div>
                   </div>
                 </div>
-                <div className="mb-50" style={{cursor: 'pointer'}}>
+                <div className="mb-50" style={{ cursor: 'pointer' }}>
                   <DatePicker onChange={(date) => setDate(date)} selected={date} id="time" timeInputLabel="Time:" dateFormat="MM/dd/yyyy h:mm aa" showTimeInput />
                 </div>
                 <Tabs className="form__content">
@@ -302,30 +310,31 @@ function Forum() {
                   </TabList>
                   <div className="tab-content">
                     {
-                    formType === 'funding' ? (
-                      <FundingContainer
-                        totalFunding={totalFunding}
-                        setTotalFunding={setTotalFunding}
-                        interest={interest}
-                        setInterest={setInterest}
-                      />
-                    ) : formType === 'voting' ? (
-                      <VoteContainer
-                        options={options}
-                        handleInputVote={handleInputVote}
-                        handleClickAddOption={handleClickAddOption}
-                      />
-                    ) : (
-                      <TaskContainer
-                        tasks={tasks}
-                        handleInputTask={handleInputTask}
-                        handleClickAddTask={handleClickAddTask}
-                        handleRemoveTask={handleRemoveTask}
-                      />
-                    )}
+                      formType === 'funding' ? (
+                        <FundingContainer
+                          totalFunding={totalFunding}
+                          setTotalFunding={setTotalFunding}
+                          interest={interest}
+                          setInterest={setInterest}
+                        />
+                      ) : formType === 'voting' ? (
+                        <VoteContainer
+                          options={options}
+                          handleInputVote={handleInputVote}
+                          handleClickAddOption={handleClickAddOption}
+                          handleRemoveOption={handleRemoveOption}
+                        />
+                      ) : (
+                        <TaskContainer
+                          tasks={tasks}
+                          handleInputTask={handleInputTask}
+                          handleClickAddTask={handleClickAddTask}
+                          handleRemoveTask={handleRemoveTask}
+                        />
+                      )}
                   </div>
                 </Tabs>
-                <button className="btn btn-primary w-full" onClick={() => handlePost()}>Post</button>
+                <button className="btn btn-primary" onClick={() => handlePost()}>Post</button>
               </div>
               <Tabs className="forum__content">
                 <TabList className="d-flex space-x-10 mb-30 nav-tabs">
@@ -356,12 +365,12 @@ function Forum() {
               <div className="tab-content">
                 {/* <TabPanel> */}
                 {
-                      viewPostType === 'funding' ? (
-                      <FundingForm />
-                      ) : viewPostType === 'voting' ?(
-                      <VotingForm />) : (
-                      <TaskForm />
-                    )}
+                  viewPostType === 'funding' ? (
+                    <FundingForm />
+                  ) : viewPostType === 'voting' ? (
+                    <VotingForm />) : (
+                    <TaskForm />
+                  )}
                 {/* </TabPanel> */}
               </div>
             </div>
@@ -408,7 +417,7 @@ function Forum() {
                 </div>
                 <div className="space-y-10">
                   <div className="d-flex space-x-10">
-                    <img src={`img/icons/live.svg`} alt="live" style={{width: 13}} />
+                    <img src={`img/icons/live.svg`} alt="live" style={{ width: 13 }} />
 
                     <h5>Live auctions</h5>
                   </div>
@@ -435,7 +444,7 @@ function Forum() {
                                 <div
                                   className="progress-bar"
                                   role="progressbar"
-                                  style={{width: '80%'}}
+                                  style={{ width: '80%' }}
                                   aria-valuenow={80}
                                   aria-valuemin={0}
                                   aria-valuemax={100}
@@ -502,7 +511,7 @@ function Forum() {
     </div>
   );
 }
-const FundingContainer = ({totalFunding, setTotalFunding, interest, setInterest}) => {
+const FundingContainer = ({ totalFunding, setTotalFunding, interest, setInterest }) => {
   return (
     <div className="create-post-funding">
       <div className="col-sm">
@@ -535,7 +544,7 @@ const FundingContainer = ({totalFunding, setTotalFunding, interest, setInterest}
   );
 };
 
-const VoteContainer = ({options, handleInputVote, handleClickAddOption}) => {
+const VoteContainer = ({ options, handleInputVote, handleClickAddOption, handleRemoveOption }) => {
   return (
     <div className="form-row create-post-voting">
       <div className="col-sm">
@@ -543,15 +552,19 @@ const VoteContainer = ({options, handleInputVote, handleClickAddOption}) => {
           <p className="mb-2">Option</p>
           <ul>
             {
-              options.length !== 0 && options.map((item, idx) =>{
+              options.length !== 0 && options.map((item, idx) => {
                 return (
-                  <li className="mb-2">
+                  <li className="mb-2 d-flex gap-3 items-center" key={idx}>
                     <input type="text"
-                      className="form-control"
+                      className="form-control w-100"
                       name="reply-name"
                       placeholder={`Option ${idx + 1}`}
-                      onChange ={(e) => handleInputVote(idx, e.target.value)}
+                      value={item.content}
+                      onChange={(e) => handleInputVote(idx, e.target.value)}
                     />
+                    <button className='btn close-icon-wrapper' onClick={() => handleRemoveOption(idx)}>
+                      <i className="ri-close-fill"></i>
+                    </button>
                   </li>
                 );
               })
@@ -560,14 +573,14 @@ const VoteContainer = ({options, handleInputVote, handleClickAddOption}) => {
         </div>
         <button className='btn btn-add w-100' onClick={() => handleClickAddOption()}>
           <i className="ri-add-circle-fill mr-2"></i>
-              Add a task
+          Add a task
         </button>
       </div>
     </div>
   );
 };
 
-const TaskContainer = ({tasks, handleInputTask, handleClickAddTask, handleRemoveTask}) => {
+const TaskContainer = ({ tasks, handleInputTask, handleClickAddTask, handleRemoveTask }) => {
   return (
     <div className='create-post-task'>
       <div className='d-flex w-100 gap-4'>
@@ -575,7 +588,7 @@ const TaskContainer = ({tasks, handleInputTask, handleClickAddTask, handleRemove
           {
             tasks.length !== 0 && tasks.map((task, idx) => {
               return (
-                <li className='d-flex'>
+                <li className='d-flex gap-3'>
                   <div className="form-group w-75">
                     <p>Task Name</p>
                     <input
@@ -597,6 +610,7 @@ const TaskContainer = ({tasks, handleInputTask, handleClickAddTask, handleRemove
                       name="token-amount"
                       placeholder="Amount"
                       value={task.amount}
+                      min={0}
                       onChange={(e) =>
                         handleInputTask(idx, 'amount', e.target.value)
                       }

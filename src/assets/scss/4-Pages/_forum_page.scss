@@ -253,21 +253,27 @@
 }
 
 .create-post {
-  &-voting{
+  .close-icon-wrapper {
+    align-self: center;
+    padding: 8px;
+    border-radius: 100px;
+    color: $color_dark;
+    border: 1px solid $color_stroke;
+    flex-shrink: 0;
+
+    &:hover,
+    &:focus {
+      background: $color_stroke !important;
+    }
+  }
+
+  &-voting {
     .btn.btn-add {
       border-radius: 12px !important;
       background-color: $color-grey-icon;
     }
   }
   &-task {
-    .close-icon-wrapper {
-      align-self: center;
-      padding: 8px;
-      border-radius: 100px;
-      background: $color_stroke;
-      border: 1px solid $color_stroke;
-    }
-
     .btn.btn-add {
       border-radius: 12px !important;
       background-color: $color-grey-icon;
