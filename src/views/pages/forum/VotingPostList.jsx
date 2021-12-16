@@ -12,10 +12,13 @@ const LeftInfoVotingComponent = item => (
 
 const BodyComponent = item => {
   return (
-    <div className="px-3">
-      <ul>{item.options.map(VotingItem)}</ul>
-      <button className="btn btn-primary btn-sm">Vote</button>
-    </div>
+    <>
+      <div className="px-3">
+        <ul>{item.options.map(VotingItem)}</ul>
+        <button className="btn btn-primary btn-sm">Vote</button>
+      </div>
+      <div className="hr"></div>
+    </>
   )
 }
 

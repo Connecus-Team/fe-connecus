@@ -19,9 +19,12 @@ const LeftInfoVotingComponent = item => (
 
 const BodyComponent = item => {
   return (
-    <div className="px-3">
-      <ul>{item.tasks.map(TaskItem)}</ul>
-    </div>
+    <>
+      <div className="px-3">
+        <ul>{item.tasks.map(TaskItem)}</ul>
+      </div>
+      <div className="hr"></div>
+    </>
   )
 }
 function TaskPostList() {

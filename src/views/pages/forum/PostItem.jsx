@@ -39,7 +39,6 @@ function PostItem({
         <p className="mt-1">{item.description}</p>
         <div className="hr"></div>
         {bodyComponent(item)}
-        <div className="hr"></div>
         <div
           className="card_footer justify-content-between flex-column
                                                               flex-md-row">
