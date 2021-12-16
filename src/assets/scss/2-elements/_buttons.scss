@@ -2,7 +2,7 @@
 ## btn styles
 --------------------------------------------------------------*/
 
-input[type="submit"],
+input[type='submit'],
 .btn,
 a.btn input.btn,
 a.button,
@@ -169,7 +169,7 @@ p a.btn {
 }
 
 button[disabled],
-input[type="submit"][disabled] {
+input[type='submit'][disabled] {
   &.btn-white {
     &:hover {
       background-color: #fff;
@@ -189,7 +189,7 @@ input[type="submit"][disabled] {
 --------------------------------------------------------------*/
 
 .btn-outline,
-input[type="submit"].btn-outline,
+input[type='submit'].btn-outline,
 a.btn-outline {
   background-color: transparent;
   color: currentColor;
@@ -232,7 +232,7 @@ a.btn-outline {
   box-shadow: none;
 
   &:before {
-    content: "";
+    content: '';
     position: relative;
     display: inline-block !important;
     vertical-align: middle;
@@ -304,6 +304,10 @@ a.btn-outline {
   &.dropdown-toggle::after {
     top: 2px;
     position: relative;
+  }
+
+  &.square {
+    border-radius: 8px !important;
   }
 }
 
@@ -571,7 +575,7 @@ button.close {
   border-radius: 50px;
   position: relative;
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     top: 5px;
     left: 0px;
