@@ -77,16 +77,20 @@ function Forum() {
 
   // funding
   const [totalFunding, setTotalFunding] = useState(0);
+  const [interest, setInterest] = useState('');
 
 
   // voting
-  const [option, setOption] = useState([]);
+  const [options, setOptions] = useState([{content: ''}]);
 
   // task
   const [tasks, setTasks] = useState([{title: '', amount: '0'}]);
 
 
   const handlePost = () => {
+    console.log(title, description, date);
+    console.log(options);
+
     if (!title || !description || !date) {
       alert('Please Check Enter Data');
       return;
@@ -105,11 +109,11 @@ function Forum() {
     }
 
     let params = {
-      title, description, date,
+      title, description, date, fileDataUrls,
     };
 
     if (formType === 'funding') {
-
+      params = {...params, totalFunding};
     } else if (formType === 'voting') {
 
     } else if (formType === 'task') {
@@ -122,6 +126,17 @@ function Forum() {
     setDescription('');
     setDate(new Date());
   };
+
+  const handleClickAddOption = () => {
+    setOptions([...options, {content: ''}]);
+  };
+
+  const handleInputVote = (idx, value) => {
+    const _options = Object.assign([], options);
+    _options[idx] = {content: value};
+    setOptions(_options);
+  };
+
   const onInputChange = (event) => {
     Promise.all(Array.from(event.target?.files || []).map(getDataURLFromFile)).then((dataUrls) => setFileDataUrls(dataUrls));
   };
@@ -228,10 +243,17 @@ function Forum() {
                   <div className="tab-content">
                     {formType === 'funding' ? (
                       <FundingContainer
+                        totalFunding={totalFunding}
                         setTotalFunding={setTotalFunding}
+                        interest={interest}
+                        setInterest={setInterest}
                       />
                     ) : formType === 'voting' ? (
-                      <VoteContainer />
+                      <VoteContainer
+                        options={options}
+                        handleInputVote={handleInputVote}
+                        handleClickAddOption={handleClickAddOption}
+                      />
                     ) : (
                       <TaskContainer />
                     )}
@@ -550,40 +572,63 @@ function Forum() {
     </div>
   );
 }
-const FundingContainer = ({setTotalFunding}) => {
+const FundingContainer = ({totalFunding, setTotalFunding, interest, setInterset}) => {
   return (
     <div className="create-post-funding">
       <div className="col-sm">
         <div className="form-group">
-          <input
-            type="number"
-            className="form-control"
-            name="funding-number"
-            placeholder="Total money $"
-            onChange={(e) => setTotalFunding(e.target.value)}
-          />
+          <p className="mb-2">Interest</p>
+          <div className="mb-20">
+            <textarea
+              name="reply-message"
+              rows={4}
+              className="form-control"
+              placeholder="Interest"
+              dvalue={interest}
+              defaultValue={interest}
+              onChange={(e) => setInterset(e.target.value)}
+            />
+          </div>
+          <p className="mb-2">Total Funding</p>
+          <div>
+            <input
+              type="number"
+              className="form-control"
+              name="funding-number"
+              placeholder="Total funding $"
+              onChange={(e) => setTotalFunding(e.target.value)}
+            />
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-const VoteContainer = () => {
+const VoteContainer = ({options, handleInputVote, handleClickAddOption}) => {
   return (
     <div className="form-row create-post-voting">
       <div className="col-sm">
         <div className="form-group">
-          <p>Option</p>
-          <div>
-            <input
-              type="text"
-              className="form-control mb-20"
-              name="reply-name"
-              placeholder="Option 1"
-            />
-          </div>
+          <p className="mb-2">Option</p>
+          <ul>
+            {
+              options.length !== 0 && options.map((item, idx) =>{
+                return (
+                  <li className="mb-2">
+                    <input type="text"
+                      className="form-control"
+                      name="reply-name"
+                      placeholder={`Option ${idx + 1}`}
+                      onChange ={(e) => handleInputVote(idx, e.target.value)}
+                    />
+                  </li>
+                );
+              })
+            }
+          </ul>
         </div>
-        <button className='btn btn-add w-100'>
+        <button className='btn btn-add w-100' onClick={() => handleClickAddOption()}>
           <i className="ri-add-circle-fill mr-2"></i>
               Add a task
         </button>
