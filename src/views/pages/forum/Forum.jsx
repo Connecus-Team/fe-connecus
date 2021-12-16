@@ -1,4 +1,5 @@
 import React, {useRef, useState} from 'react';
+import {useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 import Footer from '../../../components/footer/Footer';
 import Header from '../../../components/header/Header';
@@ -9,6 +10,8 @@ import useDocumentTitle from '../../../components/useDocumentTitle';
 import SidebarProfile from '../../../components/sidebars/SidebarProfile';
 import {getDataURLFromFile} from '../../../utils/getDataUrlFromFile';
 import web3Selector from '../../../components/header/redux/Web3.Selector';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const CardItems = [
   {
@@ -85,6 +88,11 @@ function Forum() {
   const handlePost = () => {
     if (!title || !description || !date) {
       alert('Please Check Enter Data');
+      return;
+    }
+    if (web3 === null) {
+      alert('Can\'t connect to wallet');
+      return;
     }
   };
   const onInputChange = (event) => {
@@ -157,8 +165,8 @@ function Forum() {
                     </div>
                   </div>
                 </div>
-                <div className="mb-50">
-                  <input className="datepicker w-full" type="date" data-date-format="mm/dd/yyyy"/>
+                <div className="mb-50" style={{cursor: 'pointer'}}>
+                  <DatePicker onChange={(date) => setDate(date)} selected={date} id="time" timeInputLabel="Time:" dateFormat="MM/dd/yyyy h:mm aa" showTimeInput />
                 </div>
                 <Tabs className="form__content">
                   <TabList className="d-flex space-x-10 mb-30 nav-tabs">
