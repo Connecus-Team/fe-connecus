@@ -352,18 +352,18 @@ function Forum() {
                     </button>
                   </Tab>
                 </TabList>
-                <div className="tab-content">
-                  {/* <TabPanel> */}
-                  {
+              </Tabs>
+              <div className="tab-content">
+                {/* <TabPanel> */}
+                {
                       viewPostType === 'funding' ? (
                       <FundingForm />
                       ) : viewPostType === 'voting' ?(
                       <VotingForm />) : (
                       <TaskForm />
                     )}
-                  {/* </TabPanel> */}
-                </div>
-              </Tabs>
+                {/* </TabPanel> */}
+              </div>
             </div>
             <div className="col-lg-3">
               <div className="sidebar space-y-30">
