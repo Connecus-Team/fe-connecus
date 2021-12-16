@@ -119,3 +119,9 @@
         }
     }
 }
+
+::-webkit-datetime-edit { padding: 0.5em; }
+::-webkit-datetime-edit-text { color: $color_text }
+::-webkit-datetime-edit-month-field, 
+::-webkit-datetime-edit-day-field, 
+::-webkit-datetime-edit-year-field { color: $color_text; }

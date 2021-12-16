@@ -253,6 +253,12 @@
 }
 
 .create-post {
+  &-voting{
+    .btn.btn-add {
+      border-radius: 12px !important;
+      background-color: $color-grey-icon;
+    }
+  }
   &-task {
     .close-icon-wrapper {
       align-self: center;

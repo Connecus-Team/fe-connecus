@@ -57,78 +57,45 @@ const renderer = ({hours, minutes, seconds, completed}) => {
   }
 };
 
-const FundingContainer = () => {
+const FundingContainer = ({setTotalFunding}) => {
   return (
-    <form>
-      <div className="form-row">
-        <div className="col-sm"></div>
-        <div className="col-sm">
-          <div className="form-group">
-            <input
-              type="number"
-              className="form-control"
-              name="funding-number"
-              placeholder="Total money $"
-            />
-          </div>
+    <div className="create-post-funding">
+      <div className="col-sm">
+        <div className="form-group">
+          <input
+            type="number"
+            className="form-control"
+            name="funding-number"
+            placeholder="Total money $"
+            onChange={(e) => setTotalFunding(e.target.value)}
+          />
         </div>
       </div>
-      {/* <div className="d-flex justify-content-end">
-        <Link to="#" className="btn btn-primary sweep_letter sweep_top">
-          <div className="inside_item">
-            <span data-hover="Reply"> Reply </span>
-          </div>
-        </Link>
-      </div> */}
-    </form>
+    </div>
   );
 };
 
 const VoteContainer = () => {
   return (
-    <form>
-      <div className="form-row">
-        <div className="col-sm">
-          <div className="form-group">
-            <input type="text" className="form-control" name="reply-name" placeholder="Title" />
-          </div>
-          <div className="form-group">
+    <div className="form-row create-post-voting">
+      <div className="col-sm">
+        <div className="form-group">
+          <p>Option</p>
+          <div>
             <input
               type="text"
-              className="form-control"
+              className="form-control mb-20"
               name="reply-name"
-              placeholder="Description"
+              placeholder="Option 1"
             />
           </div>
-          <div className="form-group">
-            <p>Option</p>
-            <div>
-              <input
-                type="text"
-                className="form-control mb-20"
-                name="reply-name"
-                placeholder="Option 1"
-              />
-              <input
-                type="text"
-                className="form-control mb-20"
-                name="reply-name"
-                placeholder="Option 1"
-              />
-              <input
-                type="text"
-                className="form-control mb-20"
-                name="reply-name"
-                placeholder="Option 1"
-              />
-            </div>
-            <div className="w-full">
-              <button className="btn btn-primary w-full">+ Add option</button>
-            </div>
-          </div>
         </div>
+        <button className='btn btn-add w-100'>
+          <i className="ri-add-circle-fill mr-2"></i>
+              Add a task
+        </button>
       </div>
-    </form>
+    </div>
   );
 };
 
@@ -171,12 +138,28 @@ function Forum() {
 
   const [formType, setFormType] = useState('funding');
   const [fileDataUrls, setFileDataUrls] = useState([]);
+
+  const [title, setTitle] = useState('funding');
+  const [description, setDescription] = useState('funding');
+  const [date, setDate] = useState(new Date());
+
+  // funding
+  const [totalFunding, setTotalFunding] = useState(0);
+
+
+  // voting
+  const [option, setOption] = useState([]);
+
+  // task
+  const [tasks, setTasks] = useState([{title: '', amount: '0'}]);
+
   const imageUploadRef = useRef();
 
   const onInputChange = (event) => {
     Promise.all(Array.from(event.target?.files || []).map(getDataURLFromFile)).then((dataUrls) => setFileDataUrls(dataUrls));
   };
 
+  console.log(totalFunding);
   return (
     <div>
       <Header />
@@ -196,6 +179,9 @@ function Forum() {
                     className="form-control"
                     name="reply-name"
                     placeholder="Title"
+                    value={title}
+                    defaultValue={title}
+                    onChange={(e) => setTitle(e.target.value)}
                   />
                 </div>
                 <div className="form-group">
@@ -204,7 +190,9 @@ function Forum() {
                     rows={4}
                     className="form-control"
                     placeholder="Description"
-                    defaultValue={''}
+                    dvalue={description}
+                    defaultValue={description}
+                    onChange={(e) => setDescription(e.target.value)}
                   />
                 </div>
                 <div className="mb-50">
@@ -239,6 +227,9 @@ function Forum() {
                     </div>
                   </div>
                 </div>
+                <div className="mb-50">
+                  <input className="datepicker w-full" type="date" data-date-format="mm/dd/yyyy"/>
+                </div>
                 <Tabs className="form__content">
                   <TabList className="d-flex space-x-10 mb-30 nav-tabs">
                     <Tab>
@@ -271,7 +262,9 @@ function Forum() {
                   </TabList>
                   <div className="tab-content">
                     {formType === 'funding' ? (
-                      <FundingContainer />
+                      <FundingContainer
+                        setTotalFunding={setTotalFunding}
+                      />
                     ) : formType === 'voting' ? (
                       <VoteContainer />
                     ) : (
