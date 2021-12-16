@@ -84,7 +84,7 @@ function Forum() {
   const [options, setOptions] = useState([{content: ''}]);
 
   // task
-  const [tasks, setTasks] = useState([{title: '', amount: '0'}]);
+  const [tasks, setTasks] = useState([{content: '', amount: '0'}]);
 
 
   const handlePost = () => {
@@ -135,6 +135,17 @@ function Forum() {
     const _options = Object.assign([], options);
     _options[idx] = {content: value};
     setOptions(_options);
+  };
+
+  const handleClickAddTask = () => {
+    alert('aa');
+    setTasks([...tasks, {content: '', amount: 0}]);
+  };
+
+  const handleInputTask = (idx, type, value) => {
+    const _tasks = Object.assign([], tasks);
+    _tasks[idx][type] = value;
+    setOptions(_tasks);
   };
 
   const onInputChange = (event) => {
@@ -255,7 +266,11 @@ function Forum() {
                         handleClickAddOption={handleClickAddOption}
                       />
                     ) : (
-                      <TaskContainer />
+                      <TaskContainer
+                        tasks={tasks}
+                        handleInputTask={handleInputTask}
+                        handleClickAddTask={handleClickAddTask}
+                      />
                     )}
                   </div>
                 </Tabs>
@@ -637,33 +652,51 @@ const VoteContainer = ({options, handleInputVote, handleClickAddOption}) => {
   );
 };
 
-const TaskContainer = () => {
+const TaskContainer = ({tasks, handleInputTask, handleClickAddTask}) => {
   return (
     <div className='create-post-task'>
       <div className='d-flex w-100 gap-4'>
-        <div className="form-group w-75">
-          <p>Task Name</p>
-          <input
-            type="text"
-            className="form-control"
-            name="reply-name"
-            placeholder="Task name"
-          />
-        </div>
-        <div className="form-group w-25">
-          <p>Token Amount</p>
-          <input
-            type="number"
-            className="form-control"
-            name="token-amount"
-            placeholder="Amount"
-          />
-        </div>
+        <ul className='w-100'>
+          {
+            tasks.length !== 0 && tasks.map((task, idx) => {
+              return (
+                <li className='d-flex'>
+                  <div className="form-group w-75">
+                    <p>Task Name</p>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="reply-name"
+                      placeholder="Task name"
+                      value={task.content}
+                      onChange={(e) =>
+                        handleInputTask(idx, 'content', e.target.value)
+                      }
+                    />
+                  </div>
+                  <div className="form-group w-25">
+                    <p>Token Amount</p>
+                    <input
+                      type="number"
+                      className="form-control"
+                      name="token-amount"
+                      placeholder="Amount"
+                      value={task.amount}
+                      onChange={(e) =>
+                        handleInputTask(idx, 'amount', e.target.value)
+                      }
+                    />
+                  </div>
+                </li>
+              );
+            })
+          }
+        </ul>
         <button className='btn close-icon-wrapper'>
           <i className="ri-close-fill"></i>
         </button>
       </div>
-      <button className='btn btn-add w-100'>
+      <button className='btn btn-add w-100' onClick={() => handleClickAddTask()}>
         <i className="ri-add-circle-fill mr-2"></i>
         Add a task
       </button>
