@@ -1,13 +1,13 @@
-import React, { useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
-import Footer from '../../../components/footer/Footer'
-import Header from '../../../components/header/Header'
-import HeroProfile from '../../../components/hero/HeroProfile'
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
-import Countdown from 'react-countdown'
-import useDocumentTitle from '../../../components/useDocumentTitle'
-import SidebarProfile from '../../../components/sidebars/SidebarProfile'
-import { getDataURLFromFile } from '../../../utils/getDataUrlFromFile'
+import React, {useRef, useState} from 'react';
+import {Link} from 'react-router-dom';
+import Footer from '../../../components/footer/Footer';
+import Header from '../../../components/header/Header';
+import HeroProfile from '../../../components/hero/HeroProfile';
+import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
+import Countdown from 'react-countdown';
+import useDocumentTitle from '../../../components/useDocumentTitle';
+import SidebarProfile from '../../../components/sidebars/SidebarProfile';
+import {getDataURLFromFile} from '../../../utils/getDataUrlFromFile';
 
 const CardItems = [
   {
@@ -17,7 +17,7 @@ const CardItems = [
     avatar_img1: '10',
     avatar_img2: '11',
     avatar_name: 'darian_barry',
-    price: '0.001'
+    price: '0.001',
   },
   {
     img: '2',
@@ -26,7 +26,7 @@ const CardItems = [
     avatar_img1: '12',
     avatar_img2: '13',
     avatar_name: 'makinzi_beck',
-    price: '0.047'
+    price: '0.047',
   },
   {
     img: '3',
@@ -35,17 +35,17 @@ const CardItems = [
     avatar_img1: '14',
     avatar_img2: '15',
     avatar_name: 'jaxon_duffy',
-    price: '0.074'
-  }
-]
+    price: '0.074',
+  },
+];
 
 // Random component
-const Completionist = () => <span>auction ending soon now!</span>
+const Completionist = () => <span>auction ending soon now!</span>;
 // Renderer callback with condition
-const renderer = ({ hours, minutes, seconds, completed }) => {
+const renderer = ({hours, minutes, seconds, completed}) => {
   if (completed) {
     // Render a complete state
-    return <Completionist />
+    return <Completionist />;
   } else {
     // Render a countdown
 
@@ -53,9 +53,9 @@ const renderer = ({ hours, minutes, seconds, completed }) => {
       <span>
         {hours} : {minutes} : {seconds}
       </span>
-    )
+    );
   }
-}
+};
 
 const FundingContainer = () => {
   return (
@@ -81,8 +81,8 @@ const FundingContainer = () => {
         </Link>
       </div>
     </form>
-  )
-}
+  );
+};
 
 const VoteContainer = () => {
   return (
@@ -149,8 +149,8 @@ const VoteContainer = () => {
         </Link>
       </div>
     </form>
-  )
-}
+  );
+};
 
 const TaskContainer = () => {
   return (
@@ -175,27 +175,27 @@ const TaskContainer = () => {
           />
         </div>
         <button className='btn close-icon-wrapper'>
-          <i class="ri-close-fill"></i>
+          <i className="ri-close-fill"></i>
         </button>
       </div>
       <button className='btn btn-add w-100'>
-        <i class="ri-add-circle-fill mr-2"></i>
+        <i className="ri-add-circle-fill mr-2"></i>
         Add a task
       </button>
     </div>
-  )
-}
+  );
+};
 
 function Forum() {
-  useDocumentTitle(' Forum')
+  useDocumentTitle(' Forum');
 
-  const [formType, setFormType] = useState('funding')
-  const [fileDataUrls, setFileDataUrls] = useState([])
-  const imageUploadRef = useRef()
+  const [formType, setFormType] = useState('funding');
+  const [fileDataUrls, setFileDataUrls] = useState([]);
+  const imageUploadRef = useRef();
 
   const onInputChange = (event) => {
-    Promise.all(Array.from(event.target?.files || []).map(getDataURLFromFile)).then(dataUrls => setFileDataUrls(dataUrls))
-  }
+    Promise.all(Array.from(event.target?.files || []).map(getDataURLFromFile)).then((dataUrls) => setFileDataUrls(dataUrls));
+  };
 
   return (
     <div>
@@ -232,7 +232,7 @@ function Forum() {
                   <div className="row profile-img">
                     <div className="d-flex gap-3">
                       <div
-                        className="box image_upload d-flex justify-content-center align-items-center"
+                        className="box image_upload d-flex justify-content-center w-full align-items-center"
                         onClick={() => imageUploadRef.current.click()}>
                         <img className="icon" src="img/icons/upload-plus.svg" alt="" />
                         <input
@@ -245,16 +245,16 @@ function Forum() {
                           accept='image/png,image/jpg,image/jpeg'
                           hidden
                           ref={imageUploadRef}
-                          onChange={event => onInputChange(event)}
+                          onChange={(event) => onInputChange(event)}
                         />
                       </div>
                       {
-                        fileDataUrls.map(dataUrl =>
+                        fileDataUrls.map((dataUrl) =>
                           <div
                             className="box image_upload d-flex justify-content-center align-items-center"
-                            style={{ backgroundImage: `url('${dataUrl}')`, backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}
+                            style={{backgroundImage: `url('${dataUrl}')`, backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}}
                           >
-                          </div>
+                          </div>,
                         )}
                     </div>
                   </div>
@@ -518,7 +518,7 @@ function Forum() {
                 </div>
                 <div className="space-y-10">
                   <div className="d-flex space-x-10">
-                    <img src={`img/icons/live.svg`} alt="live" style={{ width: 13 }} />
+                    <img src={`img/icons/live.svg`} alt="live" style={{width: 13}} />
 
                     <h5>Live auctions</h5>
                   </div>
@@ -545,7 +545,7 @@ function Forum() {
                                 <div
                                   className="progress-bar"
                                   role="progressbar"
-                                  style={{ width: '80%' }}
+                                  style={{width: '80%'}}
                                   aria-valuenow={80}
                                   aria-valuemin={0}
                                   aria-valuemax={100}
@@ -610,7 +610,7 @@ function Forum() {
       </section>
       <Footer />
     </div>
-  )
+  );
 }
 
-export default Forum
+export default Forum;
