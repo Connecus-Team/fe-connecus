@@ -396,6 +396,47 @@ const ABIContractBuilder = [
     'inputs': [
       {
         'internalType': 'uint256',
+        'name': '_id',
+        'type': 'uint256',
+      },
+      {
+        'internalType': 'string',
+        'name': '_tile',
+        'type': 'string',
+      },
+      {
+        'internalType': 'uint256',
+        'name': '_sumOption',
+        'type': 'uint256',
+      },
+    ],
+    'name': 'CreateVote',
+    'outputs': [],
+    'stateMutability': 'nonpayable',
+    'type': 'function',
+  },
+  {
+    'inputs': [
+      {
+        'internalType': 'uint256',
+        'name': '_id',
+        'type': 'uint256',
+      },
+      {
+        'internalType': 'uint256',
+        'name': '_idOption',
+        'type': 'uint256',
+      },
+    ],
+    'name': 'PersonVote',
+    'outputs': [],
+    'stateMutability': 'nonpayable',
+    'type': 'function',
+  },
+  {
+    'inputs': [
+      {
+        'internalType': 'uint256',
         'name': 'fee_',
         'type': 'uint256',
       },
@@ -415,6 +456,31 @@ const ABIContractBuilder = [
     ],
     'stateMutability': 'nonpayable',
     'type': 'constructor',
+  },
+  {
+    'anonymous': false,
+    'inputs': [
+      {
+        'indexed': false,
+        'internalType': 'uint256',
+        'name': 'id',
+        'type': 'uint256',
+      },
+      {
+        'indexed': false,
+        'internalType': 'string',
+        'name': 'tile',
+        'type': 'string',
+      },
+      {
+        'indexed': false,
+        'internalType': 'uint256',
+        'name': 'sumOption',
+        'type': 'uint256',
+      },
+    ],
+    'name': 'NewVote',
+    'type': 'event',
   },
   {
     'anonymous': false,
@@ -550,10 +616,39 @@ const ABIContractBuilder = [
     'stateMutability': 'view',
     'type': 'function',
   },
+  {
+    'inputs': [
+      {
+        'internalType': 'uint256',
+        'name': '',
+        'type': 'uint256',
+      },
+    ],
+    'name': 'VoteToOwer',
+    'outputs': [
+      {
+        'internalType': 'string',
+        'name': 'title',
+        'type': 'string',
+      },
+      {
+        'internalType': 'address',
+        'name': 'chairPerson',
+        'type': 'address',
+      },
+      {
+        'internalType': 'uint256',
+        'name': 'sumOption',
+        'type': 'uint256',
+      },
+    ],
+    'stateMutability': 'view',
+    'type': 'function',
+  },
 ];
 
 
-const addressContractBuilder = '0xF305A52f09818026EC36eb627a625E68c0AFBeb3';
+const addressContractBuilder = '0xC88Efc7EaC4100fe0cF6199e3F8DC006be1475a2';
 
 const webDomain = 'http://ratp.link';
 

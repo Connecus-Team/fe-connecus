@@ -13,6 +13,7 @@ import web3Selector from '../../../components/header/redux/Web3.Selector';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
+import contractValue from '../../../constants/contract';
 import apis from '../../../apis/apis';
 
 const CardItems = [
@@ -89,15 +90,20 @@ function Forum() {
 
 
   const handlePost = async () => {
-    if (!title || !description || !date) {
-      alert('Please Check Enter Data');
-      return;
-    }
-    // if (web3 === null) {
-    //   alert('Can\'t connect to wallet');
+    // if (!title || !description || !date) {
+    //   alert('Please Check Enter Data');
     //   return;
     // }
+    if (web3 === null) {
+      alert('Can\'t connect to wallet');
+      return;
+    }
 
+    const accounts = await web3.eth.getAccounts();
+    let contract = new web3.eth.Contract(contractValue.ABIContractBuilder, contractValue.addressContractBuilder);
+    // await contract.methods.PersonVote(1, 1).send({from: accounts[0]});
+
+    return null;
     let convertDate = moment(date).format('YYYY-MM-DD HH:mm:ss');
     const currentTime = new Date(moment().locale('ko').format('YYYY-MM-DD HH:mm:ss')).getTime();
     let convertDateTime = new Date(convertDate).getTime();
@@ -114,9 +120,33 @@ function Forum() {
       const response = await apis.postFunding(params);
       console.log(response);
     } else if (formType === 'voting') {
+      // VOTE
       params = {...params, options};
       const response = await apis.postVoting(params);
-      console.log(response);
+      const {data} = response;
+      await contract.methods.CreateVote(data, title, options.length).send({from: accounts[0]});
+
+      contract.events.NewVote({}, (err, event) => {
+        if (err) {
+          alert('New Vote Error');
+          console.log(err);
+          // TODO delete vote in database
+          return;
+        }
+        // console.log( 'eror', err, event);
+      }).on('connected', function(subscriptionId) {
+        console.log('subscriptionId', subscriptionId);
+      }).on('data', async function(event) {
+        alert('Create Voting Successful \r\b Press ok to confirm');
+        console.log('data', event);
+      }).on('changed', function(event) {
+        console.log('change');
+      }).on('error', function(error, receipt) {
+        alert('Event Error');
+
+        // TODO delete vote in database
+        return;
+      }); ;
     } else if (formType === 'task') {
       params = {...params, tasks};
       const response = await apis.postTask(params);

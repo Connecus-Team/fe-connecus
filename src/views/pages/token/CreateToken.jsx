@@ -32,7 +32,7 @@ const CreateToken = () => {
 
       setLoadingEvent(true);
       const accounts = await web3.eth.getAccounts();
-      let contract = new web3.eth.Contract(contractValue.ABI, contractValue.address);
+      let contract = new web3.eth.Contract(contractValue.ABIContractBuilder, contractValue.addressContractBuilder);
       await contract.methods.createToken(name, symBol, totalSupply).send({from: accounts[0]});
       setLoadingEvent(false);
     } catch (error) {

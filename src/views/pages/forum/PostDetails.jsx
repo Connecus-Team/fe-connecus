@@ -422,7 +422,7 @@ function PostDetails() {
             </div>
             <div className="col-lg-4">
               <div className="sidebar space-y-30">
-    
+
                 <div className="space-y-10">
                   <h5>Categories</h5>
                   <div className="box space-y-10 is__big">
