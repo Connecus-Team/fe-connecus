@@ -1,20 +1,20 @@
-import React, {useRef, useState} from 'react';
-import {useSelector} from 'react-redux';
-import {Link} from 'react-router-dom';
-import Footer from '../../../components/footer/Footer';
-import Header from '../../../components/header/Header';
-import HeroProfile from '../../../components/hero/HeroProfile';
-import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
-import Countdown from 'react-countdown';
-import useDocumentTitle from '../../../components/useDocumentTitle';
-import SidebarProfile from '../../../components/sidebars/SidebarProfile';
-import {getDataURLFromFile} from '../../../utils/getDataUrlFromFile';
-import web3Selector from '../../../components/header/redux/Web3.Selector';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import moment from 'moment';
-import contractValue from '../../../constants/contract';
-import apis from '../../../apis/apis';
+import React, { useRef, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import Footer from '../../../components/footer/Footer'
+import Header from '../../../components/header/Header'
+import HeroProfile from '../../../components/hero/HeroProfile'
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
+import Countdown from 'react-countdown'
+import useDocumentTitle from '../../../components/useDocumentTitle'
+import SidebarProfile from '../../../components/sidebars/SidebarProfile'
+import { getDataURLFromFile } from '../../../utils/getDataUrlFromFile'
+import web3Selector from '../../../components/header/redux/Web3.Selector'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
+import moment from 'moment'
+import contractValue from '../../../constants/contract'
+import apis from '../../../apis/apis'
 
 const CardItems = [
   {
@@ -24,7 +24,7 @@ const CardItems = [
     avatar_img1: '10',
     avatar_img2: '11',
     avatar_name: 'darian_barry',
-    price: '0.001',
+    price: '0.001'
   },
   {
     img: '2',
@@ -33,7 +33,7 @@ const CardItems = [
     avatar_img1: '12',
     avatar_img2: '13',
     avatar_name: 'makinzi_beck',
-    price: '0.047',
+    price: '0.047'
   },
   {
     img: '3',
@@ -42,52 +42,49 @@ const CardItems = [
     avatar_img1: '14',
     avatar_img2: '15',
     avatar_name: 'jaxon_duffy',
-    price: '0.074',
-  },
-];
+    price: '0.074'
+  }
+]
 
 // Random component
-const Completionist = () => <span>auction ending soon now!</span>;
+const Completionist = () => <span>auction ending soon now!</span>
 
 // Renderer callback with condition
-const renderer = ({hours, minutes, seconds, completed}) => {
+const renderer = ({ hours, minutes, seconds, completed }) => {
   if (completed) {
     // Render a complete state
-    return <Completionist />;
+    return <Completionist />
   } else {
     // Render a countdown
     return (
       <span>
         {hours} : {minutes} : {seconds}
       </span>
-    );
+    )
   }
-};
-
+}
 
 function Forum() {
-  useDocumentTitle(' Forum');
-  const web3 = useSelector(web3Selector.selectWeb3);
+  useDocumentTitle(' Forum')
+  const web3 = useSelector(web3Selector.selectWeb3)
 
-  const imageUploadRef = useRef();
-  const [formType, setFormType] = useState('funding');
-  const [fileDataUrls, setFileDataUrls] = useState([]);
+  const imageUploadRef = useRef()
+  const [formType, setFormType] = useState('funding')
+  const [fileDataUrls, setFileDataUrls] = useState([])
 
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [date, setDate] = useState(new Date());
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
+  const [date, setDate] = useState(new Date())
 
   // funding
-  const [totalFunding, setTotalFunding] = useState(0);
-  const [interest, setInterest] = useState('');
-
+  const [totalFunding, setTotalFunding] = useState(0)
+  const [interest, setInterest] = useState('')
 
   // voting
-  const [options, setOptions] = useState([{content: ''}]);
+  const [options, setOptions] = useState([{ content: '' }])
 
   // task
-  const [tasks, setTasks] = useState([{content: '', amount: '0'}]);
-
+  const [tasks, setTasks] = useState([{ content: '', amount: '0' }])
 
   const handlePost = async () => {
     // if (!title || !description || !date) {
@@ -95,102 +92,115 @@ function Forum() {
     //   return;
     // }
     if (web3 === null) {
-      alert('Can\'t connect to wallet');
-      return;
+      alert("Can't connect to wallet")
+      return
     }
 
-    const accounts = await web3.eth.getAccounts();
-    let contract = new web3.eth.Contract(contractValue.ABIContractBuilder, contractValue.addressContractBuilder);
+    const accounts = await web3.eth.getAccounts()
+    let contract = new web3.eth.Contract(
+      contractValue.ABIContractBuilder,
+      contractValue.addressContractBuilder
+    )
     // await contract.methods.PersonVote(1, 1).send({from: accounts[0]});
 
-    return null;
-    let convertDate = moment(date).format('YYYY-MM-DD HH:mm:ss');
-    const currentTime = new Date(moment().locale('ko').format('YYYY-MM-DD HH:mm:ss')).getTime();
-    let convertDateTime = new Date(convertDate).getTime();
+    return null
+    let convertDate = moment(date).format('YYYY-MM-DD HH:mm:ss')
+    const currentTime = new Date(moment().locale('ko').format('YYYY-MM-DD HH:mm:ss')).getTime()
+    let convertDateTime = new Date(convertDate).getTime()
 
     // if (convertDateTime <= currentTime) {
     //   alert('Please, Check selected time!!!');
     // }
 
     let params = {
-      title, description, date: convertDate, fileDataUrls,
-    };
+      title,
+      description,
+      date: convertDate,
+      fileDataUrls
+    }
     if (formType === 'funding') {
-      params = {...params, totalFunding, interest};
-      const response = await apis.postFunding(params);
-      console.log(response);
+      params = { ...params, totalFunding, interest }
+      const response = await apis.postFunding(params)
+      console.log(response)
     } else if (formType === 'voting') {
       // VOTE
-      params = {...params, options};
-      const response = await apis.postVoting(params);
-      const {data} = response;
-      await contract.methods.CreateVote(data, title, options.length).send({from: accounts[0]});
+      params = { ...params, options }
+      const response = await apis.postVoting(params)
+      const { data } = response
+      await contract.methods.CreateVote(data, title, options.length).send({ from: accounts[0] })
 
-      contract.events.NewVote({}, (err, event) => {
-        if (err) {
-          alert('New Vote Error');
-          console.log(err);
+      contract.events
+        .NewVote({}, (err, event) => {
+          if (err) {
+            alert('New Vote Error')
+            console.log(err)
+            // TODO delete vote in database
+            return
+          }
+          // console.log( 'eror', err, event);
+        })
+        .on('connected', function (subscriptionId) {
+          console.log('subscriptionId', subscriptionId)
+        })
+        .on('data', async function (event) {
+          alert('Create Voting Successful \r\b Press ok to confirm')
+          console.log('data', event)
+        })
+        .on('changed', function (event) {
+          console.log('change')
+        })
+        .on('error', function (error, receipt) {
+          alert('Event Error')
+
           // TODO delete vote in database
-          return;
-        }
-        // console.log( 'eror', err, event);
-      }).on('connected', function(subscriptionId) {
-        console.log('subscriptionId', subscriptionId);
-      }).on('data', async function(event) {
-        alert('Create Voting Successful \r\b Press ok to confirm');
-        console.log('data', event);
-      }).on('changed', function(event) {
-        console.log('change');
-      }).on('error', function(error, receipt) {
-        alert('Event Error');
-
-        // TODO delete vote in database
-        return;
-      }); ;
+          return
+        })
     } else if (formType === 'task') {
-      params = {...params, tasks};
-      const response = await apis.postTask(params);
-      console.log(response);
+      params = { ...params, tasks }
+      const response = await apis.postTask(params)
+      console.log(response)
     } else {
-      alert('Error form post');
+      alert('Error form post')
     }
-    setTitle('');
-    setDescription('');
-    setDate(new Date());
-    setOptions([{content: ''}]);
-    setTasks([{content: '', amount: '0'}]);
-  };
+    setTitle('')
+    setDescription('')
+    setDate(new Date())
+    setOptions([{ content: '' }])
+    setTasks([{ content: '', amount: '0' }])
+  }
 
   const handleClickAddOption = () => {
-    setOptions([...options, {content: ''}]);
-  };
+    setOptions([...options, { content: '' }])
+  }
 
   const handleInputVote = (idx, value) => {
-    const _options = Object.assign([], options);
-    _options[idx] = {content: value};
-    setOptions(_options);
-  };
+    const _options = Object.assign([], options)
+    _options[idx] = { content: value }
+    setOptions(_options)
+  }
 
   const handleClickAddTask = () => {
-    setTasks([...tasks, {content: '', amount: 0}]);
-  };
+    setTasks([...tasks, { content: '', amount: 0 }])
+  }
 
   const handleInputTask = (idx, type, value) => {
-    const _tasks = Object.assign([], tasks);
-    _tasks[idx][type] = value;
-    setOptions(_tasks);
-  };
+    const _tasks = Object.assign([], tasks)
+    _tasks[idx][type] = value
+    setOptions(_tasks)
+  }
 
-  const handleRemoveTask = (idx) => {
-    let _tasks = tasks;
-    _tasks[idx] = undefined;
-    _tasks = _tasks.filter((i) => i !== undefined);
-    setTasks(_tasks);
-  };
+  const handleRemoveTask = idx => {
+    let _tasks = tasks
+    _tasks[idx] = undefined
+    _tasks = _tasks.filter(i => i !== undefined)
+    setTasks(_tasks)
+  }
 
-  const onInputChange = (event) => {
-    Promise.all(Array.from(event.target?.files || []).map(getDataURLFromFile)).then((dataUrls) => setFileDataUrls(dataUrls));
-  };
+  const onInputChange = event => {
+    Promise.all(Array.from(event.target?.files || []).map(getDataURLFromFile)).then(dataUrls =>
+      setFileDataUrls(dataUrls)
+    )
+  }
 
   return (
     <div>
@@ -213,7 +223,7 @@ function Forum() {
                     placeholder="Title"
                     value={title}
                     defaultValue={title}
-                    onChange={(e) => setTitle(e.target.value)}
+                    onChange={e => setTitle(e.target.value)}
                   />
                 </div>
                 <div className="form-group">
@@ -222,9 +232,9 @@ function Forum() {
                     rows={4}
                     className="form-control"
                     placeholder="Description"
-                    dvalue={description}
+                    value={description}
                     defaultValue={description}
-                    onChange={(e) => setDescription(e.target.value)}
+                    onChange={e => setDescription(e.target.value)}
                   />
                 </div>
                 <div className="mb-50">
@@ -242,25 +252,34 @@ function Forum() {
                           placeholder="Photo"
                           required
                           multiple
-                          accept='image/png,image/jpg,image/jpeg'
+                          accept="image/png,image/jpg,image/jpeg"
                           hidden
                           ref={imageUploadRef}
-                          onChange={(event) => onInputChange(event)}
+                          onChange={event => onInputChange(event)}
                         />
                       </div>
-                      {
-                        fileDataUrls.map((dataUrl) =>
-                          <div
-                            className="box image_upload d-flex justify-content-center align-items-center"
-                            style={{backgroundImage: `url('${dataUrl}')`, backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}}
-                          >
-                          </div>,
-                        )}
+                      {fileDataUrls.map(dataUrl => (
+                        <div
+                          className="box image_upload d-flex justify-content-center align-items-center"
+                          style={{
+                            backgroundImage: `url('${dataUrl}')`,
+                            backgroundPosition: 'center',
+                            backgroundRepeat: 'no-repeat',
+                            backgroundSize: 'cover'
+                          }}></div>
+                      ))}
                     </div>
                   </div>
                 </div>
-                <div className="mb-50" style={{cursor: 'pointer'}}>
-                  <DatePicker onChange={(date) => setDate(date)} selected={date} id="time" timeInputLabel="Time:" dateFormat="MM/dd/yyyy h:mm aa" showTimeInput />
+                <div className="mb-50" style={{ cursor: 'pointer' }}>
+                  <DatePicker
+                    onChange={date => setDate(date)}
+                    selected={date}
+                    id="time"
+                    timeInputLabel="Time:"
+                    dateFormat="MM/dd/yyyy h:mm aa"
+                    showTimeInput
+                  />
                 </div>
                 <Tabs className="form__content">
                   <TabList className="d-flex space-x-10 mb-30 nav-tabs">
@@ -316,7 +335,9 @@ function Forum() {
                     )}
                   </div>
                 </Tabs>
-                <button className="btn btn-primary w-full" onClick={() => handlePost()}>Post</button>
+                <button className="btn btn-primary w-full" onClick={() => handlePost()}>
+                  Post
+                </button>
               </div>
               <Tabs className="forum__content">
                 <TabList className="d-flex space-x-10 mb-30 nav-tabs">
@@ -535,7 +556,7 @@ function Forum() {
                 </div>
                 <div className="space-y-10">
                   <div className="d-flex space-x-10">
-                    <img src={`img/icons/live.svg`} alt="live" style={{width: 13}} />
+                    <img src={`img/icons/live.svg`} alt="live" style={{ width: 13 }} />
 
                     <h5>Live auctions</h5>
                   </div>
@@ -562,7 +583,7 @@ function Forum() {
                                 <div
                                   className="progress-bar"
                                   role="progressbar"
-                                  style={{width: '80%'}}
+                                  style={{ width: '80%' }}
                                   aria-valuenow={80}
                                   aria-valuemin={0}
                                   aria-valuemax={100}
@@ -627,9 +648,9 @@ function Forum() {
       </section>
       <Footer />
     </div>
-  );
+  )
 }
-const FundingContainer = ({totalFunding, setTotalFunding, interest, setInterest}) => {
+const FundingContainer = ({ totalFunding, setTotalFunding, interest, setInterest }) => {
   return (
     <div className="create-post-funding">
       <div className="col-sm">
@@ -641,9 +662,9 @@ const FundingContainer = ({totalFunding, setTotalFunding, interest, setInterest}
               rows={4}
               className="form-control"
               placeholder="Interest"
-              dvalue={interest}
+              value={interest}
               defaultValue={interest}
-              onChange={(e) => setInterest(e.target.value)}
+              onChange={e => setInterest(e.target.value)}
             />
           </div>
           <p className="mb-2">Total Funding</p>
@@ -653,56 +674,56 @@ const FundingContainer = ({totalFunding, setTotalFunding, interest, setInterest}
               className="form-control"
               name="funding-number"
               placeholder="Total funding $"
-              onChange={(e) => setTotalFunding(e.target.value)}
+              onChange={e => setTotalFunding(e.target.value)}
             />
           </div>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-const VoteContainer = ({options, handleInputVote, handleClickAddOption}) => {
+const VoteContainer = ({ options, handleInputVote, handleClickAddOption }) => {
   return (
     <div className="form-row create-post-voting">
       <div className="col-sm">
         <div className="form-group">
           <p className="mb-2">Option</p>
           <ul>
-            {
-              options.length !== 0 && options.map((item, idx) =>{
+            {options.length !== 0 &&
+              options.map((item, idx) => {
                 return (
                   <li className="mb-2">
-                    <input type="text"
+                    <input
+                      type="text"
                       className="form-control"
                       name="reply-name"
                       placeholder={`Option ${idx + 1}`}
-                      onChange ={(e) => handleInputVote(idx, e.target.value)}
+                      onChange={e => handleInputVote(idx, e.target.value)}
                     />
                   </li>
-                );
-              })
-            }
+                )
+              })}
           </ul>
         </div>
-        <button className='btn btn-add w-100' onClick={() => handleClickAddOption()}>
+        <button className="btn btn-add w-100" onClick={() => handleClickAddOption()}>
           <i className="ri-add-circle-fill mr-2"></i>
-              Add a task
+          Add a task
         </button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-const TaskContainer = ({tasks, handleInputTask, handleClickAddTask, handleRemoveTask}) => {
+const TaskContainer = ({ tasks, handleInputTask, handleClickAddTask, handleRemoveTask }) => {
   return (
-    <div className='create-post-task'>
-      <div className='d-flex w-100 gap-4'>
-        <ul className='w-100'>
-          {
-            tasks.length !== 0 && tasks.map((task, idx) => {
+    <div className="create-post-task">
+      <div className="d-flex w-100 gap-4">
+        <ul className="w-100">
+          {tasks.length !== 0 &&
+            tasks.map((task, idx) => {
               return (
-                <li className='d-flex'>
+                <li className="d-flex">
                   <div className="form-group w-75">
                     <p>Task Name</p>
                     <input
@@ -711,9 +732,7 @@ const TaskContainer = ({tasks, handleInputTask, handleClickAddTask, handleRemove
                       name="reply-name"
                       placeholder="Task name"
                       value={task.content}
-                      onChange={(e) =>
-                        handleInputTask(idx, 'content', e.target.value)
-                      }
+                      onChange={e => handleInputTask(idx, 'content', e.target.value)}
                     />
                   </div>
                   <div className="form-group w-25">
@@ -724,26 +743,23 @@ const TaskContainer = ({tasks, handleInputTask, handleClickAddTask, handleRemove
                       name="token-amount"
                       placeholder="Amount"
                       value={task.amount}
-                      onChange={(e) =>
-                        handleInputTask(idx, 'amount', e.target.value)
-                      }
+                      onChange={e => handleInputTask(idx, 'amount', e.target.value)}
                     />
                   </div>
-                  <button className='btn close-icon-wrapper' onClick={() => handleRemoveTask(idx)}>
+                  <button className="btn close-icon-wrapper" onClick={() => handleRemoveTask(idx)}>
                     <i className="ri-close-fill"></i>
                   </button>
                 </li>
-              );
-            })
-          }
+              )
+            })}
         </ul>
       </div>
-      <button className='btn btn-add w-100' onClick={() => handleClickAddTask()}>
+      <button className="btn btn-add w-100" onClick={() => handleClickAddTask()}>
         <i className="ri-add-circle-fill mr-2"></i>
         Add a task
       </button>
     </div>
-  );
-};
+  )
+}
 
-export default Forum;
+export default Forum

@@ -16,12 +16,12 @@ import moment from 'moment'
 import contractValue from '../../../constants/contract'
 import apis from '../../../apis/apis'
 import data from './data'
-import FundingForm from './FundingForm'
-import VotingForm from './VotingForm'
+import FundingPostList from './FundingPostList'
+import VotingPostList from './VotingPostList'
+import TaskPostList from './TaskPostList'
 import TaskForm from './TaskForm'
-import TaskContainer from './TaskContainer'
-import VoteContainer from './VoteContainer'
-import FundingContainer from './FundingContainer'
+import VotingForm from './VotingForm'
+import FundingForm from './FundingForm'
 
 const CardItems = [
   {
@@ -328,21 +328,21 @@ function Forum() {
                   </TabList>
                   <div className="tab-content">
                     {formType === 'funding' ? (
-                      <FundingContainer
+                      <FundingForm
                         totalFunding={totalFunding}
                         setTotalFunding={setTotalFunding}
                         interest={interest}
                         setInterest={setInterest}
                       />
                     ) : formType === 'voting' ? (
-                      <VoteContainer
+                      <VotingForm
                         options={options}
                         handleInputVote={handleInputVote}
                         handleClickAddOption={handleClickAddOption}
                         handleRemoveOption={handleRemoveOption}
                       />
                     ) : (
-                      <TaskContainer
+                      <TaskForm
                         tasks={tasks}
                         handleInputTask={handleInputTask}
                         handleClickAddTask={handleClickAddTask}
@@ -383,11 +383,11 @@ function Forum() {
               <div className="tab-content">
                 {/* <TabPanel> */}
                 {viewPostType === 'funding' ? (
-                  <FundingForm />
+                  <FundingPostList />
                 ) : viewPostType === 'voting' ? (
-                  <VotingForm />
+                  <VotingPostList />
                 ) : (
-                  <TaskForm />
+                  <TaskPostList />
                 )}
                 {/* </TabPanel> */}
               </div>

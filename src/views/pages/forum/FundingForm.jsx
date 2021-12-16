@@ -1,132 +1,34 @@
-import React, {useRef, useState} from 'react';
-import {useSelector} from 'react-redux';
-import {Link} from 'react-router-dom';
-import Footer from '../../../components/footer/Footer';
-import Header from '../../../components/header/Header';
-import HeroProfile from '../../../components/hero/HeroProfile';
-import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
-import Countdown from 'react-countdown';
-import useDocumentTitle from '../../../components/useDocumentTitle';
-import SidebarProfile from '../../../components/sidebars/SidebarProfile';
-import {getDataURLFromFile} from '../../../utils/getDataUrlFromFile';
-import web3Selector from '../../../components/header/redux/Web3.Selector';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import moment from 'moment';
-import contractValue from '../../../constants/contract';
-import apis from '../../../apis/apis';
-import data from './data';
-
-function FundingForm() {
+const FundingForm = ({ totalFunding, setTotalFunding, interest, setInterest }) => {
   return (
-    <div className="space-y-20">
-      { data.fundingCard.map((item, i) => (
-        <div className="box is__big space-y-20" key={i}>
-          <div
-            className="d-flex justify-content-between
-                      align-items-center">
-            <div
-              className="d-flex align-items-center
-                          space-x-15">
-              <div className="avatars space-x-10">
-                <div className="media has_border">
-                  <Link to="profile">
-                    <img
-                      src={`img/avatars/avatar_3.png`}
-                      alt="Avatar"
-                      className="avatar avatar-forum"
-                    />
-                  </Link>
-                </div>
-                <div className="text-center">
-                  <Link to="profile">
-                    <p
-                      className="avatars_name
-                                          color_brand">
-                    @{item.id}
-                    </p>
-                  </Link>
-                </div>
-              </div>
-            </div>
+    <div className="create-post-funding">
+      <div className="col-sm">
+        <div className="form-group">
+          <p className="mb-2">Interest</p>
+          <div className="mb-20">
+            <textarea
+              name="reply-message"
+              rows={4}
+              className="form-control"
+              placeholder="Interest"
+              value={interest}
+              defaultValue={interest}
+              onChange={e => setInterest(e.target.value)}
+            />
           </div>
-          <div className="d-flex">
-            <div className="number">
-              <span>42</span>
-            </div>
-            <div className="space-y-20">
-              <Link to="post-details">
-                <h3 className="forum__title">
-                  {item.title}
-                </h3>
-              </Link>
-              <p className="forum__desc">
-                {item.description}
-              </p>
-              <div>
-                <img style={{width: '200px'}}src={item.img}/>
-              </div>
-              <div>
-                <span>Total Funding : {item.toalFunding}</span>
-              </div>
-              <div>
-                <span>Date : {item.date} </span>
-              </div>
-              <div>
-                <input
-                  type="number"
-                  className="form-control"
-                  name="funding-number"
-                  placeholder="Total funding $"
-                />
-                <button className="btn btn-dark btn-sm mt-10">Funding</button>
-              </div>
-              <div className="tags">
-                <span>#NFT Marketplace</span>
-                <span>#crypto Artists</span>
-                <span>#NFT Artists</span>
-              </div>
-              <div className="hr" />
-              {/* <div
-              className="d-flex
-                              justify-content-between flex-wrap">
-              <div className="reaction">
-                <Link
-                  to="#"
-                  className="likes
-                                      space-x-3">
-                  <i className="ri-heart-3-fill" />
-                  <span className="txt_sm">2.1k</span>
-                </Link>
-                <Link to="post-details" className="comments space-x-3">
-                  <i className="ri-chat-1-line" />
-                  <span className="txt_sm">257 Comments</span>
-                </Link>
-                <span className="views space-x-3">
-                  <i className="ri-eye-line" />
-                  <span>257 Views</span>
-                </span>
-                <span className="time space-x-3">
-                  <i className="ri-time-line" />
-                  <span>2 days ago</span>
-                </span>
-              </div>
-              <div className="answer">
-                <Link
-                  to="post-details"
-                  className="btn btn-dark
-                                      btn-sm">
-                  Answer
-                </Link>
-              </div>
-            </div> */}
-            </div>
+          <p className="mb-2">Total Funding</p>
+          <div>
+            <input
+              type="number"
+              className="form-control"
+              name="funding-number"
+              placeholder="Total funding $"
+              onChange={e => setTotalFunding(e.target.value)}
+            />
           </div>
         </div>
-      ))}
+      </div>
     </div>
-  );
+  )
 }
 
-export default FundingForm;
-
+export default FundingForm
