@@ -88,9 +88,6 @@ function Forum() {
 
 
   const handlePost = () => {
-    console.log(title, description, date);
-    console.log(options);
-
     if (!title || !description || !date) {
       alert('Please Check Enter Data');
       return;
@@ -138,7 +135,6 @@ function Forum() {
   };
 
   const handleClickAddTask = () => {
-    alert('aa');
     setTasks([...tasks, {content: '', amount: 0}]);
   };
 
@@ -146,6 +142,13 @@ function Forum() {
     const _tasks = Object.assign([], tasks);
     _tasks[idx][type] = value;
     setOptions(_tasks);
+  };
+
+  const handleRemoveTask = (idx) => {
+    let _tasks = tasks;
+    _tasks[idx] = undefined;
+    _tasks = _tasks.filter((i) => i !== undefined);
+    setTasks(_tasks);
   };
 
   const onInputChange = (event) => {
@@ -270,6 +273,7 @@ function Forum() {
                         tasks={tasks}
                         handleInputTask={handleInputTask}
                         handleClickAddTask={handleClickAddTask}
+                        handleRemoveTask={handleRemoveTask}
                       />
                     )}
                   </div>
@@ -652,7 +656,7 @@ const VoteContainer = ({options, handleInputVote, handleClickAddOption}) => {
   );
 };
 
-const TaskContainer = ({tasks, handleInputTask, handleClickAddTask}) => {
+const TaskContainer = ({tasks, handleInputTask, handleClickAddTask, handleRemoveTask}) => {
   return (
     <div className='create-post-task'>
       <div className='d-flex w-100 gap-4'>
@@ -687,14 +691,14 @@ const TaskContainer = ({tasks, handleInputTask, handleClickAddTask}) => {
                       }
                     />
                   </div>
+                  <button className='btn close-icon-wrapper' onClick={() => handleRemoveTask(idx)}>
+                    <i className="ri-close-fill"></i>
+                  </button>
                 </li>
               );
             })
           }
         </ul>
-        <button className='btn close-icon-wrapper'>
-          <i className="ri-close-fill"></i>
-        </button>
       </div>
       <button className='btn btn-add w-100' onClick={() => handleClickAddTask()}>
         <i className="ri-add-circle-fill mr-2"></i>
