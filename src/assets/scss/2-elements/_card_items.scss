@@ -287,6 +287,18 @@
         }
       }
     }
+    .progress {
+      background-color: rgba(0, 0, 0, 0.1);
+      border-radius: $border_radius;
+      .progress-bar {
+        height: 75%;
+        align-self: center;
+        margin-left: 2px;
+        color: #fff;
+        background: $color_grad;
+        border-radius: $border_radius;
+      }
+    }
   }
   // ------------ Card two
   &.two {

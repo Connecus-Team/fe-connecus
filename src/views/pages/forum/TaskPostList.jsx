@@ -1,112 +1,40 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import data from './data'
+import PostItem from './PostItem'
+import TaskItem from './TaskItem'
 
+const LeftInfoVotingComponent = item => (
+  <div className="bid space-x-10">
+    <div className="icon">
+      <img src="img/icons/ETH.svg" alt="..." />
+    </div>
+    <div>
+      <p className="color_text txt_xs">TOTAL REWARD</p>
+      <span className="txt_sm">
+        {item.tasks.map(({ amount }) => amount).reduce((acc, cur) => acc + cur)} ETH
+      </span>
+    </div>
+  </div>
+)
+
+const BodyComponent = item => {
+  return (
+    <div className="px-3">
+      <ul>{item.tasks.map(TaskItem)}</ul>
+    </div>
+  )
+}
 function TaskPostList() {
   return (
     <div className="space-y-20">
-      {data.taskCard.map((item, i) => (
-        <div className="box is__big space-y-20" key={i}>
-          <div
-            className="d-flex justify-content-between
-                      align-items-center">
-            <div
-              className="d-flex align-items-center
-                          space-x-15">
-              <div className="avatars space-x-10">
-                <div className="media has_border">
-                  <Link to="profile">
-                    <img
-                      src={`img/avatars/avatar_3.png`}
-                      alt="Avatar"
-                      className="avatar avatar-forum"
-                    />
-                  </Link>
-                </div>
-                <div className="text-center">
-                  <Link to="profile">
-                    <p
-                      className="avatars_name
-                                          color_brand">
-                      @{item.id}
-                    </p>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="d-flex">
-            <div className="number">
-              <span>42</span>
-            </div>
-            <div className="space-y-20">
-              <Link to="post-details">
-                <h3 className="forum__title">{item.title}</h3>
-              </Link>
-              <p className="forum__desc">{item.description}</p>
-              <div>
-                <img style={{ width: '200px' }} src={item.img} />
-              </div>
-              <div>
-                <p>Voting Option</p>
-                <ul>
-                  {item.tasks.map(item => (
-                    <li className="w-full mb-2">
-                      <span className="light_bg">{item.content} </span>{' '}
-                      <span className="ml-5">{item.amount}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <span>Date : {item.date} </span>
-              </div>
-              <div>
-                <button className="btn btn-dark btn-sm mt-10">Vote</button>
-              </div>
-              <div className="tags">
-                <span>#NFT Marketplace</span>
-                <span>#crypto Artists</span>
-                <span>#NFT Artists</span>
-              </div>
-              <div className="hr" />
-              {/* <div
-              className="d-flex
-                              justify-content-between flex-wrap">
-              <div className="reaction">
-                <Link
-                  to="#"
-                  className="likes
-                                      space-x-3">
-                  <i className="ri-heart-3-fill" />
-                  <span className="txt_sm">2.1k</span>
-                </Link>
-                <Link to="post-details" className="comments space-x-3">
-                  <i className="ri-chat-1-line" />
-                  <span className="txt_sm">257 Comments</span>
-                </Link>
-                <span className="views space-x-3">
-                  <i className="ri-eye-line" />
-                  <span>257 Views</span>
-                </span>
-                <span className="time space-x-3">
-                  <i className="ri-time-line" />
-                  <span>2 days ago</span>
-                </span>
-              </div>
-              <div className="answer">
-                <Link
-                  to="post-details"
-                  className="btn btn-dark
-                                      btn-sm">
-                  Answer
-                </Link>
-              </div>
-            </div> */}
-            </div>
-          </div>
-        </div>
-      ))}
+      {data.taskCard.map(item =>
+        PostItem({
+          item,
+          rightInfoTitle: 'TASKS END',
+          leftInfoComponent: LeftInfoVotingComponent,
+          bodyComponent: BodyComponent
+        })
+      )}
     </div>
   )
 }
