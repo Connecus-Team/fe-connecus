@@ -353,7 +353,7 @@ function Forum() {
                 <div className="tab-content">
                   <TabPanel>
                     <div className="space-y-20">
-                      {[...Array(5)].map((e, i) => (
+                      { data.fundingCard.map((item, i) => (
                         <div className="box is__big space-y-20" key={i}>
                           <div
                             className="d-flex justify-content-between
@@ -376,7 +376,7 @@ function Forum() {
                                     <p
                                       className="avatars_name
                                                             color_brand">
-                                      @ayoub
+                                      @{item.id}
                                     </p>
                                   </Link>
                                 </div>
@@ -390,21 +390,37 @@ function Forum() {
                             <div className="space-y-20">
                               <Link to="post-details">
                                 <h3 className="forum__title">
-                                  Thank you you all for making this community
+                                  {item.title}
                                 </h3>
                               </Link>
                               <p className="forum__desc">
-                                Hey guys! New exploration about NFT Marketplace Web Design, this
-                                time I'm inspired by one of my favorite NFT website called Rarible
-                                (with crypto payment)! What do you
+                                {item.description}
                               </p>
+                              <div>
+                                <img style={{width: '200px'}}src={item.img}/>
+                              </div>
+                              <div>
+                                <span>Total Funding : {item.toalFunding}</span>
+                              </div>
+                              <div>
+                                <span>Date : {item.date} </span>
+                              </div>
+                              <div>
+                                <input
+                                  type="number"
+                                  className="form-control"
+                                  name="funding-number"
+                                  placeholder="Total funding $"
+                                />
+                                <button className="btn btn-dark btn-sm mt-10">Funding</button>
+                              </div>
                               <div className="tags">
                                 <span>#NFT Marketplace</span>
                                 <span>#crypto Artists</span>
                                 <span>#NFT Artists</span>
                               </div>
                               <div className="hr" />
-                              <div
+                              {/* <div
                                 className="d-flex
                                                 justify-content-between flex-wrap">
                                 <div className="reaction">
@@ -436,7 +452,7 @@ function Forum() {
                                     Answer
                                   </Link>
                                 </div>
-                              </div>
+                              </div> */}
                             </div>
                           </div>
                         </div>
