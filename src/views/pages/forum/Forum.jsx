@@ -8,6 +8,7 @@ import Countdown from 'react-countdown';
 import useDocumentTitle from '../../../components/useDocumentTitle';
 import SidebarProfile from '../../../components/sidebars/SidebarProfile';
 import {getDataURLFromFile} from '../../../utils/getDataUrlFromFile';
+import web3Selector from '../../../components/header/redux/Web3.Selector';
 
 const CardItems = [
   {
@@ -41,6 +42,7 @@ const CardItems = [
 
 // Random component
 const Completionist = () => <span>auction ending soon now!</span>;
+
 // Renderer callback with condition
 const renderer = ({hours, minutes, seconds, completed}) => {
   if (completed) {
@@ -48,7 +50,6 @@ const renderer = ({hours, minutes, seconds, completed}) => {
     return <Completionist />;
   } else {
     // Render a countdown
-
     return (
       <span>
         {hours} : {minutes} : {seconds}
@@ -57,85 +58,12 @@ const renderer = ({hours, minutes, seconds, completed}) => {
   }
 };
 
-const FundingContainer = ({setTotalFunding}) => {
-  return (
-    <div className="create-post-funding">
-      <div className="col-sm">
-        <div className="form-group">
-          <input
-            type="number"
-            className="form-control"
-            name="funding-number"
-            placeholder="Total money $"
-            onChange={(e) => setTotalFunding(e.target.value)}
-          />
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const VoteContainer = () => {
-  return (
-    <div className="form-row create-post-voting">
-      <div className="col-sm">
-        <div className="form-group">
-          <p>Option</p>
-          <div>
-            <input
-              type="text"
-              className="form-control mb-20"
-              name="reply-name"
-              placeholder="Option 1"
-            />
-          </div>
-        </div>
-        <button className='btn btn-add w-100'>
-          <i className="ri-add-circle-fill mr-2"></i>
-              Add a task
-        </button>
-      </div>
-    </div>
-  );
-};
-
-const TaskContainer = () => {
-  return (
-    <div className='create-post-task'>
-      <div className='d-flex w-100 gap-4'>
-        <div className="form-group w-75">
-          <p>Task Name</p>
-          <input
-            type="text"
-            className="form-control"
-            name="reply-name"
-            placeholder="Task name"
-          />
-        </div>
-        <div className="form-group w-25">
-          <p>Token Amount</p>
-          <input
-            type="number"
-            className="form-control"
-            name="token-amount"
-            placeholder="Amount"
-          />
-        </div>
-        <button className='btn close-icon-wrapper'>
-          <i className="ri-close-fill"></i>
-        </button>
-      </div>
-      <button className='btn btn-add w-100'>
-        <i className="ri-add-circle-fill mr-2"></i>
-        Add a task
-      </button>
-    </div>
-  );
-};
 
 function Forum() {
   useDocumentTitle(' Forum');
+  const web3 = useSelector(web3Selector.selectWeb3);
 
+  const imageUploadRef = useRef();
   const [formType, setFormType] = useState('funding');
   const [fileDataUrls, setFileDataUrls] = useState([]);
 
@@ -153,13 +81,15 @@ function Forum() {
   // task
   const [tasks, setTasks] = useState([{title: '', amount: '0'}]);
 
-  const imageUploadRef = useRef();
 
+  const handlePost = () => {
+    if (!title || !description || !date) {
+      alert('Please Check Enter Data');
+    }
+  };
   const onInputChange = (event) => {
     Promise.all(Array.from(event.target?.files || []).map(getDataURLFromFile)).then((dataUrls) => setFileDataUrls(dataUrls));
   };
-
-  console.log(totalFunding);
   return (
     <div>
       <Header />
@@ -272,7 +202,7 @@ function Forum() {
                     )}
                   </div>
                 </Tabs>
-                <button className="btn btn-primary w-full ">Post</button>
+                <button className="btn btn-primary w-full" onClick={() => handlePost()}>Post</button>
               </div>
               <Tabs className="forum__content">
                 <TabList className="d-flex space-x-10 mb-30 nav-tabs">
@@ -585,5 +515,80 @@ function Forum() {
     </div>
   );
 }
+const FundingContainer = ({setTotalFunding}) => {
+  return (
+    <div className="create-post-funding">
+      <div className="col-sm">
+        <div className="form-group">
+          <input
+            type="number"
+            className="form-control"
+            name="funding-number"
+            placeholder="Total money $"
+            onChange={(e) => setTotalFunding(e.target.value)}
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const VoteContainer = () => {
+  return (
+    <div className="form-row create-post-voting">
+      <div className="col-sm">
+        <div className="form-group">
+          <p>Option</p>
+          <div>
+            <input
+              type="text"
+              className="form-control mb-20"
+              name="reply-name"
+              placeholder="Option 1"
+            />
+          </div>
+        </div>
+        <button className='btn btn-add w-100'>
+          <i className="ri-add-circle-fill mr-2"></i>
+              Add a task
+        </button>
+      </div>
+    </div>
+  );
+};
+
+const TaskContainer = () => {
+  return (
+    <div className='create-post-task'>
+      <div className='d-flex w-100 gap-4'>
+        <div className="form-group w-75">
+          <p>Task Name</p>
+          <input
+            type="text"
+            className="form-control"
+            name="reply-name"
+            placeholder="Task name"
+          />
+        </div>
+        <div className="form-group w-25">
+          <p>Token Amount</p>
+          <input
+            type="number"
+            className="form-control"
+            name="token-amount"
+            placeholder="Amount"
+          />
+        </div>
+        <button className='btn close-icon-wrapper'>
+          <i className="ri-close-fill"></i>
+        </button>
+      </div>
+      <button className='btn btn-add w-100'>
+        <i className="ri-add-circle-fill mr-2"></i>
+        Add a task
+      </button>
+    </div>
+  );
+};
 
 export default Forum;
