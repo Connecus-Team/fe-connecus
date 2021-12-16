@@ -284,3 +284,23 @@
   // &-task {
   // }
 }
+
+// Post Details
+.post-item {
+  .media-wrapper {
+    max-width: 100%;
+    max-height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $color_dark;
+    border-radius: 12px;
+    overflow: hidden;
+    min-height: 22rem;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+}
