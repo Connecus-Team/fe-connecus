@@ -15,7 +15,6 @@ import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
 import contractValue from '../../../constants/contract';
 import apis from '../../../apis/apis';
-import data from './data';
 
 const CardItems = [
   {
@@ -46,7 +45,6 @@ const CardItems = [
     price: '0.074',
   },
 ];
-
 
 // Random component
 const Completionist = () => <span>auction ending soon now!</span>;
@@ -379,6 +377,54 @@ function Forum() {
                                       @ayoub
                                     </p>
                                   </Link>
+                                </div>
+                              </div>
+                              <div className="category">
+                                <p className="color_black">
+                                  <span className="color_text">in:</span>
+                                  General
+                                </p>
+                              </div>
+                            </div>
+                            <div>
+                              <div className="avatars space-x-3">
+                                <div className="-space-x-20">
+                                  <Link className="d-none d-sm-inline" to="profile">
+                                    <img
+                                      src={`img/avatars/avatar_1.png`}
+                                      alt="Avatar"
+                                      className="avatar avatar-sm"
+                                    />
+                                  </Link>
+                                  <Link className="d-none d-sm-inline" to="profile">
+                                    <img
+                                      src={`img/avatars/avatar_2.png`}
+                                      alt="Avatar"
+                                      className="avatar avatar-sm"
+                                    />
+                                  </Link>
+                                  <Link className="d-none d-sm-inline" to="profil">
+                                    <img
+                                      src={`img/avatars/avatar_4.png`}
+                                      alt="Avatar"
+                                      className="avatar avatar-sm"
+                                    />
+                                  </Link>
+                                  <Link to="profil">
+                                    <img
+                                      src={`img/avatars/avatar_5.png`}
+                                      alt="Avatar"
+                                      className="avatar avatar-sm"
+                                    />
+                                  </Link>
+                                  <Link to="profil">
+                                    <img
+                                      src={`img/avatars/avatar_6.png`}
+                                      alt="Avatar"
+                                      className="avatar avatar-sm"
+                                    />
+                                  </Link>
+                                  <span className="total__avatars">+20</span>
                                 </div>
                               </div>
                             </div>
