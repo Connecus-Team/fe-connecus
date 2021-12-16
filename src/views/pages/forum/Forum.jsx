@@ -62,24 +62,24 @@ const FundingContainer = () => {
     <form>
       <div className="form-row">
         <div className="col-sm"></div>
-        {/* <div className="col-sm">
+        <div className="col-sm">
           <div className="form-group">
             <input
-              type="email"
+              type="number"
               className="form-control"
-              name="reply-email"
+              name="funding-number"
               placeholder="Total money $"
             />
           </div>
-        </div> */}
+        </div>
       </div>
-      <div className="d-flex justify-content-end">
+      {/* <div className="d-flex justify-content-end">
         <Link to="#" className="btn btn-primary sweep_letter sweep_top">
           <div className="inside_item">
             <span data-hover="Reply"> Reply </span>
           </div>
         </Link>
-      </div>
+      </div> */}
     </form>
   );
 };
@@ -127,26 +127,6 @@ const VoteContainer = () => {
             </div>
           </div>
         </div>
-      </div>
-      <div id="boxUpload">
-        <Link to="#" className="btn btn-sm btn-dark">
-          Upload
-        </Link>
-        <input
-          id="imageUpload"
-          type="file"
-          name="profile_photo"
-          placeholder="Photo"
-          required
-          capture
-        />
-      </div>
-      <div className="d-flex justify-content-end">
-        <Link to="#" className="btn btn-primary sweep_letter sweep_top">
-          <div className="inside_item">
-            <span data-hover="Reply"> Reply </span>
-          </div>
-        </Link>
       </div>
     </form>
   );
@@ -299,7 +279,7 @@ function Forum() {
                     )}
                   </div>
                 </Tabs>
-                <button className="btn btn-primary ">Submit</button>
+                <button className="btn btn-primary w-full ">Post</button>
               </div>
               <Tabs className="forum__content">
                 <TabList className="d-flex space-x-10 mb-30 nav-tabs">
