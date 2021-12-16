@@ -20,67 +20,68 @@ $color_info: #1384e0;
 $color_red: #eb5757;
 $color-grey: #edf3f5;
 $color-grey-icon: #91a1bc;
+$color-grey-icon-shade: #5f6c82;
 
 $color_yellow: #d7e932;
 $color_brand2: green;
 
 // === end
 
-$maxMobile: "(max-width:767px)";
-$maxSmall: "(max-width:991px)";
-$minSmall: "(min-width:768px)";
-$minMedium: "(min-width:992px)";
-$minLarge: "(min-width:1200px)";
+$maxMobile: '(max-width:767px)';
+$maxSmall: '(max-width:991px)';
+$minSmall: '(min-width:768px)';
+$minMedium: '(min-width:992px)';
+$minLarge: '(min-width:1200px)';
 
 .is_color {
-    $color_brand: $color_brand2;
+  $color_brand: $color_brand2;
 }
 
 // === Ui Kit
 
 .color {
-    .color_box {
-        margin-bottom: 20px;
-        .color_palette {
-            border-radius: 10px;
-            height: 100px;
-            &.Brand {
-                background-color: $color_brand;
-            }
-            &.Gradient {
-                background: $color_grad;
-            }
-            &.Black {
-                background-color: $color_black;
-            }
-            &.White {
-                background-color: $color_white;
-            }
-            &.Light {
-                background-color: $color_light;
-            }
-            &.Hard_light {
-                background-color: $color_hard_light;
-            }
+  .color_box {
+    margin-bottom: 20px;
+    .color_palette {
+      border-radius: 10px;
+      height: 100px;
+      &.Brand {
+        background-color: $color_brand;
+      }
+      &.Gradient {
+        background: $color_grad;
+      }
+      &.Black {
+        background-color: $color_black;
+      }
+      &.White {
+        background-color: $color_white;
+      }
+      &.Light {
+        background-color: $color_light;
+      }
+      &.Hard_light {
+        background-color: $color_hard_light;
+      }
 
-            &.Brand_light {
-                background-color: $color_brand_light;
-            }
-            &.Red {
-                background-color: $color_red;
-            }
-            &.Green {
-                background: $color_green;
-            }
-            &.Info {
-                background-color: $color_info;
-            }
-            &.Stroke {
-                background-color: $color_stroke;
-            }
-            &.Text {
-                background-color: $color_text;
-            }
-        }
+      &.Brand_light {
+        background-color: $color_brand_light;
+      }
+      &.Red {
+        background-color: $color_red;
+      }
+      &.Green {
+        background: $color_green;
+      }
+      &.Info {
+        background-color: $color_info;
+      }
+      &.Stroke {
+        background-color: $color_stroke;
+      }
+      &.Text {
+        background-color: $color_text;
+      }
     }
+  }
 }

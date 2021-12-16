@@ -224,7 +224,8 @@
   }
 
   .image_upload {
-    height: 5rem;
+    min-width: 10rem;
+    aspect-ratio: 1/0.4;
     background-color: $color_input;
   }
 }
@@ -267,16 +268,19 @@
     }
   }
 
-  &-voting {
-    .btn.btn-add {
-      border-radius: 12px !important;
-      background-color: $color-grey-icon;
+  .btn.btn-add {
+    border-radius: 12px !important;
+    background-color: $color-grey-icon;
+
+    &:hover,
+    &:focus {
+      background-color: $color-grey-icon-shade;
     }
   }
-  &-task {
-    .btn.btn-add {
-      border-radius: 12px !important;
-      background-color: $color-grey-icon;
-    }
-  }
+
+  // &-voting {
+
+  // }
+  // &-task {
+  // }
 }

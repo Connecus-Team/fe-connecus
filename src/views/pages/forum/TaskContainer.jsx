@@ -8,7 +8,7 @@ const TaskContainer = ({ tasks, handleInputTask, handleClickAddTask, handleRemov
               return (
                 <li className="d-flex gap-3" key={idx}>
                   <div className="form-group w-75">
-                    <p>Task Name</p>
+                    <p>Task {idx}</p>
                     <input
                       type="text"
                       className="form-control"

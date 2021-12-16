@@ -29,7 +29,7 @@ const VoteContainer = ({ options, handleInputVote, handleClickAddOption, handleR
         </div>
         <button className="btn btn-add w-100" onClick={() => handleClickAddOption()}>
           <i className="ri-add-circle-fill mr-2"></i>
-          Add a task
+          Add an option
         </button>
       </div>
     </div>
