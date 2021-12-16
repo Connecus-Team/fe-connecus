@@ -110,11 +110,11 @@ function Forum() {
     };
 
     if (formType === 'funding') {
-      params = {...params, totalFunding};
+      params = {...params, totalFunding, interest};
     } else if (formType === 'voting') {
-
+      params = {...params, options};
     } else if (formType === 'task') {
-
+      params = {...params, tasks};
     } else {
       alert('Error form post');
     }
@@ -122,6 +122,8 @@ function Forum() {
     setTitle('');
     setDescription('');
     setDate(new Date());
+    setOptions([{content: ''}]);
+    setTasks([{content: '', amount: '0'}]);
   };
 
   const handleClickAddOption = () => {
@@ -154,6 +156,7 @@ function Forum() {
   const onInputChange = (event) => {
     Promise.all(Array.from(event.target?.files || []).map(getDataURLFromFile)).then((dataUrls) => setFileDataUrls(dataUrls));
   };
+
   return (
     <div>
       <Header />
