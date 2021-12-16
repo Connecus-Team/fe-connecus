@@ -17,10 +17,11 @@ import contractValue from '../../../constants/contract';
 import apis from '../../../apis/apis';
 import data from './data';
 
-function FundingForm() {
+function VotingForm() {
+  alert('a');
   return (
     <div className="space-y-20">
-      { data.fundingCard.map((item, i) => (
+      { data.votingCard.map((item, i) => (
         <div className="box is__big space-y-20" key={i}>
           <div
             className="d-flex justify-content-between
@@ -67,7 +68,7 @@ function FundingForm() {
                 <img style={{width: '200px'}}src={item.img}/>
               </div>
               <div>
-                <span>Total Funding : {item.toalFunding}</span>
+                {/* <span>Total Funding : {item.toalFunding}</span> */}
               </div>
               <div>
                 <span>Date : {item.date} </span>
@@ -128,5 +129,5 @@ function FundingForm() {
   );
 }
 
-export default FundingForm;
+export default VotingForm;
 
