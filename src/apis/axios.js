@@ -1,6 +1,6 @@
 import axios from 'axios';
 import queryString from 'querystring';
-import {isAuthenticated} from '../routes/permissionChecker';
+// import {isAuthenticated} from '../routes/permissionChecker';
 
 const axiosClient = axios.create({
   baseURL: process.env.REACT_APP_SERVER_API,
@@ -13,9 +13,9 @@ const axiosClient = axios.create({
 // handle token for request
 axiosClient.interceptors.request.use(
     async (config) => {
-      if (isAuthenticated()) {
-        config.headers['Authorization'] = `Bearer ${isAuthenticated()}`;
-      }
+      // if (isAuthenticated()) {
+      //   config.headers['Authorization'] = `Bearer ${isAuthenticated()}`;
+      // }
       config.headers['Content-Type'] = 'application/json';
       return config;
     },

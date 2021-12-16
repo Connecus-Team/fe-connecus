@@ -10,7 +10,7 @@ const userAPI = {
     return axiosClient.post(url, params);
   },
   postVoting: (params) => {
-    const url = '/users/voting';
+    const url = '/ceus/voting';
     return axiosClient.post(url, params);
   },
 };

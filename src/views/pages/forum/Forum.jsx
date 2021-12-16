@@ -13,6 +13,7 @@ import web3Selector from '../../../components/header/redux/Web3.Selector';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
+import apis from '../../../apis/apis';
 
 const CardItems = [
   {
@@ -87,34 +88,39 @@ function Forum() {
   const [tasks, setTasks] = useState([{content: '', amount: '0'}]);
 
 
-  const handlePost = () => {
+  const handlePost = async () => {
     if (!title || !description || !date) {
       alert('Please Check Enter Data');
       return;
     }
-    if (web3 === null) {
-      alert('Can\'t connect to wallet');
-      return;
-    }
+    // if (web3 === null) {
+    //   alert('Can\'t connect to wallet');
+    //   return;
+    // }
 
     let convertDate = moment(date).format('YYYY-MM-DD HH:mm:ss');
     const currentTime = new Date(moment().locale('ko').format('YYYY-MM-DD HH:mm:ss')).getTime();
     let convertDateTime = new Date(convertDate).getTime();
 
-    if (convertDateTime <= currentTime) {
-      alert('Please, Check selected time!!!');
-    }
+    // if (convertDateTime <= currentTime) {
+    //   alert('Please, Check selected time!!!');
+    // }
 
     let params = {
-      title, description, date, fileDataUrls,
+      title, description, date: convertDate, fileDataUrls,
     };
-
     if (formType === 'funding') {
       params = {...params, totalFunding, interest};
+      const response = await apis.postFunding(params);
+      console.log(response);
     } else if (formType === 'voting') {
       params = {...params, options};
+      const response = await apis.postVoting(params);
+      console.log(response);
     } else if (formType === 'task') {
       params = {...params, tasks};
+      const response = await apis.postTask(params);
+      console.log(response);
     } else {
       alert('Error form post');
     }
@@ -594,7 +600,7 @@ function Forum() {
     </div>
   );
 }
-const FundingContainer = ({totalFunding, setTotalFunding, interest, setInterset}) => {
+const FundingContainer = ({totalFunding, setTotalFunding, interest, setInterest}) => {
   return (
     <div className="create-post-funding">
       <div className="col-sm">
@@ -608,7 +614,7 @@ const FundingContainer = ({totalFunding, setTotalFunding, interest, setInterset}
               placeholder="Interest"
               dvalue={interest}
               defaultValue={interest}
-              onChange={(e) => setInterset(e.target.value)}
+              onChange={(e) => setInterest(e.target.value)}
             />
           </div>
           <p className="mb-2">Total Funding</p>
