@@ -67,19 +67,21 @@ function TaskForm() {
                 <img style={{width: '200px'}}src={item.img}/>
               </div>
               <div>
-                {/* <span>Total Funding : {item.toalFunding}</span> */}
+                <p>Voting Option</p>
+                <ul>
+                  {
+                    item.tasks.map((item) =>
+                      <li className="w-full mb-2">
+                        <span className="light_bg">{item.content} </span> <span className="ml-5">{item.amount}</span>
+                      </li>)
+                  }
+                </ul>
               </div>
               <div>
                 <span>Date : {item.date} </span>
               </div>
               <div>
-                <input
-                  type="number"
-                  className="form-control"
-                  name="funding-number"
-                  placeholder="Total funding $"
-                />
-                <button className="btn btn-dark btn-sm mt-10">Funding</button>
+                <button className="btn btn-dark btn-sm mt-10">Vote</button>
               </div>
               <div className="tags">
                 <span>#NFT Marketplace</span>
