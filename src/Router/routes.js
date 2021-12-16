@@ -50,7 +50,6 @@ import Forum from '../views/pages/forum/Forum';
 import PostDetails from '../views/pages/forum/PostDetails';
 import Contact from '../views/pages/Support/Contact';
 
-
 // Route Specific
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 const Routes = () => {
@@ -89,8 +88,6 @@ const Routes = () => {
           <Route path="/forum" component={Forum} />
           <Route path="/post-details" component={PostDetails} />
           <Route path="/contact" component={Contact} />
-
-
           <Route path="/token" component={CreateToken} />
           <Route path="/community" component={CommunityList} />
 

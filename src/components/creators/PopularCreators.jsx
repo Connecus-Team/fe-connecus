@@ -66,46 +66,46 @@ const CreatorsItems = [
 function PopularCreators() {
   return (
 
-      <div className="section__creators mt-100">
-        <div className="container">
-          <div className="">
-            <div className="section_head mb-30">
-              <h2 className="section__title text-center">Popular Creators</h2>
-            </div>
-            <div className="section__body">
-              <div className="row mb-20_reset justify-content-center">
-                {CreatorsItems.map((val, i) => (
-                  <div className="col-xl-3 col-lg-4 col-md-4 col-sm-6 mb-20"  key={i}>
-                    <div
-                      className="creator_item creator_card space-x-10 "
-                     >
-                      <div className="avatars space-x-10">
-                        <Link to="Profile">
-                          <img
-                            src={`img/avatars/avatar_${val.img}.png`}
-                            alt="Avatar"
-                            className="avatar avatar-md"
-                          />
-                        </Link>
-                        <div>
-                          <Link to="profile">
-                            <p className="avatars_name color_black">
+    <div className="section__creators mt-100">
+      <div className="container">
+        <div className="">
+          <div className="section_head mb-30">
+            <h2 className="section__title text-center">Popular Creators</h2>
+          </div>
+          <div className="section__body">
+            <div className="row mb-20_reset justify-content-center">
+              {CreatorsItems.map((val, i) => (
+                <div className="col-xl-3 col-lg-4 col-md-4 col-sm-6 mb-20" key={i}>
+                  <div
+                    className="creator_item creator_card space-x-10 "
+                  >
+                    <div className="avatars space-x-10">
+                      <Link to="Profile">
+                        <img
+                          src={`img/avatars/avatar_${val.img}.png`}
+                          alt="Avatar"
+                          className="avatar avatar-md"
+                        />
+                      </Link>
+                      <div>
+                        <Link to="profile">
+                          <p className="avatars_name color_black">
                               @{val.name}...
-                            </p>
-                          </Link>
-                          <span className="price color_green">
-                            {val.price} ETH
-                          </span>
-                        </div>
+                          </p>
+                        </Link>
+                        <span className="price color_green">
+                          {val.price} ETH
+                        </span>
                       </div>
                     </div>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </div>
+    </div>
 
   );
 }
