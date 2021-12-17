@@ -45,13 +45,31 @@ const VotingForm = ({title, description, date, file}) => {
       title,
       description,
       date,
-      file,
       options,
       walletAddress,
       tokenAddress,
     };
 
-    const response = await apis.postVoting(params);
+    const {size, type} = file[0];
+    let response = null;
+    if (size / 1000000 < 100) {
+      if (type === 'image/png' || type === 'image/jpg' ) {
+        try {
+          let data = new FormData();
+          data.append('file', file[0]);
+          data.append('params', JSON.stringify(params));
+          response = await apis.postVoting(data);
+          alert('Create OK');
+        } catch (error) {
+          console.log(error);
+          alert('Post a task server error');
+          return;
+        }
+      } else {
+        alert('Check image type');
+        return;
+      }
+    }
     const {data} = response;
 
     return;
