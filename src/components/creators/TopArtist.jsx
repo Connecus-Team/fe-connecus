@@ -1,16 +1,29 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import {Link} from 'react-router-dom';
+import apis from '../../apis/apis';
 
 export default function TopArtist() {
+  const [tokenList, setTokenList] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await apis.getAllToken();
+      const {data} = response;
+      setTokenList(data);
+    };
+    fetchData();
+  }, []);
+
+  console.log(tokenList);
   const settings = {
     dots: false,
     arrow: true,
     infinite: true,
     speed: 700,
-    slidesToShow: 4,
+    slidesToShow: tokenList.length,
     slidesToScroll: 1,
     autoplay: false,
     margin: 20,
@@ -18,7 +31,7 @@ export default function TopArtist() {
       {
         breakpoint: 4000,
         settings: {
-          slidesToShow: 4,
+          slidesToShow: tokenList.length,
           slidesToScroll: 1,
           infinite: true,
           dots: true,
@@ -27,54 +40,26 @@ export default function TopArtist() {
       {
         breakpoint: 1100,
         settings: {
-          slidesToShow: 3,
+          slidesToShow: tokenList.length - 1,
           slidesToScroll: 1,
         },
       },
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: tokenList.length - 2,
           slidesToScroll: 1,
         },
       },
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: tokenList.length - 3,
           slidesToScroll: 1,
         },
       },
     ],
   };
-
-  const ArtistItems = [
-    {
-      img: 'https://image-us.24h.com.vn/upload/3-2021/images/2021-07-06/Xon-xao-Son-Tung-M-TP-va-loat-youtuber-dinh-dam-bi-cuom-mat-thuong-hieu-photo-1-16094117624341764656274-1625582209-452-width620height827.jpg',
-      name: 'xander_hall',
-      price: '16.58',
-    },
-    {
-      img: 'https://znews-stc.zdn.vn/static/topic/person/chi%20pu.jpg',
-      name: 'hamza_pitts',
-      price: '14.55',
-    },
-    {
-      img: 'https://cly.1cdn.vn/2021/04/23/z2450384911701_67dfa2c9526fe9085216815136915eeb.jpg',
-      name: 'nathan_walls',
-      price: '24.13',
-    },
-    {
-      img: 'https://cdn-img.thethao247.vn/upload/chihieu/2018/11/24/misthy-1.jpg',
-      name: 'kelton_collier',
-      price: '62.68',
-    },
-    {
-      img: 'https://image.thanhnien.vn/1080/uploaded/haoph/2021_03_06/img_0467_lsvb.jpg',
-      name: 'cade_glover',
-      price: '32.48',
-    },
-  ];
   return (
     <div className="section__artists mt-100">
       <div className="container">
@@ -84,17 +69,17 @@ export default function TopArtist() {
           </div>
           <div className="section_body swiper_artists">
             <Slider {...settings}>
-              {ArtistItems.map((val, i) => (
+              {tokenList.length !== 0 && tokenList.map((val, i) => (
                 <div className="item" key={i}>
                   <div className="creator_item creator_card rounded_border space-x-10">
                     <div className="avatars space-x-10">
                       <div className="media">
-                        <div className="badge">
-                          <img src={`img/icons/Badge.svg`} alt="icons" />
-                        </div>
+                        {/* <div className="badge">
+                          <img src={val.link} alt="icons" />
+                        </div> */}
                         <Link to="profile">
                           <img
-                            src={`${val.img}`}
+                            src={`${val.link}`}
                             alt="Avatar"
                             className="avatar avatar-md"
                           />
@@ -103,11 +88,11 @@ export default function TopArtist() {
                       <div>
                         <Link to="profile">
                           <p className="avatars_name color_black">
-                            @{val.name}...
+                            @{val.token_name}...
                           </p>
                         </Link>
                         <span className="price color_green">
-                          {val.price} CEUS
+                          1 CEUS
                         </span>
                       </div>
                     </div>
