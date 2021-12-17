@@ -1,11 +1,11 @@
-export default function ConnecusCountDown({ completed, days, hours, minutes, seconds }) {
+export default function ConnecusCountDown({completed, days, hours, minutes, seconds}) {
   if (completed) {
-    return <>Finished</>
+    return <>Finished</>;
   } else {
     return (
       <>
         {days} days and {hours}:{minutes}:{seconds}
       </>
-    )
+    );
   }
 }

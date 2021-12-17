@@ -107,7 +107,6 @@ function Forum() {
     let convertDate = moment(date).format('YYYY-MM-DD HH:mm:ss');
     const currentTime = new Date(moment().locale('ko').format('YYYY-MM-DD HH:mm:ss')).getTime();
     let convertDateTime = new Date(convertDate).getTime();
-
     if (convertDateTime <= currentTime) {
       alert('Please, Check selected time!!!');
       return;
