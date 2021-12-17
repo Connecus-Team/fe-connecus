@@ -208,7 +208,8 @@ const Header = () => {
                 <i className="ri-wallet-2-line" />
               </Link>
               <p className="menu__popup2 space-y-20 small">
-                Current Balance: <strong>1000</strong>CEUS
+                Current Balance: <strong>1000</strong> CEUS <br />
+                <button className="btn btn-primary square flex-shrink-0">Withdraw</button>
               </p>
             </li>
           </div>
