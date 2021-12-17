@@ -1,4 +1,4 @@
-const FundingForm = ({ totalFunding, setTotalFunding, interest, setInterest }) => {
+const FundingForm = ({totalFunding, setTotalFunding, interest, setInterest}) => {
   return (
     <div className="create-post-funding">
       <div className="col-sm">
@@ -12,7 +12,7 @@ const FundingForm = ({ totalFunding, setTotalFunding, interest, setInterest }) =
               placeholder="Interest"
               value={interest}
               defaultValue={interest}
-              onChange={e => setInterest(e.target.value)}
+              onChange={(e) => setInterest(e.target.value)}
             />
           </div>
           <p className="mb-2">Total Funding</p>
@@ -22,13 +22,13 @@ const FundingForm = ({ totalFunding, setTotalFunding, interest, setInterest }) =
               className="form-control"
               name="funding-number"
               placeholder="Total funding $"
-              onChange={e => setTotalFunding(e.target.value)}
+              onChange={(e) => setTotalFunding(e.target.value)}
             />
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default FundingForm
+export default FundingForm;
