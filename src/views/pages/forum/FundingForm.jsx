@@ -1,6 +1,7 @@
 import React, {useRef, useState} from 'react';
 import {useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
+import apis from '../../../apis/apis';
 import web3Selector from '../../../components/header/redux/Web3.Selector';
 
 const FundingForm = ({title, description, date, file}) => {
@@ -32,7 +33,11 @@ const FundingForm = ({title, description, date, file}) => {
       description,
       date,
       file,
+      totalFunding,
+      interest,
     };
+
+    const response = await apis.postFunding(params);
   };
   return (
     <div className="create-post-funding">

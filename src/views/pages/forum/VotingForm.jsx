@@ -17,6 +17,10 @@ const VotingForm = ({title, description, date, file}) => {
     setOptions(options.filter((_, i) => i !== index));
   };
 
+  const handlePost = () => {
+
+  };
+
   return (
     <div className="form-row create-post-voting">
       <div className="col-sm">
