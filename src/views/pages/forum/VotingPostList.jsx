@@ -1,10 +1,11 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {useSelector} from 'react-redux';
+import queryString from 'query-string';
 import data from './data';
 import VotingPostItem from './VotingPostItem';
 import VotingItem from './VotingItem';
 import apis from '../../../apis/apis';
-import web3Selector from '../../../components/header/redux/Web3.Selector';
+// import web3Selector from '../../../components/header/redux/Web3.Selector';
 
 const LeftInfoVotingComponent = (item) => (
   <div>
@@ -14,7 +15,6 @@ const LeftInfoVotingComponent = (item) => (
 );
 
 const BodyComponent = (item) => {
-  console.log(item);
   return (
     <>
       <div className="px-3">
@@ -27,25 +27,17 @@ const BodyComponent = (item) => {
 };
 
 function VotingPostList() {
-  const web3 = useSelector(web3Selector.selectWeb3);
   const [votingPostList, setVotingPostList] = useState([]);
-
   useEffect(() => {
-    if (web3 === null) {
-      // alert('Can\'t connect to wallet');
-      return;
-    }
     const fetchData = async () => {
-      const accounts= await web3.eth.getAccounts();
-      let walletAddress = accounts[0];
-
-      let params = {walletAddress};
+      const {address: tokenAddress} = queryString.parse(window.location.search);
+      let params = {tokenAddress};
       const response = await apis.getVoting(params);
       const {data} = response;
       setVotingPostList(data);
     };
     fetchData();
-  }, [web3]);
+  }, []);
 
   return (
     <div className="space-y-20">
