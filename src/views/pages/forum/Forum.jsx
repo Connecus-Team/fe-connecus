@@ -83,7 +83,7 @@ function Forum() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [date, setDate] = useState(new Date());
-  const [convertDate, setConvertDate] = useState('');
+  const [convertDate, setConvertDate] = useState(moment(date).format('YYYY-MM-DD HH:mm:ss'));
 
   const initialState = () => {
     setTitle('');
