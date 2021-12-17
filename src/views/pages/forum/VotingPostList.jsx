@@ -18,7 +18,7 @@ const BodyComponent = (item) => {
   return (
     <>
       <div className="px-3">
-        {/* <ul>{item.options.length !== 0 && item.options.map(VotingItem)}</ul> */}
+        <ul>{item.options.length !== 0 && item.options.map((option, idx) => <VotingItem item={option}/>)}</ul>
         <button className="btn btn-primary btn-sm">Vote</button>
       </div>
       <div className="hr"></div>
