@@ -22,6 +22,7 @@ import TaskPostList from './TaskPostList'
 import TaskForm from './TaskForm'
 import VotingForm from './VotingForm'
 import FundingForm from './FundingForm'
+import ConnecusCountDown from './ConnecusCountDown'
 
 const CardItems = [
   {
@@ -88,6 +89,10 @@ function Forum() {
 
   const [token, setToken] = useState()
   const [isMyToken, setIsMyToken] = useState(false)
+
+  // Aside: Live funding & voting
+  const [liveFundingList, setLiveFundingList] = useState(data.fundingCard.slice(0, 2))
+  const [liveVotingList, setLiveVotingList] = useState(data.votingCard.slice(0, 2))
 
   const initialState = () => {
     setTitle('')
@@ -312,26 +317,30 @@ function Forum() {
                   <div className="box space-y-30">
                     <div className="d-flex space-x-10">
                       <img src={`img/icons/live.svg`} alt="live" style={{ width: 13 }} />
-                      <h5>Live voting</h5>
+                      <h5>Live Funding</h5>
                     </div>
-                    {CardItems.map((val, i) => (
-                      <div className="card__item two" key={i}>
+                    {liveFundingList.map(val => (
+                      <div className="card__item two my-3" key={val.id}>
                         <div className="card_body space-y-10">
                           {/* =============== */}
                           <div className="card_head">
                             <Link to="item-details">
-                              <img src={`img/items/item_${val.img}.png`} alt="item" />
+                              <img src={val.img} alt="item" />
                             </Link>
                             <div className="block_timer">
                               <div
                                 className="d-flex justify-content-center
                                                 align-items-center txt_sm _bold box_counter">
-                                <Countdown date={Date.now() + 60000000} renderer={renderer} />
+                                <Countdown date={new Date(val.date)} renderer={ConnecusCountDown} />
                               </div>
                             </div>
                             <div
                               className="details d-flex
-                                                justify-content-between">
+                                                justify-content-between position-absolute bottom-0 start-0 w-100 text-white px-3 pt-2"
+                              style={{ height: '4rem', backgroundColor: '#00000090' }}>
+                              <small>
+                                <strong>Total Funding</strong>: 80/{val.totalFunding} ETH
+                              </small>
                               <div className="progress">
                                 <div
                                   className="progress-bar"
@@ -339,7 +348,7 @@ function Forum() {
                                   style={{ width: '80%' }}
                                   aria-valuenow={80}
                                   aria-valuemin={0}
-                                  aria-valuemax={100}
+                                  aria-valuemax={val.totalFunding}
                                 />
                               </div>
                             </div>
@@ -350,45 +359,8 @@ function Forum() {
                               {val.title}
                             </Link>
                           </h6>
+                          <p className="line-clamp-2 small mt-0">{val.description}</p>
                           <div className="hr" />
-                          <div
-                            className="card_footer
-                                            justify-content-between">
-                            <div className="creators">
-                              <div className="avatars space-x-3">
-                                <div className="-space-x-20">
-                                  <Link to="profil">
-                                    <img
-                                      src={`img/avatars/avatar_${val.avatar_img1}.png`}
-                                      alt="Avatar"
-                                      className="avatar avatar-sm"
-                                    />
-                                  </Link>
-                                  <Link to="profil">
-                                    <img
-                                      src={`img/avatars/avatar_${val.avatar_img2}.png`}
-                                      alt="Avatar"
-                                      className="avatar avatar-sm"
-                                    />
-                                  </Link>
-                                </div>
-                                <Link to="profil">
-                                  <p
-                                    className="avatars_name
-                                                            txt_sm
-                                                            color_black">
-                                    @{val.avatar_name}
-                                  </p>
-                                </Link>
-                              </div>
-                            </div>
-                            <Link to="#" className="space-x-3">
-                              <p className="color_green txt_sm">
-                                {val.price}
-                                ETH
-                              </p>
-                            </Link>
-                          </div>
                         </div>
                       </div>
                     ))}
