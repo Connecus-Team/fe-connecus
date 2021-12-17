@@ -1,6 +1,6 @@
-import React from 'react'
-import Countdown from 'react-countdown'
-import ConnecusCountDown from './ConnecusCountDown'
+import React from 'react';
+import Countdown from 'react-countdown';
+import ConnecusCountDown from './ConnecusCountDown';
 
 export const defaultItem = {
   id: 1,
@@ -9,24 +9,25 @@ export const defaultItem = {
     Hey guys! New exploration about NFT Marketplace Web Design, this time I'm inspired by one of my favorite NFT website called Rarible (with crypto payment)! What do you`,
   img: 'https://miro.medium.com/max/1024/1*kdYwtZPiNcz8djsFLfWTNQ.jpeg',
   totalFunding: '1000',
-  date: '10/01/2022 12:00:00'
-}
-const defaultComponent = () => null
+  date: '10/01/2022 12:00:00',
+};
+const defaultComponent = () => null;
+
 // Will use it later
 function PostItem({
   item = defaultItem,
   rightInfoTitle = 'FUNDING END',
   leftInfoComponent = defaultComponent,
-  bodyComponent = defaultComponent
+  bodyComponent = defaultComponent,
 }) {
+  console.log(item);
   return (
-    <div className="card__item one post-item" key={item.id} style={{ maxWidth: '100%' }}>
+    <div className="card__item one post-item" key={item.id} style={{maxWidth: '100%'}}>
       <div className="card_body space-y-10">
         <div className="card_head">
           <img src={item.img} alt="" />
           <div className="details d-flex justify-content-between">
             {leftInfoComponent(item)}
-
             <div className="auction_end text-right">
               <p className="color_text txt_xs">{rightInfoTitle}</p>
               <span className="counter txt_sm">
@@ -64,7 +65,7 @@ function PostItem({
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default PostItem
+export default PostItem;

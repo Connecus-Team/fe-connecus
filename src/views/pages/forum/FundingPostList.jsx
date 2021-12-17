@@ -1,4 +1,5 @@
-import React, {useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
+import {useSelector} from 'react-redux';
 import data from './data';
 import PostItem from './PostItem';
 import apis from '../../../apis/apis';
@@ -28,6 +29,7 @@ const LeftInfoFundingComponent = (item) => (
 
 function FundingPostList() {
   const web3 = useSelector(web3Selector.selectWeb3);
+  const [fundingPostList, setFundingPostList] = useState([]);
 
   useEffect(() => {
     if (web3 === null) {
@@ -36,21 +38,23 @@ function FundingPostList() {
     }
     const fetchData = async () => {
       const accounts= await web3.eth.getAccounts();
-      let walletAdress = accounts[0];
+      let walletAddress = accounts[0];
 
-      let params = {walletAdress};
+      let params = {walletAddress};
       const response = await apis.getFunding(params);
-      console.log(response);
+      const {data} = response;
+      setFundingPostList(data);
     };
     fetchData();
   }, [web3]);
   return (
     <div className="space-y-20 post-item">
-      {data.fundingCard.map((item) =>
-        PostItem({
-          item,
-          leftInfoComponent: LeftInfoFundingComponent,
-        }),
+      {fundingPostList.length !== 0 && fundingPostList.map((item, idx) =>
+        <PostItem
+          item={item}
+          leftInfoComponent={LeftInfoFundingComponent}
+          key={idx}
+        />,
       )}
     </div>
   );
