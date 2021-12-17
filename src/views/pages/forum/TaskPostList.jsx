@@ -3,6 +3,7 @@ import {useSelector} from 'react-redux';
 import data from './data';
 import PostItem from './PostItem';
 import TaskItem from './TaskItem';
+import TaskPostItem from './TaskPostItem';
 import apis from '../../../apis/apis';
 import web3Selector from '../../../components/header/redux/Web3.Selector';
 
@@ -33,6 +34,7 @@ const BodyComponent = (item) => {
 };
 function TaskPostList() {
   const web3 = useSelector(web3Selector.selectWeb3);
+  const [taskPostList, setTaskPostList] = useState([]);
 
   useEffect(() => {
     if (web3 === null) {
@@ -45,15 +47,16 @@ function TaskPostList() {
 
       let params = {walletAddress};
       const response = await apis.getTask(params);
-      console.log(response);
+      const {data} = response;
+      setTaskPostList(data);
     };
     fetchData();
   }, [web3]);
 
   return (
     <div className="space-y-20">
-      {data.taskCard.map((item) =>
-        PostItem({
+      {taskPostList.length !== 0 && taskPostList.map((item) =>
+        TaskPostItem({
           item,
           rightInfoTitle: 'TASKS END',
           leftInfoComponent: LeftInfoVotingComponent,

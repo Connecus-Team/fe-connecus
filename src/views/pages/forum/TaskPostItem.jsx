@@ -27,17 +27,18 @@ function TaskPostItem({
       alert('Please, check input');
       return;
 
-    if (window.confirm(`Are you sure you want to funding with ${userFunding}`)) {
-      const accounts = await web3.eth.getAccounts();
-      const walletAddress = accounts[0]; // TODO Check
-      const tokenContract = new web3.eth.Contract(contractValue.ABIToken, contractValue.addressToken);
-      tokenContract.methods.approve(contractValue.addressContractBuilder, web3.utils.toWei(userFunding, 'Ether')).send({from: walletAddress}).on('transactionHash', async (hash) => {
-        let contractBuilder = new web3.eth.Contract(contractValue.ABIContractBuilder, contractValue.addressContractBuilder);
-        await contractBuilder.methods.bidFunding(walletAddress, userFunding).send({from: walletAddress});
-        alert('Bid Fnding Successful');
-      });
-    } else {
-      return;
+      if (window.confirm(`Are you sure you want to funding with ${userFunding}`)) {
+        const accounts = await web3.eth.getAccounts();
+        const walletAddress = accounts[0]; // TODO Check
+        const tokenContract = new web3.eth.Contract(contractValue.ABIToken, contractValue.addressToken);
+        tokenContract.methods.approve(contractValue.addressContractBuilder, web3.utils.toWei(userFunding, 'Ether')).send({from: walletAddress}).on('transactionHash', async (hash) => {
+          let contractBuilder = new web3.eth.Contract(contractValue.ABIContractBuilder, contractValue.addressContractBuilder);
+          await contractBuilder.methods.bidFunding(walletAddress, userFunding).send({from: walletAddress});
+          alert('Bid Fnding Successful');
+        });
+      } else {
+        return;
+      }
     }
   };
   return (
@@ -59,17 +60,7 @@ function TaskPostItem({
         <h4 className="card_title mt-3">{item.title}</h4>
         <p className="mt-1">{item.description}</p>
         <div className="hr"></div>
-        {/* {bodyComponent(item)} */}
-        <div>
-          <input
-            type="number"
-            className="form-control mb-2"
-            name="funding-number"
-            placeholder="Total funding $"
-            value={userFunding}
-            onChange={(e) => setUserFunding(e.target.value)}
-          />
-        </div>
+        {bodyComponent(item)}
         <div
           className="card_footer justify-content-between flex-column
                                                               flex-md-row">
