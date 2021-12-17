@@ -134,7 +134,7 @@ const Cards1 = () => {
                     <div className="avatars space-x-3">
                       <Link to="profile">
                         <img
-                          src={`${val.link}`}
+                          src={`${process.env.REACT_APP_SERVER_API}api/files/${val.link}`}
                           alt="Avatar"
                           className="avatar avatar-sm"
                         />
@@ -161,7 +161,7 @@ const Cards1 = () => {
                     </div> */}
                   </div>
                   <div className="card_head">
-                    <img src={`${val.link}`} alt="nftimage" />
+                    <img src={`${process.env.REACT_APP_SERVER_API}api/files/${val.link}`} alt="nftimage" />
                     <div className="likes space-x-3">
                       <i className="ri-heart-3-fill" />
                       <span className="txt_sm">{val.likes}k</span>
