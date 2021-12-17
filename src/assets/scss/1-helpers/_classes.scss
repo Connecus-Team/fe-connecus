@@ -476,3 +476,8 @@
   -webkit-line-clamp: 3;
   word-break: break-all;
 }
+
+a.active-link {
+  font-weight: bold;
+  color: $color_brand;
+}
