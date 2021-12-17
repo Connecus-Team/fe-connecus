@@ -2,6 +2,7 @@ import React, {useRef, useState} from 'react';
 import {useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 import contractValue from '../../../constants/contract';
+import apis from '../../../apis/apis';
 import web3Selector from '../../../components/header/redux/Web3.Selector';
 
 const TaskForm = ({title, description, date, file}) => {
@@ -22,7 +23,6 @@ const TaskForm = ({title, description, date, file}) => {
 
     const accounts = await web3.eth.getAccounts();
     const walletAddress = accounts[0]; // TODO Check
-
 
     let params = {
       title,

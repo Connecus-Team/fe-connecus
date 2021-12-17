@@ -41,9 +41,9 @@ function TaskPostList() {
     }
     const fetchData = async () => {
       const accounts= await web3.eth.getAccounts();
-      let walletAdress = accounts[0];
+      let walletAddress = accounts[0];
 
-      let params = {walletAdress};
+      let params = {walletAddress};
       const response = await apis.getTask(params);
       console.log(response);
     };
