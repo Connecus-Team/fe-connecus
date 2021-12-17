@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Countdown from 'react-countdown';
 import ConnecusCountDown from './ConnecusCountDown';
 
@@ -20,12 +20,17 @@ function PostItem({
   leftInfoComponent = defaultComponent,
   bodyComponent = defaultComponent,
 }) {
-  console.log(item);
+  const [userFunding, setUserFunding] = useState(0);
+
+  const handleFundingWithPost = () => {
+
+  };
   return (
     <div className="card__item one post-item" key={item.id} style={{maxWidth: '100%'}}>
       <div className="card_body space-y-10">
         <div className="card_head">
-          <img src={item.img} alt="" />
+          {/* <img src={item.img} alt="" /> */}
+          <img src="https://www.aprio.com/wp-content/uploads/494712.jpg" alt="" />
           <div className="details d-flex justify-content-between">
             {leftInfoComponent(item)}
             <div className="auction_end text-right">
@@ -39,7 +44,20 @@ function PostItem({
         <h4 className="card_title mt-3">{item.title}</h4>
         <p className="mt-1">{item.description}</p>
         <div className="hr"></div>
-        {bodyComponent(item)}
+        {/* {bodyComponent(item)} */}
+        <div>
+          <input
+            type="number"
+            className="form-control mb-2"
+            name="funding-number"
+            placeholder="Total funding $"
+            value={userFunding}
+            onChange={(e) => setUserFunding(e.target.value)}
+          />
+          <button className="btn btn-primary" onClick={() => handleFundingWithPost()}>
+                  Funding
+          </button>
+        </div>
         <div
           className="card_footer justify-content-between flex-column
                                                               flex-md-row">

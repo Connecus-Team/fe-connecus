@@ -13,13 +13,13 @@ const LeftInfoFundingComponent = (item) => (
     </div>
     <div>
       <p className="color_text txt_xs">CURRENT FUNDING</p>
-      <span className="txt_sm">4.77 / {item.totalFunding} ETH</span>
+      <span className="txt_sm">4.77 / {item.funding_money} ETH</span>
       <div className="progress">
         <div
           className="progress-bar"
           role="progressbar"
           style={{width: '80%'}}
-          aria-valuenow="80"
+          aria-valuenow={`${(5 / item.funding_money) * 100}%`}
           aria-valuemin="0"
           aria-valuemax="100"></div>
       </div>
