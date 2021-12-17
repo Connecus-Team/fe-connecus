@@ -1,4 +1,16 @@
-const FundingForm = ({totalFunding, setTotalFunding, interest, setInterest}) => {
+import React, {useRef, useState} from 'react';
+import {useSelector} from 'react-redux';
+import {Link} from 'react-router-dom';
+
+const FundingForm = ({title, description, date, file}) => {
+  // funding
+  const [totalFunding, setTotalFunding] = useState(0);
+  const [interest, setInterest] = useState('');
+
+
+  const handlePost = () => {
+
+  };
   return (
     <div className="create-post-funding">
       <div className="col-sm">
@@ -27,6 +39,9 @@ const FundingForm = ({totalFunding, setTotalFunding, interest, setInterest}) => 
           </div>
         </div>
       </div>
+      <button className="btn btn-primary" onClick={() => handlePost()}>
+                  Post a funding
+      </button>
     </div>
   );
 };

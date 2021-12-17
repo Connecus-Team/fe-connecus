@@ -1,4 +1,33 @@
-const TaskForm = ({tasks, totalToken, setTotalToken, handleInputTask, handleClickAddTask, handleRemoveTask}) => {
+import React, {useRef, useState} from 'react';
+import {useSelector} from 'react-redux';
+import {Link} from 'react-router-dom';
+
+const TaskForm = ({title, description, date, file}) => {
+  // task
+  const [tasks, setTasks] = useState([{content: '', amount: '0'}]);
+  const [totalToken, setTotalToken] = useState(0);
+
+  const handlePost = () => {
+
+  };
+
+  const handleInputTask = (idx, type, value) => {
+    const _tasks = Object.assign([], tasks);
+    _tasks[idx][type] = value;
+    setOptions(_tasks);
+  };
+
+  const handleClickAddTask = () => {
+    setTasks([...tasks, {content: '', amount: 0}]);
+  };
+
+  const handleRemoveTask = (idx) => {
+    let _tasks = tasks;
+    _tasks[idx] = undefined;
+    _tasks = _tasks.filter((i) => i !== undefined);
+    setTasks(_tasks);
+  };
+
   return (
     <div className="create-post-task">
       <div className="mb-20">
@@ -52,6 +81,9 @@ const TaskForm = ({tasks, totalToken, setTotalToken, handleInputTask, handleClic
       <button className="btn btn-add w-100" onClick={() => handleClickAddTask()}>
         <i className="ri-add-circle-fill mr-2"></i>
         Add a task
+      </button>
+      <button className="btn btn-primary mt-20" onClick={() => handlePost()}>
+          Post a task
       </button>
     </div>
   );

@@ -1,4 +1,22 @@
-const VotingForm = ({ options, handleInputVote, handleClickAddOption, handleRemoveOption }) => {
+import React, {useRef, useState} from 'react';
+import {useSelector} from 'react-redux';
+import {Link} from 'react-router-dom';
+
+const VotingForm = ({title, description, date, file}) => {
+  const [options, setOptions] = useState([{content: ''}]);
+
+  const handleClickAddOption = () => {
+    setOptions([...options, {content: ''}]);
+  };
+
+  const handleRemoveOption = (index) => {
+    if (index === 0) {
+      alert('Least option is 1');
+      return;
+    }
+    setOptions(options.filter((_, i) => i !== index));
+  };
+
   return (
     <div className="form-row create-post-voting">
       <div className="col-sm">
@@ -15,7 +33,7 @@ const VotingForm = ({ options, handleInputVote, handleClickAddOption, handleRemo
                       name="reply-name"
                       placeholder={`Option ${idx + 1}`}
                       value={item.content}
-                      onChange={e => handleInputVote(idx, e.target.value)}
+                      onChange={(e) => handleInputVote(idx, e.target.value)}
                     />
                     <button
                       className="btn close-icon-wrapper"
@@ -23,7 +41,7 @@ const VotingForm = ({ options, handleInputVote, handleClickAddOption, handleRemo
                       <i className="ri-close-fill"></i>
                     </button>
                   </li>
-                )
+                );
               })}
           </ul>
         </div>
@@ -31,9 +49,12 @@ const VotingForm = ({ options, handleInputVote, handleClickAddOption, handleRemo
           <i className="ri-add-circle-fill mr-2"></i>
           Add an option
         </button>
+        <button className="btn btn-primary mt-20" onClick={() => handlePost()}>
+                  Post a voting
+        </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default VotingForm
+export default VotingForm;

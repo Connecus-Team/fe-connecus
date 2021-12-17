@@ -328,33 +328,25 @@ function Forum() {
                   <div className="tab-content">
                     {formType === 'funding' ? (
                       <FundingForm
-                        totalFunding={totalFunding}
-                        setTotalFunding={setTotalFunding}
-                        interest={interest}
-                        setInterest={setInterest}
+                        title={title}
+                        description={description}
+                        file={fileDataUrls}
                       />
                     ) : formType === 'voting' ? (
                       <VotingForm
-                        options={options}
-                        handleInputVote={handleInputVote}
-                        handleClickAddOption={handleClickAddOption}
-                        handleRemoveOption={handleRemoveOption}
+                        title={title}
+                        description={description}
+                        file={fileDataUrls}
                       />
                     ) : (
                       <TaskForm
-                        tasks={tasks}
-                        totalToken={totalToken}
-                        setTotalToken={setTotalToken}
-                        handleInputTask={handleInputTask}
-                        handleClickAddTask={handleClickAddTask}
-                        handleRemoveTask={handleRemoveTask}
+                        title={title}
+                        description={description}
+                        file={fileDataUrls}
                       />
                     )}
                   </div>
                 </Tabs>
-                <button className="btn btn-primary" onClick={() => handlePost()}>
-                  Post a {formType}
-                </button>
               </div>
               <Tabs className="forum__content">
                 <TabList className="d-flex space-x-10 mb-30 nav-tabs">
