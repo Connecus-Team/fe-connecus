@@ -83,7 +83,7 @@ function Forum() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [date, setDate] = useState(new Date());
-  const [convertDate, setConvertDate] = ('');
+  const [convertDate, setConvertDate] = useState('');
 
   const initialState = () => {
     setTitle('');
@@ -111,6 +111,7 @@ function Forum() {
     setConvertDate(convertDate);
     setDate(date);
   };
+  console.log(convertDate);
 
   return (
     <div>
