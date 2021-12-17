@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/fe-connecus/static/css/main.bb519e43.chunk.css",
+    "main.js": "/fe-connecus/static/js/main.300068dc.chunk.js",
+    "main.js.map": "/fe-connecus/static/js/main.300068dc.chunk.js.map",
+    "runtime-main.js": "/fe-connecus/static/js/runtime-main.1e4e0cd4.js",
+    "runtime-main.js.map": "/fe-connecus/static/js/runtime-main.1e4e0cd4.js.map",
+    "static/css/2.03970190.chunk.css": "/fe-connecus/static/css/2.03970190.chunk.css",
+    "static/js/2.e96d1879.chunk.js": "/fe-connecus/static/js/2.e96d1879.chunk.js",
+    "static/js/2.e96d1879.chunk.js.map": "/fe-connecus/static/js/2.e96d1879.chunk.js.map",
+    "index.html": "/fe-connecus/index.html",
+    "static/css/2.03970190.chunk.css.map": "/fe-connecus/static/css/2.03970190.chunk.css.map",
+    "static/css/main.bb519e43.chunk.css.map": "/fe-connecus/static/css/main.bb519e43.chunk.css.map",
+    "static/js/2.e96d1879.chunk.js.LICENSE.txt": "/fe-connecus/static/js/2.e96d1879.chunk.js.LICENSE.txt",
+    "static/media/style.scss": "/fe-connecus/static/media/top.c67cb962.svg",
+    "static/media/remixicon.css": "/fe-connecus/static/media/remixicon.f2616f59.ttf",
+    "static/media/slick-theme.css": "/fe-connecus/static/media/slick.c94f7671.ttf"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.1e4e0cd4.js",
+    "static/css/2.03970190.chunk.css",
+    "static/js/2.e96d1879.chunk.js",
+    "static/css/main.bb519e43.chunk.css",
+    "static/js/main.300068dc.chunk.js"
+  ]
+}
