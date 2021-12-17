@@ -34,6 +34,15 @@ function FundingPostList() {
       alert('Can\'t connect to wallet');
       return;
     }
+    const fetchData = async () => {
+      const accounts= await web3.eth.getAccounts();
+      let walletAdress = accounts[0];
+
+      let params = {walletAdress};
+      const response = await apis.getFunding(params);
+      console.log(response);
+    };
+    fetchData();
   }, [web3]);
   return (
     <div className="space-y-20 post-item">
