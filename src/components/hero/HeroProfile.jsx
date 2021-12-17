@@ -45,7 +45,7 @@ const HeroProfile = ({setToken}) => {
     <div className="mb-100">
       <div className="hero__profile">
         <div className="cover">
-          <img src={tokenInfo.link} alt="ImgPreview" />
+          <img src={`${process.env.REACT_APP_SERVER_API}api/files/${tokenInfo.link}`} alt="ImgPreview" />
         </div>
         <div className="infos">
           <div className="container">
@@ -55,7 +55,7 @@ const HeroProfile = ({setToken}) => {
                   <div className="avatar_wrap">
                     <img
                       className="avatar avatar-lg"
-                      src={tokenInfo.link}
+                      src={`${process.env.REACT_APP_SERVER_API}api/files/${tokenInfo.link}`}
                       alt="avatar"
                     />
                   </div>
