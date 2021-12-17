@@ -34,7 +34,6 @@ const TaskForm = ({title, description, date, file}) => {
       walletAddress,
     };
     const response = await apis.postTask(params);
-    console.log(response);
     return;
 
     let contract = new web3.eth.Contract(
