@@ -22,7 +22,6 @@ function VotingPostItem({
   leftInfoComponent = defaultComponent,
   bodyComponent = defaultComponent,
 }) {
-  const [userFunding, setUserFunding] = useState(0);
   const handleFundingWithPost = async () => {
     if (userFunding <= 0) {
       alert('Please, check input');
@@ -61,20 +60,7 @@ function VotingPostItem({
         <h4 className="card_title mt-3">{item.title}</h4>
         <p className="mt-1">{item.description}</p>
         <div className="hr"></div>
-        {/* {bodyComponent(item)} */}
-        <div>
-          <input
-            type="number"
-            className="form-control mb-2"
-            name="funding-number"
-            placeholder="Total funding $"
-            value={userFunding}
-            onChange={(e) => setUserFunding(e.target.value)}
-          />
-          <button className="btn btn-primary" onClick={() => handleFundingWithPost()}>
-                  Funding
-          </button>
-        </div>
+        {bodyComponent(item)}
         <div
           className="card_footer justify-content-between flex-column
                                                               flex-md-row">

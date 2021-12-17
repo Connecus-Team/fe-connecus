@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {useSelector} from 'react-redux';
 import data from './data';
-import PostItem from './PostItem';
+import VotingPostItem from './VotingPostItem';
 import VotingItem from './VotingItem';
 import apis from '../../../apis/apis';
 import web3Selector from '../../../components/header/redux/Web3.Selector';
@@ -14,10 +14,11 @@ const LeftInfoVotingComponent = (item) => (
 );
 
 const BodyComponent = (item) => {
+  console.log(item);
   return (
     <>
       <div className="px-3">
-        <ul>{item.options.map(VotingItem)}</ul>
+        {/* <ul>{item.options.length !== 0 && item.options.map(VotingItem)}</ul> */}
         <button className="btn btn-primary btn-sm">Vote</button>
       </div>
       <div className="hr"></div>
@@ -49,7 +50,7 @@ function VotingPostList() {
   return (
     <div className="space-y-20">
       {votingPostList.length !== 0 && votingPostList.map((item) =>
-        PostItem({
+        VotingPostItem({
           item,
           rightInfoTitle: 'VOTING END',
           leftInfoComponent: LeftInfoVotingComponent,

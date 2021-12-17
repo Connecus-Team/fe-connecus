@@ -16,18 +16,16 @@ export const defaultItem = {
 const defaultComponent = () => null;
 
 // Will use it later
-function PostItem({
+function TaskPostItem({
   item = defaultItem,
   rightInfoTitle = 'FUNDING END',
   leftInfoComponent = defaultComponent,
   bodyComponent = defaultComponent,
 }) {
-  const [userFunding, setUserFunding] = useState(0);
   const handleFundingWithPost = async () => {
     if (userFunding <= 0) {
       alert('Please, check input');
       return;
-    }
 
     if (window.confirm(`Are you sure you want to funding with ${userFunding}`)) {
       const accounts = await web3.eth.getAccounts();
@@ -71,9 +69,6 @@ function PostItem({
             value={userFunding}
             onChange={(e) => setUserFunding(e.target.value)}
           />
-          <button className="btn btn-primary" onClick={() => handleFundingWithPost()}>
-                  Funding
-          </button>
         </div>
         <div
           className="card_footer justify-content-between flex-column
@@ -103,4 +98,4 @@ function PostItem({
   );
 }
 
-export default PostItem;
+export default TaskPostItem;
