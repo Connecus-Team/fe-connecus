@@ -31,31 +31,34 @@ const FundingForm = ({title, description, date, file}) => {
         title,
         description,
         date,
-        file,
         totalFunding,
         interest,
         walletAddress,
         tokenAddress,
       };
 
+      // TODO Check
       const {size, type} = file[0];
       let response = null;
       if (size / 1000000 < 100) {
         if (type === 'image/png' || type === 'image/jpg' ) {
-          let data = new FormData();
-          data.append('file', file[0]);
-          data.append('params', JSON.stringify(params));
-          response = await apis.postFunding(data);
+          try {
+            let data = new FormData();
+            data.append('file', file[0]);
+            data.append('params', JSON.stringify(params));
+            response = await apis.postFunding(data);
+          } catch (error) {
+            console.log(error);
+            alert('Post a task server error');
+            return;
+          }
         } else {
-          alert(t('Post a funding server error'));
+          alert('Check image type');
+          return;
         }
       }
 
       const {data} = response;
-
-      return;
-      // TODO Check server successful
-
       const tokenContract = new web3.eth.Contract(contractValue.ABIToken, contractValue.addressToken);
       tokenContract.methods.approve(contractValue.addressContractBuilder, web3.utils.toWei(totalStake, 'Ether')).send({from: accounts[0]}).on('transactionHash', async (hash) => {
         let contractBuilder = new web3.eth.Contract(contractValue.ABIContractBuilder, contractValue.addressContractBuilder);

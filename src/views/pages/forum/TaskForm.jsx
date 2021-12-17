@@ -29,15 +29,33 @@ const TaskForm = ({title, description, date, file}) => {
       title,
       description,
       date,
-      file,
       totalToken,
       tasks,
       walletAddress,
       tokenAddress,
     };
-    const response = await apis.postTask(params);
-    return;
+    const {size, type} = file[0];
+    let response = null;
+    if (size / 1000000 < 100) {
+      if (type === 'image/png' || type === 'image/jpg' ) {
+        try {
+          let data = new FormData();
+          data.append('file', file[0]);
+          data.append('params', JSON.stringify(params));
+          response = await apis.postTask(params);
+        } catch (error) {
+          console.log(error);
+          alert('Post a task server error');
+          return;
+        }
+      } else {
+        alert('Check image type');
+        return;
+      }
+    }
+    const {data} = response;
 
+    return;
     let contract = new web3.eth.Contract(
         contractValue.ABIContractBuilder,
         contractValue.addressContractBuilder,
