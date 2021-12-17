@@ -33,7 +33,9 @@ function VotingPostItem({
       const accounts = await web3.eth.getAccounts();
       let contractBuilder = new web3.eth.Contract(contractValue.ABIContractBuilder, contractValue.addressContractBuilder);
       await contractBuilder.methods.PersonVote(item.id, selectVote).send({from: walletAddress});
-      alert('Bid Fnding Successful');
+
+      // TODO save to database
+      alert('PersonVote Successful');
     } else {
       return;
     }
