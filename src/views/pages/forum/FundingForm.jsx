@@ -2,6 +2,7 @@ import React, {useRef, useState} from 'react';
 import {useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 import apis from '../../../apis/apis';
+import contractValue from '../../../constants/contract';
 import web3Selector from '../../../components/header/redux/Web3.Selector';
 
 const FundingForm = ({title, description, date, file}) => {

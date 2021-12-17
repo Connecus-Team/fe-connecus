@@ -1,14 +1,42 @@
 import React, {useRef, useState} from 'react';
 import {useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
+import contractValue from '../../../constants/contract';
+import web3Selector from '../../../components/header/redux/Web3.Selector';
 
 const TaskForm = ({title, description, date, file}) => {
+  const web3 = useSelector(web3Selector.selectWeb3);
   // task
   const [tasks, setTasks] = useState([{content: '', amount: '0'}]);
   const [totalToken, setTotalToken] = useState(0);
 
-  const handlePost = () => {
+  const handlePost = async () => {
+    // if (!title || !description || !date) {
+    //   alert('Please Check Enter Data');
+    //   return;
+    // }
+    if (web3 === null) {
+      alert('Can\'t connect to wallet');
+      return;
+    }
 
+    const accounts = await web3.eth.getAccounts();
+    let contract = new web3.eth.Contract(
+        contractValue.ABIContractBuilder,
+        contractValue.addressContractBuilder,
+    );
+
+    let params = {
+      title,
+      description,
+      date,
+      file,
+      totalToken,
+      tasks,
+    };
+
+    const response = await apis.postTask(params);
+    console.log(response);
   };
 
   const handleInputTask = (idx, type, value) => {

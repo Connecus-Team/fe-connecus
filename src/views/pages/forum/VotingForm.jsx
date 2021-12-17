@@ -2,6 +2,7 @@ import React, {useRef, useState} from 'react';
 import {useSelector} from 'react-redux';
 import web3Selector from '../../../components/header/redux/Web3.Selector';
 import {Link} from 'react-router-dom';
+import contractValue from '../../../constants/contract';
 
 const VotingForm = ({title, description, date, file}) => {
   const web3 = useSelector(web3Selector.selectWeb3);
