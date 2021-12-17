@@ -160,6 +160,10 @@ div.button {
       }
     }
   }
+
+  &.square {
+    border-radius: 8px !important;
+  }
 }
 
 p a.btn {
@@ -304,10 +308,6 @@ a.btn-outline {
   &.dropdown-toggle::after {
     top: 2px;
     position: relative;
-  }
-
-  &.square {
-    border-radius: 8px !important;
   }
 }
 

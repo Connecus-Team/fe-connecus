@@ -53,11 +53,11 @@ const PagesMenu = [
   {
     title: ' Document',
     link: '/article'
+  },
+  {
+    title: ' FAQ',
+    link: '/faq'
   }
-  // {
-  //   title: ' FAQ',
-  //   link: '/faq',
-  // },
 ]
 
 const Header = () => {

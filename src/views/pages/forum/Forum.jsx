@@ -312,7 +312,7 @@ function Forum() {
               </div>
             </div>
             <div className="col-lg-3">
-              <div className="sidebar space-y-30">
+              <div className="sidebar space-y-30 mb-30">
                 <div className="space-y-10">
                   <div className="box space-y-30">
                     <div className="d-flex space-x-10">

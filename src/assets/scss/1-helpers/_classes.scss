@@ -478,6 +478,10 @@
 }
 
 a.active-link {
-  font-weight: bold;
   color: $color_brand;
+}
+
+.stepper a,
+.stepper span {
+  line-height: 32px !important;
 }
