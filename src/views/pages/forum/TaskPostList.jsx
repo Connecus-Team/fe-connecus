@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {useSelector} from 'react-redux';
 import data from './data';
-import PostItem from './PostItem';
+import FundingPostItem from './FundingPostItem';
 import TaskItem from './TaskItem';
 import TaskPostItem from './TaskPostItem';
 import apis from '../../../apis/apis';

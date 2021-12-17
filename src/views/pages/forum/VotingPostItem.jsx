@@ -3,7 +3,7 @@ import Countdown from 'react-countdown';
 import ConnecusCountDown from './ConnecusCountDown';
 import web3Selector from '../../../components/header/redux/Web3.Selector';
 import contractValue from '../../../constants/contract';
-
+import VotingItem from './VotingItem';
 export const defaultItem = {
   id: 1,
   title: 'Colorful Painting',
@@ -22,21 +22,18 @@ function VotingPostItem({
   leftInfoComponent = defaultComponent,
   bodyComponent = defaultComponent,
 }) {
-  const handleFundingWithPost = async () => {
-    if (userFunding <= 0) {
+  const [selectVote, setSelectVote] = useState(0);
+  const handleVotePost = async () => {
+    if (selectVote <= 0) {
       alert('Please, check input');
       return;
     }
 
     if (window.confirm(`Are you sure you want to funding with ${userFunding}`)) {
       const accounts = await web3.eth.getAccounts();
-      const walletAddress = accounts[0]; // TODO Check
-      const tokenContract = new web3.eth.Contract(contractValue.ABIToken, contractValue.addressToken);
-      tokenContract.methods.approve(contractValue.addressContractBuilder, web3.utils.toWei(userFunding, 'Ether')).send({from: walletAddress}).on('transactionHash', async (hash) => {
-        let contractBuilder = new web3.eth.Contract(contractValue.ABIContractBuilder, contractValue.addressContractBuilder);
-        await contractBuilder.methods.bidFunding(walletAddress, userFunding).send({from: walletAddress});
-        alert('Bid Fnding Successful');
-      });
+      let contractBuilder = new web3.eth.Contract(contractValue.ABIContractBuilder, contractValue.addressContractBuilder);
+      await contractBuilder.methods.PersonVote(item.id, selectVote).send({from: walletAddress});
+      alert('Bid Fnding Successful');
     } else {
       return;
     }
@@ -60,7 +57,12 @@ function VotingPostItem({
         <h4 className="card_title mt-3">{item.title}</h4>
         <p className="mt-1">{item.description}</p>
         <div className="hr"></div>
-        {bodyComponent(item)}
+        <div className="px-3">
+          <ul>{item.options.length !== 0 && item.options.map((option, idx) => <VotingItem item={option} setSelectVote={setSelectVote}/>)}</ul>
+          <button className="btn btn-primary btn-sm" onClick={() => handleVotePost()}>Vote</button>
+        </div>
+        <div className="hr"></div>
+        {/* {bodyComponent(item)} */}
         <div
           className="card_footer justify-content-between flex-column
                                                               flex-md-row">

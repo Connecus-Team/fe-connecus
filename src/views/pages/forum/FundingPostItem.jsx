@@ -16,7 +16,7 @@ export const defaultItem = {
 const defaultComponent = () => null;
 
 // Will use it later
-function PostItem({
+function FundingPostItem({
   item = defaultItem,
   rightInfoTitle = 'FUNDING END',
   leftInfoComponent = defaultComponent,
@@ -103,4 +103,4 @@ function PostItem({
   );
 }
 
-export default PostItem;
+export default FundingPostItem;

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {useSelector} from 'react-redux';
 import data from './data';
-import PostItem from './PostItem';
+import FundingPostItem from './FundingPostItem';
 import apis from '../../../apis/apis';
 import web3Selector from '../../../components/header/redux/Web3.Selector';
 
@@ -50,7 +50,7 @@ function FundingPostList() {
   return (
     <div className="space-y-20 post-item">
       {fundingPostList.length !== 0 && fundingPostList.map((item, idx) =>
-        <PostItem
+        <FundingPostItem
           item={item}
           leftInfoComponent={LeftInfoFundingComponent}
           key={idx}

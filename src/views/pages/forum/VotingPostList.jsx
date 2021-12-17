@@ -49,13 +49,14 @@ function VotingPostList() {
 
   return (
     <div className="space-y-20">
-      {votingPostList.length !== 0 && votingPostList.map((item) =>
-        VotingPostItem({
-          item,
-          rightInfoTitle: 'VOTING END',
-          leftInfoComponent: LeftInfoVotingComponent,
-          bodyComponent: BodyComponent,
-        }),
+      {votingPostList.length !== 0 && votingPostList.map((item, idx) =>
+        <VotingPostItem
+          item={item}
+          leftInfoComponent={LeftInfoVotingComponent}
+          rightInfoTitle={'VOTING END'}
+          key={idx}
+          // bodyComponent: BodyComponent,
+        />,
       )}
     </div>
   );
