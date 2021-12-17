@@ -43,7 +43,7 @@ const FundingForm = ({title, description, date, file}) => {
       const tokenContract = new web3.eth.Contract(contractValue.ABIToken, contractValue.addressToken);
       tokenContract.methods.approve(contractValue.addressContractBuilder, web3.utils.toWei(totalStake, 'Ether')).send({from: accounts[0]}).on('transactionHash', async (hash) => {
         let contractBuilder = new web3.eth.Contract(contractValue.ABIContractBuilder, contractValue.addressContractBuilder);
-        await contractBuilder.methods._register(data, totalFunding, date).send({from: accounts[0]});
+        await contractBuilder.methods.stakingAndFunding(data, totalFunding, date).send({from: accounts[0]});
         contractBuilder.events.NewFunding({}, (err, event) => {
           if (err) {
             alert('New Funding Error');
