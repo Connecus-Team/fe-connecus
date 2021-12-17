@@ -70,9 +70,8 @@ const VotingForm = ({title, description, date, file}) => {
         return;
       }
     }
-    const {data} = response;
 
-    return;
+    const {data} = response; // id of post
     // TODO Check server successful
     let contract = new web3.eth.Contract(
         contractValue.ABIContractBuilder,

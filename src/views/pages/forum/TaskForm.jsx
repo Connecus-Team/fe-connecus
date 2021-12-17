@@ -43,7 +43,6 @@ const TaskForm = ({title, description, date, file}) => {
           data.append('file', file[0]);
           data.append('params', JSON.stringify(params));
           response = await apis.postTask(data);
-          alert('Create OK');
         } catch (error) {
           console.log(error);
           alert('Post a task server error');
@@ -54,8 +53,10 @@ const TaskForm = ({title, description, date, file}) => {
         return;
       }
     }
-    const {data} = response;
+    const {data} = response; // id of post
     return;
+
+    // TODO fix
     let contract = new web3.eth.Contract(
         contractValue.ABIContractBuilder,
         contractValue.addressContractBuilder,

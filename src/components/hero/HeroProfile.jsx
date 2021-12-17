@@ -1,8 +1,11 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
+import queryString from 'query-string';
+import apis from '../../apis/apis';
 import Popup from 'reactjs-popup';
 
-const HeroProfile = () => {
+// TODO fix setToken by Redux
+const HeroProfile = ({setToken}) => {
   const ref = useRef();
   const [isActive, setActive] = useState(false);
   const toggleFollow = () => {
@@ -18,6 +21,25 @@ const HeroProfile = () => {
   const toggleMore = () => {
     setMore(!isMore);
   };
+
+  const [tokenInfo, setTokenInfo] = useState('');
+  useEffect(() => {
+    const fetchTokenInfo = async () => {
+      // TODO check address
+      const {address: tokenAddress} = queryString.parse(window.location.search);
+      let params = {tokenAddress};
+      const response = await apis.getTokenInfo(params);
+
+      // TODO check
+      const {data} = response;
+      setTokenInfo(data);
+      if (setToken !== undefined) {
+        setToken(data);
+      }
+    };
+    fetchTokenInfo();
+  }, []);
+  if (!tokenInfo) return null;
 
   return (
     <div className="mb-100">
@@ -37,14 +59,14 @@ const HeroProfile = () => {
                       alt="avatar"
                     />
                   </div>
-                  <h5>@ayoub fennouni</h5>
+                  <h5>@{tokenInfo.token_name}</h5>
                 </div>
               </div>
               <div className="col-md-auto">
                 <div className="d-sm-flex flex-wrap align-items-center space-x-20 mb-20_reset d-sm-block">
                   <div className="mb-20">
                     <div className="copy">
-                      <span className="color_text"> 13b9ebda0178... </span>
+                      <span className="color_text"> {tokenInfo.token_address} </span>
                     </div>
                   </div>
                   <div className="d-flex flex-wrap align-items-center space-x-20">

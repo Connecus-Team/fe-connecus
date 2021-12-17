@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import {useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 import Footer from '../../../components/footer/Footer';
@@ -86,6 +86,9 @@ function Forum() {
   const [date, setDate] = useState(new Date());
   const [convertDate, setConvertDate] = useState(moment(date).format('YYYY-MM-DD HH:mm:ss'));
 
+  const [token, setToken] = useState();
+  const [isMyToken, setIsMyToken] = useState(false);
+
   const initialState = () => {
     setTitle('');
     setDescription('');
@@ -114,10 +117,23 @@ function Forum() {
     setDate(date);
   };
 
+  useEffect(() => {
+    const comparisonToken = async () => {
+      if (web3) {
+        const accounts = await web3.eth.getAccounts();
+        const walletAddress = accounts[0]; // TODO Check
+        const {wallet_address} = token;
+        if (wallet_address === walletAddress) {
+          setIsMyToken(true);
+        }
+      }
+    };
+    comparisonToken();
+  }, [token, web3]);
   return (
     <div>
       <Header />
-      <HeroProfile />
+      <HeroProfile setToken={setToken}/>
       <section className="section forum mt-20">
         <div className="container-md">
           <div className="row sm:space-y-30">
@@ -125,106 +141,108 @@ function Forum() {
               <SidebarProfile />
             </div>
             <div className="col-lg-6 mt-40">
-              <div className="box is__big space-y-20 mb-20 create-post">
-                <h3>Create your post</h3>
-                <div className="form-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="reply-name"
-                    placeholder="Title"
-                    value={title}
-                    defaultValue={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                  />
-                </div>
-                <div className="form-group">
-                  <textarea
-                    name="reply-message"
-                    rows={4}
-                    className="form-control"
-                    placeholder="Description"
-                    value={description}
-                    defaultValue={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                  />
-                </div>
-                <div className="mb-50">
-                  <p className="mb-2">Choose your image or video</p>
-                  <div className="row profile-img">
-                    <div className="d-flex gap-3">
-                      <div
-                        className="box image_upload d-flex justify-content-center w-full align-items-center"
-                        onClick={() => imageUploadRef.current.click()}>
-                        <img className="icon" src="img/icons/upload-plus.svg" alt="" />
-                        <input
-                          id="imageUpload"
-                          type="file"
-                          name="profile_photo"
-                          placeholder="Photo"
-                          required
-                          multiple
-                          accept="image/png,image/jpg,image/jpeg"
-                          hidden
-                          ref={imageUploadRef}
-                          onChange={(event) => onInputChange(event)}
-                        />
-                      </div>
-                      {fileDataUrls.map((dataUrl) => (
+              {
+                isMyToken &&
+                <div className="box is__big space-y-20 mb-20 create-post">
+                  <h3>Create your post</h3>
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="reply-name"
+                      placeholder="Title"
+                      value={title}
+                      defaultValue={title}
+                      onChange={(e) => setTitle(e.target.value)}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <textarea
+                      name="reply-message"
+                      rows={4}
+                      className="form-control"
+                      placeholder="Description"
+                      value={description}
+                      defaultValue={description}
+                      onChange={(e) => setDescription(e.target.value)}
+                    />
+                  </div>
+                  <div className="mb-50">
+                    <p className="mb-2">Choose your image or video</p>
+                    <div className="row profile-img">
+                      <div className="d-flex gap-3">
                         <div
-                          className="box image_upload d-flex justify-content-center align-items-center"
-                          style={{
-                            backgroundImage: `url('${dataUrl}')`,
-                            backgroundPosition: 'center',
-                            backgroundRepeat: 'no-repeat',
-                            backgroundSize: 'cover',
-                          }}></div>
-                      ))}
+                          className="box image_upload d-flex justify-content-center w-full align-items-center"
+                          onClick={() => imageUploadRef.current.click()}>
+                          <img className="icon" src="img/icons/upload-plus.svg" alt="" />
+                          <input
+                            id="imageUpload"
+                            type="file"
+                            name="profile_photo"
+                            placeholder="Photo"
+                            required
+                            multiple
+                            accept="image/png,image/jpg,image/jpeg"
+                            hidden
+                            ref={imageUploadRef}
+                            onChange={(event) => onInputChange(event)}
+                          />
+                        </div>
+                        {fileDataUrls.map((dataUrl) => (
+                          <div
+                            className="box image_upload d-flex justify-content-center align-items-center"
+                            style={{
+                              backgroundImage: `url('${dataUrl}')`,
+                              backgroundPosition: 'center',
+                              backgroundRepeat: 'no-repeat',
+                              backgroundSize: 'cover',
+                            }}></div>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="mb-50" style={{cursor: 'pointer'}}>
-                  <DatePicker
-                    onChange={(date) => handleSetDate(date)}
-                    selected={date}
-                    id="time"
-                    timeInputLabel="Time:"
-                    dateFormat="MM/dd/yyyy h:mm aa"
-                    showTimeInput
-                  />
-                </div>
-                <Tabs className="form__content">
-                  <TabList className="d-flex space-x-10 mb-30 nav-tabs">
-                    <Tab>
-                      <span
-                        className="btn btn-white btn-sm"
-                        data-toggle="tab"
-                        onClick={() => setFormType('funding')}
-                        role="tab">
+                  <div className="mb-50" style={{cursor: 'pointer'}}>
+                    <DatePicker
+                      onChange={(date) => handleSetDate(date)}
+                      selected={date}
+                      id="time"
+                      timeInputLabel="Time:"
+                      dateFormat="MM/dd/yyyy h:mm aa"
+                      showTimeInput
+                    />
+                  </div>
+                  <Tabs className="form__content">
+                    <TabList className="d-flex space-x-10 mb-30 nav-tabs">
+                      <Tab>
+                        <span
+                          className="btn btn-white btn-sm"
+                          data-toggle="tab"
+                          onClick={() => setFormType('funding')}
+                          role="tab">
                         Funding
-                      </span>
-                    </Tab>
-                    <Tab>
-                      <span
-                        className="btn btn-white btn-sm"
-                        data-toggle="tab"
-                        onClick={() => setFormType('voting')}
-                        role="tab">
+                        </span>
+                      </Tab>
+                      <Tab>
+                        <span
+                          className="btn btn-white btn-sm"
+                          data-toggle="tab"
+                          onClick={() => setFormType('voting')}
+                          role="tab">
                         Voting
-                      </span>
-                    </Tab>
-                    <Tab>
-                      <button
-                        className="btn btn-white btn-sm"
-                        data-toggle="tab"
-                        onClick={() => setFormType('task')}
-                        role="tab">
+                        </span>
+                      </Tab>
+                      <Tab>
+                        <button
+                          className="btn btn-white btn-sm"
+                          data-toggle="tab"
+                          onClick={() => setFormType('task')}
+                          role="tab">
                         Task
-                      </button>
-                    </Tab>
-                  </TabList>
-                  <div className="tab-content">
-                    {formType === 'funding' ? (
+                        </button>
+                      </Tab>
+                    </TabList>
+                    <div className="tab-content">
+                      {formType === 'funding' ? (
                       <FundingForm
                         title={title}
                         description={description}
@@ -249,9 +267,10 @@ function Forum() {
                         initialState={initialState}
                       />
                     )}
-                  </div>
-                </Tabs>
-              </div>
+                    </div>
+                  </Tabs>
+                </div>
+              }
               <Tabs className="forum__content">
                 <TabList className="d-flex space-x-10 mb-30 nav-tabs">
                   <Tab className="nav-item">

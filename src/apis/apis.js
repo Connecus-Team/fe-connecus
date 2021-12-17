@@ -18,6 +18,10 @@ const userAPI = {
     const url = '/ceus/all-token';
     return axiosClient.get(url, params);
   },
+  getTokenInfo: (params) => {
+    const url = '/ceus/token';
+    return axiosClient.get(url, {params});
+  },
 
   // {POST API}
   postFunding: (params) => {
