@@ -194,7 +194,7 @@ const Header = () => {
               <i className="ri-search-line" />
             </Link>
           </div>
-          <div className="header__btns">
+          <div className="header__btns d-flex align-items-center gap-2">
             <Link className="btn btn-grad btn-sm" to="#" onClick={() => handleConnectWallet()}>
               <i className="ri-wallet-3-line" />
               {currentAccount ? (
@@ -203,6 +203,14 @@ const Header = () => {
                 <span className="header__wallet-text">Connect wallet</span>
               )}
             </Link>
+            <li className="has_popup2">
+              <Link className="color_black is_new bg_light p-2 rounded-circle hovered" to="/">
+                <i className="ri-wallet-2-line" />
+              </Link>
+              <p className="menu__popup2 space-y-20 small">
+                Current Balance: <strong>1000</strong>CEUS
+              </p>
+            </li>
           </div>
           <div className="header__burger js-header-burger" onClick={toggleClass} />
           <div className={` header__mobile js-header-mobile  ${isActive ? 'visible' : null} `}>

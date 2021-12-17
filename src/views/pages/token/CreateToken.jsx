@@ -9,7 +9,7 @@ import Stepper from 'react-stepper-horizontal'
 
 const CreateToken = () => {
   useDocumentTitle('Create Token')
-  const [doneStake, setDoneStake] = useState(true)
+  const [doneStake, setDoneStake] = useState(false)
   const [name, setName] = useState('')
   const [symBol, setSymBol] = useState('')
   const [totalSupply, setTotalSupply] = useState(0)
@@ -47,6 +47,8 @@ const CreateToken = () => {
   }
 
   const handleStake = async () => {
+    // TODO: Remove this when API runs
+    setDoneStake(true)
     try {
       // console.log(moment(productDate).format('L'));
       // console.log(type, category, productName, productCode, productDate, productDesc);
@@ -171,6 +173,11 @@ const CreateToken = () => {
                       />
                     </div>
 
+                    <button
+                      className="btn btn-grad  h-100 flex-shrink-0"
+                      onClick={() => handleClickCreateToken()}>
+                      Create Token
+                    </button>
                     {/* <div className="space-y-10">
                       <span className="variationInput">Choose collection</span>
                       <div className="d-flex flex-column flex-md-row">
@@ -219,37 +226,6 @@ const CreateToken = () => {
               </div>
             </div>
           )}
-        </div>
-      </div>
-      <div className="bottom-0 left-0 right-0">
-        <div className="container">
-          <div className="row content justify-content-center mb-20_reset align-items-center">
-            {/* <div className="col-md-auto col-12 mb-20">
-              <div className="space-x-10">
-                <Link
-                  to="/upload-type"
-                  className="btn btn-white
-						      others_btn">
-                  Cancel
-                </Link>
-                <Link to="#" className="btn btn-dark others_btn">
-                  Preview
-                </Link>
-              </div>
-            </div> */}
-            {doneStake ? (
-              <div className="col-md-auto col-24 mb-50">
-                <Link
-                  onClick={() => handleClickCreateToken()}
-                  to="#"
-                  className="btn btn-grad btn_create">
-                  Create Token
-                </Link>
-              </div>
-            ) : (
-              ''
-            )}
-          </div>
         </div>
       </div>
       {/* <div className="fixed_row bottom-0 left-0 right-0">
