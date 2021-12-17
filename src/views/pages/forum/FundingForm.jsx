@@ -37,7 +37,8 @@ const FundingForm = ({title, description, date, file}) => {
       totalFunding,
       interest,
     };
-
+    console.log(params);
+    return;
     const response = await apis.postFunding(params);
   };
   return (

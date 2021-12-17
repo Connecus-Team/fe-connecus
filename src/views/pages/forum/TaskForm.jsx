@@ -34,6 +34,8 @@ const TaskForm = ({title, description, date, file}) => {
       totalToken,
       tasks,
     };
+    console.log(params);
+    return;
 
     const response = await apis.postTask(params);
     console.log(response);
@@ -42,7 +44,7 @@ const TaskForm = ({title, description, date, file}) => {
   const handleInputTask = (idx, type, value) => {
     const _tasks = Object.assign([], tasks);
     _tasks[idx][type] = value;
-    setOptions(_tasks);
+    setTasks(_tasks);
   };
 
   const handleClickAddTask = () => {

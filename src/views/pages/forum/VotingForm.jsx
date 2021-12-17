@@ -12,6 +12,12 @@ const VotingForm = ({title, description, date, file}) => {
     setOptions([...options, {content: ''}]);
   };
 
+  const handleInputVote = (idx, value) => {
+    const _options = Object.assign([], options);
+    _options[idx] = {content: value};
+    setOptions(_options);
+  };
+
   const handleRemoveOption = (index) => {
     if (index === 0) {
       alert('Least option is 1');
@@ -38,7 +44,8 @@ const VotingForm = ({title, description, date, file}) => {
       file,
       options,
     };
-
+    console.log(params);
+    return;
 
     const response = await apis.postVoting(params);
     const {data} = response;
