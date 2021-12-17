@@ -1,6 +1,21 @@
 import axiosClient from './axios';
 
 const userAPI = {
+  // {GET API}
+  getFunding: (params) => {
+    const url = '/ceus/funding';
+    return axiosClient.get(url, {params});
+  },
+  getTask: (params) => {
+    const url = '/ceus/task';
+    return axiosClient.get(url, {params});
+  },
+  getVoting: (params) => {
+    const url = '/ceus/voting';
+    return axiosClient.get(url, {params});
+  },
+
+  // {POST API}
   postFunding: (params) => {
     const url = '/ceus/funding';
     return axiosClient.post(url, params);
