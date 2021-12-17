@@ -1,15 +1,38 @@
 import React, {useRef, useState} from 'react';
 import {useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
+import web3Selector from '../../../components/header/redux/Web3.Selector';
 
 const FundingForm = ({title, description, date, file}) => {
   // funding
   const [totalFunding, setTotalFunding] = useState(0);
   const [interest, setInterest] = useState('');
 
+  const web3 = useSelector(web3Selector.selectWeb3);
 
-  const handlePost = () => {
+  const handlePost = async () => {
+    // if (!title || !description || !date) {
+    //   alert('Please Check Enter Data');
+    //   return;
+    // }
 
+    if (web3 === null) {
+      alert('Can\'t connect to wallet');
+      return;
+    }
+
+    const accounts = await web3.eth.getAccounts();
+    let contract = new web3.eth.Contract(
+        contractValue.ABIContractBuilder,
+        contractValue.addressContractBuilder,
+    );
+
+    let params = {
+      title,
+      description,
+      date,
+      file,
+    };
   };
   return (
     <div className="create-post-funding">

@@ -83,6 +83,7 @@ function Forum() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [date, setDate] = useState(new Date());
+  const [convertDate, setConvertDate] = ('');
 
   // funding
   const [totalFunding, setTotalFunding] = useState(0);
@@ -111,15 +112,6 @@ function Forum() {
         contractValue.addressContractBuilder,
     );
     // await contract.methods.PersonVote(1, 1).send({from: accounts[0]});
-
-    return null;
-    let convertDate = moment(date).format('YYYY-MM-DD HH:mm:ss');
-    const currentTime = new Date(moment().locale('ko').format('YYYY-MM-DD HH:mm:ss')).getTime();
-    let convertDateTime = new Date(convertDate).getTime();
-
-    // if (convertDateTime <= currentTime) {
-    //   alert('Please, Check selected time!!!');
-    // }
 
     let params = {
       title,
@@ -189,6 +181,20 @@ function Forum() {
     Promise.all(Array.from(event.target?.files || []).map(getDataURLFromFile)).then((dataUrls) =>
       setFileDataUrls(dataUrls),
     );
+  };
+
+  const handleSetDate = (date) => {
+    let convertDate = moment(date).format('YYYY-MM-DD HH:mm:ss');
+    const currentTime = new Date(moment().locale('ko').format('YYYY-MM-DD HH:mm:ss')).getTime();
+    let convertDateTime = new Date(convertDate).getTime();
+
+    if (convertDateTime <= currentTime) {
+      alert('Please, Check selected time!!!');
+      return;
+    }
+
+    setConvertDate(convertDate);
+    setDate(date);
   };
 
   return (
@@ -262,7 +268,7 @@ function Forum() {
                 </div>
                 <div className="mb-50" style={{cursor: 'pointer'}}>
                   <DatePicker
-                    onChange={(date) => setDate(date)}
+                    onChange={(date) => handleSetDate(date)}
                     selected={date}
                     id="time"
                     timeInputLabel="Time:"
@@ -306,7 +312,7 @@ function Forum() {
                         title={title}
                         description={description}
                         file={fileDataUrls}
-                        date={date}
+                        date={convertDate}
                         initialState={initialState}
                       />
                     ) : formType === 'voting' ? (
@@ -314,7 +320,7 @@ function Forum() {
                         title={title}
                         description={description}
                         file={fileDataUrls}
-                        date={date}
+                        date={convertDate}
                         initialState={initialState}
                       />
                     ) : (
@@ -322,7 +328,7 @@ function Forum() {
                         title={title}
                         description={description}
                         file={fileDataUrls}
-                        date={date}
+                        date={convertDate}
                         initialState={initialState}
                       />
                     )}
