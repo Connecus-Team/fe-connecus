@@ -1,4 +1,5 @@
 import React, {useRef, useState} from 'react';
+import queryString from 'query-string';
 import {useSelector} from 'react-redux';
 import web3Selector from '../../../components/header/redux/Web3.Selector';
 import {Link} from 'react-router-dom';
@@ -39,7 +40,7 @@ const VotingForm = ({title, description, date, file}) => {
     }
     const accounts = await web3.eth.getAccounts();
     const walletAddress = accounts[0]; // TODO Check
-
+    const {address: tokenAddress} = queryString.parse(window.location.search);
     let params = {
       title,
       description,
@@ -47,6 +48,7 @@ const VotingForm = ({title, description, date, file}) => {
       file,
       options,
       walletAddress,
+      tokenAddress,
     };
 
     const response = await apis.postVoting(params);

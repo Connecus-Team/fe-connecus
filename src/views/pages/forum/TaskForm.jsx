@@ -1,4 +1,5 @@
 import React, {useRef, useState} from 'react';
+import queryString from 'query-string';
 import {useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 import contractValue from '../../../constants/contract';
@@ -23,7 +24,7 @@ const TaskForm = ({title, description, date, file}) => {
 
     const accounts = await web3.eth.getAccounts();
     const walletAddress = accounts[0]; // TODO Check
-
+    const {address: tokenAddress} = queryString.parse(window.location.search);
     let params = {
       title,
       description,
@@ -32,6 +33,7 @@ const TaskForm = ({title, description, date, file}) => {
       totalToken,
       tasks,
       walletAddress,
+      tokenAddress,
     };
     const response = await apis.postTask(params);
     return;
