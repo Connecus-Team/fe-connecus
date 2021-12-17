@@ -1,8 +1,10 @@
 import React, {useRef, useState} from 'react';
 import {useSelector} from 'react-redux';
+import web3Selector from '../../../components/header/redux/Web3.Selector';
 import {Link} from 'react-router-dom';
 
 const VotingForm = ({title, description, date, file}) => {
+  const web3 = useSelector(web3Selector.selectWeb3);
   const [options, setOptions] = useState([{content: ''}]);
 
   const handleClickAddOption = () => {
@@ -17,8 +19,49 @@ const VotingForm = ({title, description, date, file}) => {
     setOptions(options.filter((_, i) => i !== index));
   };
 
-  const handlePost = () => {
+  const handlePost = async () => {
+    // if (!title || !description || !date) {
+    //   alert('Please Check Enter Data');
+    //   return;
+    // }
 
+    if (web3 === null) {
+      alert('Can\'t connect to wallet');
+      return;
+    }
+
+    let params = {
+      title,
+      description,
+      date,
+      file,
+      options,
+    };
+
+
+    const response = await apis.postVoting(params);
+    const {data} = response;
+    await contract.methods.CreateVote(data, title, options.length).send({from: accounts[0]});
+    contract.events.NewVote({}, (err, event) => {
+      if (err) {
+        alert('New Vote Error');
+        console.log(err);
+        // TODO delete vote in database
+        return;
+      }
+      // console.log( 'eror', err, event);
+    }).on('connected', function(subscriptionId) {
+      console.log('subscriptionId', subscriptionId);
+    }).on('data', async function(event) {
+      alert('Create Voting Successful \r\b Press ok to confirm');
+      console.log('data', event);
+    }).on('changed', function(event) {
+      console.log('change');
+    }).on('error', function(error, receipt) {
+      alert('Event Error');
+      // TODO delete vote in database
+      return;
+    });
   };
 
   return (
