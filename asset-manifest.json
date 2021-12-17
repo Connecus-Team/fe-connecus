@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/fe-connecus/static/css/main.bb519e43.chunk.css",
-    "main.js": "/fe-connecus/static/js/main.300068dc.chunk.js",
-    "main.js.map": "/fe-connecus/static/js/main.300068dc.chunk.js.map",
+    "main.js": "/fe-connecus/static/js/main.2f81e412.chunk.js",
+    "main.js.map": "/fe-connecus/static/js/main.2f81e412.chunk.js.map",
     "runtime-main.js": "/fe-connecus/static/js/runtime-main.1e4e0cd4.js",
     "runtime-main.js.map": "/fe-connecus/static/js/runtime-main.1e4e0cd4.js.map",
     "static/css/2.03970190.chunk.css": "/fe-connecus/static/css/2.03970190.chunk.css",
@@ -21,6 +21,6 @@
     "static/css/2.03970190.chunk.css",
     "static/js/2.e96d1879.chunk.js",
     "static/css/main.bb519e43.chunk.css",
-    "static/js/main.300068dc.chunk.js"
+    "static/js/main.2f81e412.chunk.js"
   ]
 }
