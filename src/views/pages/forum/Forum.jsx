@@ -178,37 +178,11 @@ function Forum() {
     setTasks([{content: '', amount: '0'}]);
   };
 
-  const handleClickAddOption = () => {
-    setOptions([...options, {content: ''}]);
-  };
-
-  const handleRemoveOption = (index) => {
-    console.log(index);
-    console.log(options);
-    setOptions(options.filter((_, i) => i !== index));
-  };
-
-  const handleInputVote = (idx, value) => {
-    const _options = Object.assign([], options);
-    _options[idx] = {content: value};
-    setOptions(_options);
-  };
-
-  const handleClickAddTask = () => {
-    setTasks([...tasks, {content: '', amount: 0}]);
-  };
-
-  const handleInputTask = (idx, type, value) => {
-    const _tasks = Object.assign([], tasks);
-    _tasks[idx][type] = value;
-    setOptions(_tasks);
-  };
-
-  const handleRemoveTask = (idx) => {
-    let _tasks = tasks;
-    _tasks[idx] = undefined;
-    _tasks = _tasks.filter((i) => i !== undefined);
-    setTasks(_tasks);
+  const initialState = () => {
+    setTitle('');
+    setDescription('');
+    setDate(new Date());
+    setOptions([{content: ''}]);
   };
 
   const onInputChange = (event) => {
@@ -216,6 +190,7 @@ function Forum() {
       setFileDataUrls(dataUrls),
     );
   };
+
   return (
     <div>
       <Header />
@@ -331,18 +306,24 @@ function Forum() {
                         title={title}
                         description={description}
                         file={fileDataUrls}
+                        date={date}
+                        initialState={initialState}
                       />
                     ) : formType === 'voting' ? (
                       <VotingForm
                         title={title}
                         description={description}
                         file={fileDataUrls}
+                        date={date}
+                        initialState={initialState}
                       />
                     ) : (
                       <TaskForm
                         title={title}
                         description={description}
                         file={fileDataUrls}
+                        date={date}
+                        initialState={initialState}
                       />
                     )}
                   </div>
