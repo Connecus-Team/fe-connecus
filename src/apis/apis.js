@@ -14,6 +14,10 @@ const userAPI = {
     const url = '/ceus/voting';
     return axiosClient.get(url, {params});
   },
+  getAllToken: (params) => {
+    const url = '/ceus/all-token';
+    return axiosClient.get(url, params);
+  },
 
   // {POST API}
   postFunding: (params) => {

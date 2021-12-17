@@ -32,7 +32,7 @@ function VotingPostList() {
 
   useEffect(() => {
     if (web3 === null) {
-      alert('Can\'t connect to wallet');
+      // alert('Can\'t connect to wallet');
       return;
     }
     const fetchData = async () => {

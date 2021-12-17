@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useSelector} from 'react-redux';
+import queryString from 'query-string';
 import data from './data';
 import FundingPostItem from './FundingPostItem';
 import apis from '../../../apis/apis';
@@ -33,7 +34,7 @@ function FundingPostList() {
 
   useEffect(() => {
     if (web3 === null) {
-      alert('Can\'t connect to wallet');
+      // alert('Can\'t connect to wallet');
       return;
     }
     const fetchData = async () => {

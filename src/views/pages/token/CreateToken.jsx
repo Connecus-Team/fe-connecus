@@ -12,6 +12,7 @@ const CreateToken = () => {
   const [name, setName] = useState('');
   const [symBol, setSymBol] = useState('');
   const [totalSupply, setTotalSupply] = useState(0);
+  const [description, setDescription] = useState('');
   const [totalStake, setTotalStake] = useState(0);
   const [loadingEvent, setLoadingEvent] = useState(false);
 
@@ -158,6 +159,19 @@ const CreateToken = () => {
                         <option>20.00 ETH</option>
                       </select> */}
                     </div>
+                    <div className="space-y-10">
+                      <span className="variationInput">Description</span>
+                      <textarea
+                        name="reply-message"
+                        rows={4}
+                        className="form-control"
+                        placeholder="Description"
+                        value={description}
+                        defaultValue={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                      />
+                    </div>
+
                     {/* <div className="space-y-10">
                       <span className="variationInput">Choose collection</span>
                       <div className="d-flex flex-column flex-md-row">

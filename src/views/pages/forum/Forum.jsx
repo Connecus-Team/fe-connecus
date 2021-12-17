@@ -111,7 +111,6 @@ function Forum() {
     setConvertDate(convertDate);
     setDate(date);
   };
-  console.log(convertDate);
 
   return (
     <div>

@@ -1,6 +1,8 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import Popup from 'reactjs-popup';
+import apis from '../../apis/apis';
+
 import 'reactjs-popup/dist/index.css';
 
 const CardItems = [
@@ -97,6 +99,17 @@ const CardItems = [
 const Cards1 = () => {
   const ref = useRef();
   const closeTooltip = () => ref.current.close();
+
+  const [tokenList, setTokenList] = useState([]);
+
+  useEffect(() => {
+    const fetchToken = async () => {
+      const response = await apis.getAllToken();
+      const {data} = response;
+      setTokenList(data);
+    };
+    fetchToken();
+  }, []);
   return (
     <div className="mt-100">
       <div className="container">
@@ -112,7 +125,7 @@ const Cards1 = () => {
           </div>
         </div>
         <div className="row">
-          {CardItems.map((val, i) => (
+          {tokenList.length !== 0 && tokenList.map((val, i) => (
             <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6" key={i}>
               <div className="card__item four">
                 <div className="card_body space-y-10">
@@ -121,14 +134,14 @@ const Cards1 = () => {
                     <div className="avatars space-x-3">
                       <Link to="profile">
                         <img
-                          src={`${val.img}`}
+                          src={`${val.link}`}
                           alt="Avatar"
                           className="avatar avatar-sm"
                         />
                       </Link>
                       <Link to="profile">
                         <p className="avatars_name txt_xs">
-                          @{val.avatar_name1}
+                          @{val.symbol}
                         </p>
                       </Link>
                     </div>
@@ -147,8 +160,8 @@ const Cards1 = () => {
                       </Link>
                     </div> */}
                   </div>
-                  <div  className="card_head">
-                    <img src={`${val.img}`} alt="nftimage" />
+                  <div className="card_head">
+                    <img src={`${val.link}`} alt="nftimage" />
                     <div className="likes space-x-3">
                       <i className="ri-heart-3-fill" />
                       <span className="txt_sm">{val.likes}k</span>
@@ -156,22 +169,23 @@ const Cards1 = () => {
                   </div>
                   {/* =============== */}
                   <h6 className="card_title">
-                    <Link className="color_black" to="item-details">
-                      {val.title}
+                    <Link className="color_black" to={`/token-view?address=${val.token_address}`}>
+                      {val.token_description}
                     </Link>
                   </h6>
                   <div className="card_footer d-block space-y-10">
                     <div className="card_footer justify-content-between">
                       <div className="creators">
-                        <p className="txt_sm">{val.stock} in stock</p>
+                        <p className="txt_sm">{val.token_name}</p>
                       </div>
-                        <div className="txt_sm">
-                          Price: {" "}
-                          <span className="color_green txt_sm">
-                            {val.price}
-                            ETH
-                          </span>
-                        </div>
+                      <div className="txt_sm">
+                          Price: {' '}
+                        <span className="color_green txt_sm">
+                          {/* {val.price} */}
+                          1
+                            CEUS
+                        </span>
+                      </div>
                     </div>
                     <div className="hr" />
                     <div

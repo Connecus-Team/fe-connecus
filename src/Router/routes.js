@@ -88,6 +88,7 @@ const Routes = () => {
           <Route path="/forum" component={Forum} />
           <Route path="/post-details" component={PostDetails} />
           <Route path="/contact" component={Contact} />
+          <Route path="/token-view" component={Forum} />
           <Route path="/token" component={CreateToken} />
           <Route path="/community" component={CommunityList} />
 
