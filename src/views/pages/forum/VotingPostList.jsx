@@ -27,6 +27,7 @@ const BodyComponent = (item) => {
 
 function VotingPostList() {
   const web3 = useSelector(web3Selector.selectWeb3);
+  const [votingPostList, setVotingPostList] = useState([]);
 
   useEffect(() => {
     if (web3 === null) {
@@ -35,18 +36,19 @@ function VotingPostList() {
     }
     const fetchData = async () => {
       const accounts= await web3.eth.getAccounts();
-      let walletAdress = accounts[0];
+      let walletAddress = accounts[0];
 
-      let params = {walletAdress};
+      let params = {walletAddress};
       const response = await apis.getVoting(params);
-      console.log(response);
+      const {data} = response;
+      setVotingPostList(data);
     };
     fetchData();
   }, [web3]);
 
   return (
     <div className="space-y-20">
-      {data.votingCard.map((item) =>
+      {votingPostList.length !== 0 && votingPostList.map((item) =>
         PostItem({
           item,
           rightInfoTitle: 'VOTING END',

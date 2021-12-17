@@ -2,6 +2,7 @@ import React, {useRef, useState} from 'react';
 import {useSelector} from 'react-redux';
 import web3Selector from '../../../components/header/redux/Web3.Selector';
 import {Link} from 'react-router-dom';
+import apis from '../../../apis/apis';
 import contractValue from '../../../constants/contract';
 
 const VotingForm = ({title, description, date, file}) => {
@@ -47,7 +48,6 @@ const VotingForm = ({title, description, date, file}) => {
       options,
       walletAddress,
     };
-    return;
 
     const response = await apis.postVoting(params);
     const {data} = response;
