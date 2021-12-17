@@ -21,10 +21,8 @@ const TaskForm = ({title, description, date, file}) => {
     }
 
     const accounts = await web3.eth.getAccounts();
-    let contract = new web3.eth.Contract(
-        contractValue.ABIContractBuilder,
-        contractValue.addressContractBuilder,
-    );
+    const walletAddress = accounts[0]; // TODO Check
+
 
     let params = {
       title,
@@ -33,11 +31,16 @@ const TaskForm = ({title, description, date, file}) => {
       file,
       totalToken,
       tasks,
+      walletAddress,
     };
-    console.log(params);
+    const response = await apis.postTask(params);
+    console.log(response);
     return;
 
-    const response = await apis.postTask(params);
+    let contract = new web3.eth.Contract(
+        contractValue.ABIContractBuilder,
+        contractValue.addressContractBuilder,
+    );
   };
 
   const handleInputTask = (idx, type, value) => {

@@ -23,7 +23,8 @@ const FundingForm = ({title, description, date, file}) => {
         alert('Can\'t connect to wallet');
         return;
       }
-
+      const accounts = await web3.eth.getAccounts();
+      const walletAddress = accounts[0]; // TODO Check
       let params = {
         title,
         description,
@@ -31,12 +32,14 @@ const FundingForm = ({title, description, date, file}) => {
         file,
         totalFunding,
         interest,
+        walletAddress,
       };
       const response = await apis.postFunding(params);
       const {data} = response;
+
+      return;
       // TODO Check server successful
 
-      const accounts = await web3.eth.getAccounts();
       const tokenContract = new web3.eth.Contract(contractValue.ABIToken, contractValue.addressToken);
       tokenContract.methods.approve(contractValue.addressContractBuilder, web3.utils.toWei(totalStake, 'Ether')).send({from: accounts[0]}).on('transactionHash', async (hash) => {
         let contractBuilder = new web3.eth.Contract(contractValue.ABIContractBuilder, contractValue.addressContractBuilder);

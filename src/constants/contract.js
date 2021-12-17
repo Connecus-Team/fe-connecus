@@ -366,89 +366,6 @@ const ABIContractBuilder = [
   {
     'inputs': [
       {
-        'internalType': 'string',
-        'name': 'name',
-        'type': 'string',
-      },
-      {
-        'internalType': 'string',
-        'name': 'symbol',
-        'type': 'string',
-      },
-      {
-        'internalType': 'uint256',
-        'name': 'supply',
-        'type': 'uint256',
-      },
-    ],
-    'name': 'createToken',
-    'outputs': [
-      {
-        'internalType': 'address',
-        'name': '',
-        'type': 'address',
-      },
-    ],
-    'stateMutability': 'nonpayable',
-    'type': 'function',
-  },
-  {
-    'inputs': [
-      {
-        'internalType': 'uint256',
-        'name': '_id',
-        'type': 'uint256',
-      },
-      {
-        'internalType': 'string',
-        'name': '_tile',
-        'type': 'string',
-      },
-      {
-        'internalType': 'uint256',
-        'name': '_sumOption',
-        'type': 'uint256',
-      },
-    ],
-    'name': 'CreateVote',
-    'outputs': [],
-    'stateMutability': 'nonpayable',
-    'type': 'function',
-  },
-  {
-    'inputs': [
-      {
-        'internalType': 'uint256',
-        'name': '_id',
-        'type': 'uint256',
-      },
-      {
-        'internalType': 'uint256',
-        'name': '_idOption',
-        'type': 'uint256',
-      },
-    ],
-    'name': 'PersonVote',
-    'outputs': [],
-    'stateMutability': 'nonpayable',
-    'type': 'function',
-  },
-  {
-    'inputs': [
-      {
-        'internalType': 'uint256',
-        'name': 'fee_',
-        'type': 'uint256',
-      },
-    ],
-    'name': 'staking',
-    'outputs': [],
-    'stateMutability': 'nonpayable',
-    'type': 'function',
-  },
-  {
-    'inputs': [
-      {
         'internalType': 'address',
         'name': 'rewardToken_',
         'type': 'address',
@@ -468,14 +385,39 @@ const ABIContractBuilder = [
       },
       {
         'indexed': false,
-        'internalType': 'string',
-        'name': 'tile',
-        'type': 'string',
+        'internalType': 'uint256',
+        'name': 'totalSupply',
+        'type': 'uint256',
+      },
+      {
+        'indexed': false,
+        'internalType': 'uint256',
+        'name': 'timeEndFund',
+        'type': 'uint256',
+      },
+    ],
+    'name': 'NewFunding',
+    'type': 'event',
+  },
+  {
+    'anonymous': false,
+    'inputs': [
+      {
+        'indexed': false,
+        'internalType': 'uint256',
+        'name': 'id',
+        'type': 'uint256',
       },
       {
         'indexed': false,
         'internalType': 'uint256',
         'name': 'sumOption',
+        'type': 'uint256',
+      },
+      {
+        'indexed': false,
+        'internalType': 'uint256',
+        'name': 'timeVoteEnd',
         'type': 'uint256',
       },
     ],
@@ -549,6 +491,76 @@ const ABIContractBuilder = [
     'inputs': [
       {
         'internalType': 'uint256',
+        'name': '_id',
+        'type': 'uint256',
+      },
+      {
+        'internalType': 'uint256',
+        'name': '_sumOption',
+        'type': 'uint256',
+      },
+      {
+        'internalType': 'uint256',
+        'name': '_timeEnd',
+        'type': 'uint256',
+      },
+    ],
+    'name': 'CreateVote',
+    'outputs': [],
+    'stateMutability': 'nonpayable',
+    'type': 'function',
+  },
+  {
+    'inputs': [
+      {
+        'internalType': 'uint256',
+        'name': '_id',
+        'type': 'uint256',
+      },
+      {
+        'internalType': 'uint256',
+        'name': '_idOption',
+        'type': 'uint256',
+      },
+    ],
+    'name': 'PersonVote',
+    'outputs': [],
+    'stateMutability': 'nonpayable',
+    'type': 'function',
+  },
+  {
+    'inputs': [
+      {
+        'internalType': 'uint256',
+        'name': '',
+        'type': 'uint256',
+      },
+    ],
+    'name': 'VoteToOwer',
+    'outputs': [
+      {
+        'internalType': 'address',
+        'name': 'chairPerson',
+        'type': 'address',
+      },
+      {
+        'internalType': 'uint256',
+        'name': 'sumOption',
+        'type': 'uint256',
+      },
+      {
+        'internalType': 'uint256',
+        'name': 'timeVoteEnd',
+        'type': 'uint256',
+      },
+    ],
+    'stateMutability': 'view',
+    'type': 'function',
+  },
+  {
+    'inputs': [
+      {
+        'internalType': 'uint256',
         'name': '',
         'type': 'uint256',
       },
@@ -591,6 +603,24 @@ const ABIContractBuilder = [
     'type': 'function',
   },
   {
+    'inputs': [
+      {
+        'internalType': 'uint256',
+        'name': '_id',
+        'type': 'uint256',
+      },
+      {
+        'internalType': 'uint256',
+        'name': '_fee',
+        'type': 'uint256',
+      },
+    ],
+    'name': 'bidFunding',
+    'outputs': [],
+    'stateMutability': 'nonpayable',
+    'type': 'function',
+  },
+  {
     'inputs': [],
     'name': 'checkStake',
     'outputs': [
@@ -601,6 +631,110 @@ const ABIContractBuilder = [
       },
     ],
     'stateMutability': 'view',
+    'type': 'function',
+  },
+  {
+    'inputs': [
+      {
+        'internalType': 'string',
+        'name': 'name',
+        'type': 'string',
+      },
+      {
+        'internalType': 'string',
+        'name': 'symbol',
+        'type': 'string',
+      },
+      {
+        'internalType': 'uint256',
+        'name': 'supply',
+        'type': 'uint256',
+      },
+    ],
+    'name': 'createToken',
+    'outputs': [
+      {
+        'internalType': 'address',
+        'name': '',
+        'type': 'address',
+      },
+    ],
+    'stateMutability': 'nonpayable',
+    'type': 'function',
+  },
+  {
+    'inputs': [
+      {
+        'internalType': 'uint256',
+        'name': '',
+        'type': 'uint256',
+      },
+    ],
+    'name': 'fundToOwer',
+    'outputs': [
+      {
+        'internalType': 'uint256',
+        'name': 'id',
+        'type': 'uint256',
+      },
+      {
+        'internalType': 'address',
+        'name': 'chairPerson',
+        'type': 'address',
+      },
+      {
+        'internalType': 'uint256',
+        'name': 'totalFundPerson',
+        'type': 'uint256',
+      },
+      {
+        'internalType': 'uint256',
+        'name': 'totalSupply',
+        'type': 'uint256',
+      },
+      {
+        'internalType': 'uint256',
+        'name': 'timeEndFund',
+        'type': 'uint256',
+      },
+    ],
+    'stateMutability': 'view',
+    'type': 'function',
+  },
+  {
+    'inputs': [
+      {
+        'internalType': 'uint256',
+        'name': 'fee_',
+        'type': 'uint256',
+      },
+    ],
+    'name': 'staking',
+    'outputs': [],
+    'stateMutability': 'nonpayable',
+    'type': 'function',
+  },
+  {
+    'inputs': [
+      {
+        'internalType': 'uint256',
+        'name': '_id',
+        'type': 'uint256',
+      },
+      {
+        'internalType': 'uint256',
+        'name': '_totalSupply',
+        'type': 'uint256',
+      },
+      {
+        'internalType': 'uint256',
+        'name': '_timeEnd',
+        'type': 'uint256',
+      },
+    ],
+    'name': 'stakingAndFunding',
+    'outputs': [],
+    'stateMutability': 'nonpayable',
     'type': 'function',
   },
   {
@@ -616,39 +750,10 @@ const ABIContractBuilder = [
     'stateMutability': 'view',
     'type': 'function',
   },
-  {
-    'inputs': [
-      {
-        'internalType': 'uint256',
-        'name': '',
-        'type': 'uint256',
-      },
-    ],
-    'name': 'VoteToOwer',
-    'outputs': [
-      {
-        'internalType': 'string',
-        'name': 'title',
-        'type': 'string',
-      },
-      {
-        'internalType': 'address',
-        'name': 'chairPerson',
-        'type': 'address',
-      },
-      {
-        'internalType': 'uint256',
-        'name': 'sumOption',
-        'type': 'uint256',
-      },
-    ],
-    'stateMutability': 'view',
-    'type': 'function',
-  },
 ];
 
 
-const addressContractBuilder = '0xC88Efc7EaC4100fe0cF6199e3F8DC006be1475a2';
+const addressContractBuilder = '0x8bB87DA8E864947fF953f1208A75BBd1C9c4B850';
 
 const webDomain = 'http://ratp.link';
 

@@ -36,6 +36,8 @@ const VotingForm = ({title, description, date, file}) => {
       alert('Can\'t connect to wallet');
       return;
     }
+    const accounts = await web3.eth.getAccounts();
+    const walletAddress = accounts[0]; // TODO Check
 
     let params = {
       title,
@@ -43,19 +45,20 @@ const VotingForm = ({title, description, date, file}) => {
       date,
       file,
       options,
+      walletAddress,
     };
-    console.log(params);
     return;
 
     const response = await apis.postVoting(params);
     const {data} = response;
 
-    const accounts = await web3.eth.getAccounts();
+    return;
+    // TODO Check server successful
     let contract = new web3.eth.Contract(
         contractValue.ABIContractBuilder,
         contractValue.addressContractBuilder,
     );
-    await contract.methods.CreateVote(data, title, options.length).send({from: accounts[0]});
+    await contract.methods.CreateVote(data, options.length, date).send({from: accounts[0]});
     contract.events.NewVote({}, (err, event) => {
       if (err) {
         alert('New Vote Error');
