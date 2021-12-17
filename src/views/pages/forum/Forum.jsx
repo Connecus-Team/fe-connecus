@@ -78,6 +78,7 @@ function Forum() {
   const imageUploadRef = useRef();
   const [formType, setFormType] = useState('funding');
   const [viewPostType, setViewPostType] = useState('funding');
+  const [file, setFile] = useState();
   const [fileDataUrls, setFileDataUrls] = useState([]);
 
   const [title, setTitle] = useState('');
@@ -95,6 +96,7 @@ function Forum() {
   const onInputChange = (event) => {
     Promise.all(Array.from(event.target?.files || []).map(getDataURLFromFile)).then((dataUrls) =>
       setFileDataUrls(dataUrls),
+    setFile(event.target?.files),
     );
   };
 
@@ -226,7 +228,7 @@ function Forum() {
                       <FundingForm
                         title={title}
                         description={description}
-                        file={fileDataUrls}
+                        file={file}
                         date={convertDate}
                         initialState={initialState}
                       />
@@ -234,7 +236,7 @@ function Forum() {
                       <VotingForm
                         title={title}
                         description={description}
-                        file={fileDataUrls}
+                        file={file}
                         date={convertDate}
                         initialState={initialState}
                       />
@@ -242,7 +244,7 @@ function Forum() {
                       <TaskForm
                         title={title}
                         description={description}
-                        file={fileDataUrls}
+                        file={file}
                         date={convertDate}
                         initialState={initialState}
                       />

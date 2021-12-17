@@ -20,6 +20,8 @@ const FundingForm = ({title, description, date, file}) => {
       //   return;
       // }
 
+      console.log(file[0]);
+      return;
       if (web3 === null) {
         alert('Can\'t connect to wallet');
         return;
@@ -37,6 +39,22 @@ const FundingForm = ({title, description, date, file}) => {
         walletAddress,
         tokenAddress,
       };
+
+      const {size, type} = files[0];
+      if (size / 1000000 < 100) {
+        if (type === 'image/png' || type === 'image/jpg' ) {
+          let data = new FormData();
+          data.append('file', files[0]);
+          data.append('params', JSON.stringify(params));
+          chatComponentService.upFile(data)
+              .catch((e) => {
+                console.log(' e --', e);
+              });
+        } else {
+          alert(t('mainPage.chatingComponent.errorMessage.fileUpdateError'));
+        }
+      }
+
       const response = await apis.postFunding(params);
       const {data} = response;
 
