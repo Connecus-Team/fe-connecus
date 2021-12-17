@@ -118,7 +118,7 @@ function Forum() {
 
   useEffect(() => {
     const comparisonToken = async () => {
-      if (web3) {
+      if (web3 && token) {
         const accounts = await web3.eth.getAccounts();
         const walletAddress = accounts[0]; // TODO Check
         const {wallet_address} = token;

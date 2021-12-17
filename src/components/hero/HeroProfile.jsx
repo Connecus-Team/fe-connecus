@@ -45,7 +45,7 @@ const HeroProfile = ({setToken}) => {
     <div className="mb-100">
       <div className="hero__profile">
         <div className="cover">
-          <img src="https://nghesiviet.vn/storage/files/7/viruss/viruss-2.jpg" alt="ImgPreview" />
+          <img src={tokenInfo.link} alt="ImgPreview" />
         </div>
         <div className="infos">
           <div className="container">
@@ -55,7 +55,7 @@ const HeroProfile = ({setToken}) => {
                   <div className="avatar_wrap">
                     <img
                       className="avatar avatar-lg"
-                      src="https://nghesiviet.vn/storage/files/7/viruss/viruss-2.jpg"
+                      src={tokenInfo.link}
                       alt="avatar"
                     />
                   </div>
