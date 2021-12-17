@@ -8,7 +8,7 @@ import contractValue from '../../../constants/contract';
 
 const CreateToken = () => {
   useDocumentTitle('Create Token');
-  const [doneStake, setDoneStake] = useState(false);
+  const [doneStake, setDoneStake] = useState(true);
   const [name, setName] = useState('');
   const [symBol, setSymBol] = useState('');
   const [totalSupply, setTotalSupply] = useState(0);
@@ -158,7 +158,7 @@ const CreateToken = () => {
                         <option>20.00 ETH</option>
                       </select> */}
                     </div>
-                    <div className="space-y-10">
+                    {/* <div className="space-y-10">
                       <span className="variationInput">Choose collection</span>
                       <div className="d-flex flex-column flex-md-row">
                         <div className="choose_collection bg_black  ">
@@ -172,10 +172,10 @@ const CreateToken = () => {
                           </span>
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
-                <p className="color_black">
+                {/* <p className="color_black">
                   <span className="color_text text-bold"> Service fee : </span>
                   2.5%
                 </p>
@@ -183,7 +183,7 @@ const CreateToken = () => {
                   <span className="color_text text-bold">You will receive :</span>
                   22.425 ETH $41,637.78
                 </p>
-                <p></p>
+                <p></p> */}
               </div>
             </div> :
             <div className="row">
