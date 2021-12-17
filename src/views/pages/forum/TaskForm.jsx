@@ -38,7 +38,6 @@ const TaskForm = ({title, description, date, file}) => {
     return;
 
     const response = await apis.postTask(params);
-    console.log(response);
   };
 
   const handleInputTask = (idx, type, value) => {

@@ -49,6 +49,12 @@ const VotingForm = ({title, description, date, file}) => {
 
     const response = await apis.postVoting(params);
     const {data} = response;
+
+    const accounts = await web3.eth.getAccounts();
+    let contract = new web3.eth.Contract(
+        contractValue.ABIContractBuilder,
+        contractValue.addressContractBuilder,
+    );
     await contract.methods.CreateVote(data, title, options.length).send({from: accounts[0]});
     contract.events.NewVote({}, (err, event) => {
       if (err) {

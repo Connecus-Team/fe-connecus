@@ -13,33 +13,60 @@ const FundingForm = ({title, description, date, file}) => {
   const web3 = useSelector(web3Selector.selectWeb3);
 
   const handlePost = async () => {
-    // if (!title || !description || !date) {
-    //   alert('Please Check Enter Data');
-    //   return;
-    // }
+    try {
+      // if (!title || !description || !date) {
+      //   alert('Please Check Enter Data');
+      //   return;
+      // }
 
-    if (web3 === null) {
-      alert('Can\'t connect to wallet');
+      if (web3 === null) {
+        alert('Can\'t connect to wallet');
+        return;
+      }
+
+      let params = {
+        title,
+        description,
+        date,
+        file,
+        totalFunding,
+        interest,
+      };
+      const response = await apis.postFunding(params);
+      const {data} = response;
+      // TODO Check server successful
+
+      const accounts = await web3.eth.getAccounts();
+      const tokenContract = new web3.eth.Contract(contractValue.ABIToken, contractValue.addressToken);
+      tokenContract.methods.approve(contractValue.addressContractBuilder, web3.utils.toWei(totalStake, 'Ether')).send({from: accounts[0]}).on('transactionHash', async (hash) => {
+        let contractBuilder = new web3.eth.Contract(contractValue.ABIContractBuilder, contractValue.addressContractBuilder);
+        await contractBuilder.methods._register(data, totalFunding, date).send({from: accounts[0]});
+        contractBuilder.events.NewFunding({}, (err, event) => {
+          if (err) {
+            alert('New Funding Error');
+            console.log(err);
+            // TODO delete funding in database
+            return;
+          }
+          // console.log( 'eror', err, event);
+        }).on('connected', function(subscriptionId) {
+          console.log('subscriptionId', subscriptionId);
+        }).on('data', async function(event) {
+          alert('Create Funding Successful \r\b Press ok to confirm');
+          console.log('data', event);
+        }).on('changed', function(event) {
+          console.log('change');
+        }).on('error', function(error, receipt) {
+          alert('Event Error');
+          // TODO delete funding in database
+          return;
+        });
+      });
+    } catch (error) {
+      console.log(error);
+      alert(' Post a funding error');
       return;
     }
-
-    const accounts = await web3.eth.getAccounts();
-    let contract = new web3.eth.Contract(
-        contractValue.ABIContractBuilder,
-        contractValue.addressContractBuilder,
-    );
-
-    let params = {
-      title,
-      description,
-      date,
-      file,
-      totalFunding,
-      interest,
-    };
-    console.log(params);
-    return;
-    const response = await apis.postFunding(params);
   };
   return (
     <div className="create-post-funding">
