@@ -34,7 +34,9 @@ const HeroProfile = ({setToken}) => {
       const {data} = response;
       setTokenInfo(data);
       if (setToken !== undefined) {
+        // TODO store redux
         setToken(data);
+        localStorage.setItem('token', JSON.stringify(data));
       }
     };
     fetchTokenInfo();

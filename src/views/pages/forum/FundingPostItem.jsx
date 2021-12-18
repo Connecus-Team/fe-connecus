@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
-import Countdown from 'react-countdown'
-import ConnecusCountDown from './ConnecusCountDown'
-import web3Selector from '../../../components/header/redux/Web3.Selector'
-import contractValue from '../../../constants/contract'
+import React, {useState} from 'react';
+import Countdown from 'react-countdown';
+import ConnecusCountDown from './ConnecusCountDown';
+import web3Selector from '../../../components/header/redux/Web3.Selector';
+import contractValue from '../../../constants/contract';
 
 export const defaultItem = {
   id: 1,
@@ -11,50 +11,51 @@ export const defaultItem = {
     Hey guys! New exploration about NFT Marketplace Web Design, this time I'm inspired by one of my favorite NFT website called Rarible (with crypto payment)! What do you`,
   img: 'https://miro.medium.com/max/1024/1*kdYwtZPiNcz8djsFLfWTNQ.jpeg',
   totalFunding: '1000',
-  date: '10/01/2022 12:00:00'
-}
-const defaultComponent = () => null
+  date: '10/01/2022 12:00:00',
+};
+const defaultComponent = () => null;
 
 // Will use it later
 function FundingPostItem({
   item = defaultItem,
   rightInfoTitle = 'FUNDING END',
   leftInfoComponent = defaultComponent,
-  bodyComponent = defaultComponent
+  bodyComponent = defaultComponent,
+  token,
 }) {
-  const [userFunding, setUserFunding] = useState(0)
+  const [userFunding, setUserFunding] = useState(0);
   const handleFundingWithPost = async () => {
     if (userFunding <= 0) {
-      alert('Please, check input')
-      return
+      alert('Please, check input');
+      return;
     }
 
     if (window.confirm(`Are you sure you want to funding with ${userFunding}`)) {
-      const accounts = await web3.eth.getAccounts()
-      const walletAddress = accounts[0] // TODO Check
+      const accounts = await web3.eth.getAccounts();
+      const walletAddress = accounts[0]; // TODO Check
       const tokenContract = new web3.eth.Contract(
-        contractValue.ABIToken,
-        contractValue.addressToken
-      )
+          contractValue.ABIToken,
+          contractValue.addressToken,
+      );
       tokenContract.methods
-        .approve(contractValue.addressContractBuilder, web3.utils.toWei(userFunding, 'Ether'))
-        .send({ from: walletAddress })
-        .on('transactionHash', async hash => {
-          let contractBuilder = new web3.eth.Contract(
-            contractValue.ABIContractBuilder,
-            contractValue.addressContractBuilder
-          )
-          await contractBuilder.methods
-            .bidFunding(walletAddress, userFunding)
-            .send({ from: walletAddress })
-          alert('Bid Fnding Successful')
-        })
+          .approve(contractValue.addressContractBuilder, web3.utils.toWei(userFunding, 'Ether'))
+          .send({from: walletAddress})
+          .on('transactionHash', async (hash) => {
+            let contractBuilder = new web3.eth.Contract(
+                contractValue.ABIContractBuilder,
+                contractValue.addressContractBuilder,
+            );
+            await contractBuilder.methods
+                .bidFunding(walletAddress, userFunding)
+                .send({from: walletAddress});
+            alert('Bid Fnding Successful');
+          });
     } else {
-      return
+      return;
     }
-  }
+  };
   return (
-    <div className="card__item one post-item" key={item.id} style={{ maxWidth: '100%' }}>
+    <div className="card__item one post-item" key={item.id} style={{maxWidth: '100%'}}>
       <div className="card_body space-y-10">
         <div className="card_head">
           {/* <img src={item.img} alt="" /> */}
@@ -80,7 +81,7 @@ function FundingPostItem({
             name="funding-number"
             placeholder="Total funding $"
             value={userFunding}
-            onChange={e => setUserFunding(e.target.value)}
+            onChange={(e) => setUserFunding(e.target.value)}
           />
           <button className="btn btn-primary" onClick={() => handleFundingWithPost()}>
             Funding
@@ -91,16 +92,16 @@ function FundingPostItem({
                                                               flex-md-row">
           <div className="creators space-x-10">
             <div className="avatars space-x-3">
-              <div className="-space-x-20">
+              {/* <div className="-space-x-20">
                 <a href="Profile.html">
                   <img src="img/avatars/avatar_3.png" alt="Avatar" className="avatar avatar-sm" />
                 </a>
                 <a href="Profile.html">
                   <img src="img/avatars/avatar_2.png" alt="Avatar" className="avatar avatar-sm" />
                 </a>
-              </div>
+              </div> */}
               <a href="Profile.html">
-                <p className="avatars_name txt_sm">@makinzi_jamy...</p>
+                <p className="avatars_name txt_sm">@{token.token_name}</p>
               </a>
             </div>
           </div>
@@ -111,7 +112,7 @@ function FundingPostItem({
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default FundingPostItem
+export default FundingPostItem;

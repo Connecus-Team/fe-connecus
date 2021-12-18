@@ -302,11 +302,11 @@ function Forum() {
               <div className="tab-content">
                 {/* <TabPanel> */}
                 {viewPostType === 'funding' ? (
-                  <FundingPostList />
+                  <FundingPostList token={token} />
                 ) : viewPostType === 'voting' ? (
-                  <VotingPostList />
+                  <VotingPostList token={token} />
                 ) : (
-                  <TaskPostList />
+                  <TaskPostList token={token} />
                 )}
                 {/* </TabPanel> */}
               </div>

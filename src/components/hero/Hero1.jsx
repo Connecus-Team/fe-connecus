@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
-import { gsap } from 'gsap';
+import React, {useState, useEffect, useRef} from 'react';
+import {Link} from 'react-router-dom';
+import {gsap} from 'gsap';
+import Image from '../../assets/Image';
 
 const Hero1 = () => {
   const boxRef = useRef();
@@ -41,7 +42,7 @@ const Hero1 = () => {
             <img
               className="img-fluid w-full p-5"
               id="img_js"
-              src="img/bg/home1/community1.svg"
+              src={Image.logo}
               alt="img"
             />
           </div>
