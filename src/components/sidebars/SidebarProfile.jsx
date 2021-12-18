@@ -13,8 +13,8 @@ const SidebarProfile = ({token}) => {
   const styleText = {
     whiteSpace: 'nowrap',
     overflow: 'hidden',
-    textCverflow: 'ellipsis',
-    minWidth: '100px',
+    textOverflow: 'ellipsis',
+    width: '100px',
   };
 
   return (
@@ -32,13 +32,18 @@ const SidebarProfile = ({token}) => {
             <div className="row">
               <div className="col-6">
                 <span className="txt_sm color_text">Address</span>
-                {/* <h4 style={styleText}>{tokenInfo.token_address}</h4> */}
-                <h4 >0x6E4e802A68a52fc87cc9e34fc4E0d9f571F4A52D</h4>
+                <div className="d-flex">
+                  <h4 style={styleText}>{tokenInfo.token_address}</h4>
+                  <h4>{tokenInfo.token_address.slice(-3)} </h4>
+                </div>
+                <p>
+                  <i className="ri-file-copy-line"></i> &nbsp;&nbsp;
+                  <a href={`https://ropsten.etherscan.io/address/${tokenInfo.token_address}`} target="_blank" rel="noreferrer"><i className="ri-share-box-line"></i></a>
+                </p>
               </div>
               <div className="col-6">
                 <span className="txt_sm color_text">Created Date</span>
-                {/* <h4 >{moment(tokenInfo.created).format('YYYY-MM-DD HH:mm:ss')}</h4> */}
-                <h4>2021-12-18 19:47:11</h4>
+                <h4 >{moment(tokenInfo.created).format('YYYY-MM-DD')}</h4>
               </div>
             </div>
           </div>
@@ -50,8 +55,7 @@ const SidebarProfile = ({token}) => {
               <li>
                 <a href="https://www.facebook.com/" rel="noreferrer" target="_blank">
                   <i className="ri-facebook-line" />
-                  <span className="color_text">facebook/</span>
-                  @creabik
+                  <span style={{...styleText, width: '200px'}} className="color_text">/{tokenInfo.facebook_url.slice(25)}</span>
                 </a>
               </li>
               {/* <li>

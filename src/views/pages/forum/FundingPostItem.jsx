@@ -69,7 +69,7 @@ function FundingPostItem({
       <div className="card_body space-y-10">
         <div className="card_head">
           {/* <img src={item.img} alt="" /> */}
-          <img src="https://www.aprio.com/wp-content/uploads/494712.jpg" alt="" />
+          <img src={`${process.env.REACT_APP_SERVER_API}api/files/${item.link}`} alt="" />
           <div className="details d-flex justify-content-between">
             {leftInfoComponent(item)}
             <div className="auction_end text-right">

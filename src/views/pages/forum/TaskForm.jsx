@@ -1,15 +1,15 @@
-import React, { useRef, useState } from 'react';
+import React, {useRef, useState} from 'react';
 import queryString from 'query-string';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import {useSelector} from 'react-redux';
+import {Link} from 'react-router-dom';
 import contractValue from '../../../constants/contract';
 import apis from '../../../apis/apis';
 import web3Selector from '../../../components/header/redux/Web3.Selector';
 
-const TaskForm = ({ title, description, date, file }) => {
+const TaskForm = ({title, description, date, file}) => {
   const web3 = useSelector(web3Selector.selectWeb3);
   // task
-  const [tasks, setTasks] = useState([{ content: '', amount: '0' }]);
+  const [tasks, setTasks] = useState([{content: '', amount: '0'}]);
   const [totalToken, setTotalToken] = useState(0);
 
   const handlePost = async () => {
@@ -18,13 +18,13 @@ const TaskForm = ({ title, description, date, file }) => {
     //   return;
     // }
     if (web3 === null) {
-      alert("Can't connect to wallet");
+      alert('Can\'t connect to wallet');
       return;
     }
 
     const accounts = await web3.eth.getAccounts();
     const walletAddress = accounts[0]; // TODO Check
-    const { address: tokenAddress } = queryString.parse(window.location.search);
+    const {address: tokenAddress} = queryString.parse(window.location.search);
     let params = {
       title,
       description,
@@ -32,9 +32,9 @@ const TaskForm = ({ title, description, date, file }) => {
       totalToken,
       tasks,
       walletAddress,
-      tokenAddress
+      tokenAddress,
     };
-    const { size, type } = file[0];
+    const {size, type} = file[0];
     let response = null;
     if (size / 1000000 < 100) {
       if (type === 'image/png' || type === 'image/jpg') {
@@ -53,14 +53,16 @@ const TaskForm = ({ title, description, date, file }) => {
         return;
       }
     }
-    const { data } = response; // id of post
-    return;
+    const {data} = response; // id of post
 
     // TODO fix
     let contract = new web3.eth.Contract(
-      contractValue.ABIContractBuilder,
-      contractValue.addressContractBuilder
+        contractValue.ABIContractBuilder,
+        contractValue.addressContractBuilder,
     );
+
+    await contract.methods.CreateTask(data, tasks.length, new Date(date).getTime()).send({from: walletAddress});
+    alert('Create Voting Successful \r\n Press ok to confirm');
   };
 
   const handleInputTask = (idx, type, value) => {
@@ -70,13 +72,13 @@ const TaskForm = ({ title, description, date, file }) => {
   };
 
   const handleClickAddTask = () => {
-    setTasks([...tasks, { content: '', amount: 0 }]);
+    setTasks([...tasks, {content: '', amount: 0}]);
   };
 
-  const handleRemoveTask = idx => {
+  const handleRemoveTask = (idx) => {
     let _tasks = tasks;
     _tasks[idx] = undefined;
-    _tasks = _tasks.filter(i => i !== undefined);
+    _tasks = _tasks.filter((i) => i !== undefined);
     setTasks(_tasks);
   };
 
@@ -90,7 +92,7 @@ const TaskForm = ({ title, description, date, file }) => {
           name="funding-number"
           placeholder="Total token $"
           value={totalToken}
-          onChange={e => setTotalToken(e.target.value)}
+          onChange={(e) => setTotalToken(e.target.value)}
         />
       </div>
       <div className="d-flex w-100 gap-4">
@@ -107,7 +109,7 @@ const TaskForm = ({ title, description, date, file }) => {
                       name="reply-name"
                       placeholder="Task name"
                       value={task.content}
-                      onChange={e => handleInputTask(idx, 'content', e.target.value)}
+                      onChange={(e) => handleInputTask(idx, 'content', e.target.value)}
                     />
                   </div>
                   <div className="form-group w-25">
@@ -119,7 +121,7 @@ const TaskForm = ({ title, description, date, file }) => {
                       placeholder="Amount"
                       value={task.amount}
                       min={0}
-                      onChange={e => handleInputTask(idx, 'amount', e.target.value)}
+                      onChange={(e) => handleInputTask(idx, 'amount', e.target.value)}
                     />
                   </div>
                   <button className="btn close-icon-wrapper" onClick={() => handleRemoveTask(idx)}>

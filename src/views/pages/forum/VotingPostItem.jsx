@@ -17,6 +17,8 @@ export const defaultItem = {
 };
 const defaultComponent = () => null;
 
+
+let _totalCount = 0;
 // Will use it later
 function VotingPostItem({
   item = defaultItem,
@@ -30,6 +32,7 @@ function VotingPostItem({
   const [selectVote, setSelectVote] = useState(0);
   const [doneVote, setDoneVote] = useState(0);
   const [ísExpire, setIsExpire] = useState(false);
+  const [totalVote, setTotalVote] = useState(0);
 
 
   useEffect(() => {
@@ -44,9 +47,11 @@ function VotingPostItem({
         const _doneVote = await contractBuilder.methods.getCheckVote(item.id).call();
         setDoneVote(_doneVote);
 
-        console.log(item.id);
-        const _ísExpire = await contractBuilder.methods.getTimeEndVote(item.id).call();
-        console.log(_ísExpire);
+        const votingTime = await contractBuilder.methods.getTimeEndVote(item.id).call();
+        const currentTime = new Date().getTime();
+        if (votingTime - currentTime < 0) {
+          setIsExpire(true);
+        };
       };
       fetchData();
     }
@@ -78,18 +83,21 @@ function VotingPostItem({
       return;
     }
   };
-
+  const setCountVoteByPost = (countVote) => {
+    _totalCount = _totalCount + parseInt(countVote);
+    setTotalVote(_totalCount);
+  };
 
   return (
     <div className="card__item one post-item" post-id={item.id} key={item.id} style={{maxWidth: '100%'}}>
       <div className="card_body space-y-10">
         <div className="card_head">
           {/* <img src={item.img} alt="" /> */}
-          <img src="https://www.aprio.com/wp-content/uploads/494712.jpg" alt="" />
+          <img src={`${process.env.REACT_APP_SERVER_API}api/files/${item.link}`} alt="" />
           <div className="details d-flex justify-content-between">
-            {leftInfoComponent(item)}
+            {leftInfoComponent(item, totalVote)}
             <div className="auction_end text-right">
-              <p className="color_text txt_xs">{rightInfoTitle}</p>
+              <p className="color_text txt_xs" style={ísExpire ? {color: 'red'}: {}}>{rightInfoTitle}</p>
               <p className="color_text txt_xs">{item.time}</p>
               <span className="counter txt_sm">
                 <Countdown date={item.date} renderer={ConnecusCountDown} />
@@ -104,7 +112,7 @@ function VotingPostItem({
           <ul>
             {item.options.length !== 0 &&
               item.options.map((option, idx) => (
-                <VotingItem item={option} setSelectVote={setSelectVote} />
+                <VotingItem item={option} setSelectVote={setSelectVote} post={item} setCountVoteByPost={setCountVoteByPost} />
               ))}
           </ul>
           <button className="btn btn-primary btn-sm" onClick={() => handleVotePost()}>

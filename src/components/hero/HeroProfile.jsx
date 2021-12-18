@@ -43,6 +43,13 @@ const HeroProfile = ({setToken}) => {
   }, []);
   if (!tokenInfo) return null;
 
+  const styleText = {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    width: '150px',
+  };
+
   return (
     <div className="mb-100">
       <div className="hero__profile">
@@ -68,7 +75,7 @@ const HeroProfile = ({setToken}) => {
                 <div className="d-sm-flex flex-wrap align-items-center space-x-20 mb-20_reset d-sm-block">
                   <div className="mb-20">
                     <div className="copy">
-                      <span className="color_text"> {tokenInfo.token_address} </span>
+                      <span className="color_text" style={styleText} > {tokenInfo.token_address} </span>
                     </div>
                   </div>
                   <div className="d-flex flex-wrap align-items-center space-x-20">

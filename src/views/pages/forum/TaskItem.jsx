@@ -17,7 +17,7 @@ function TaskItem(item, index) {
             name="reply-name"
             placeholder="Your discord ID as thanhhoa214#1239"
             value={item.content}
-            onChange={e => {}}
+            onChange={(e) => {}}
           />
           <button className="btn btn-dark flex-shrink-0" onClick={() => {}}>
             Verify

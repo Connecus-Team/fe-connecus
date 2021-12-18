@@ -1,8 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import {useSelector} from 'react-redux';
 import Countdown from 'react-countdown';
 import ConnecusCountDown from './ConnecusCountDown';
 import web3Selector from '../../../components/header/redux/Web3.Selector';
 import contractValue from '../../../constants/contract';
+import moment from 'moment';
 
 export const defaultItem = {
   id: 1,
@@ -21,7 +23,30 @@ function TaskPostItem({
   rightInfoTitle = 'FUNDING END',
   leftInfoComponent = defaultComponent,
   bodyComponent = defaultComponent,
+  token,
 }) {
+  const web3 = useSelector(web3Selector.selectWeb3);
+
+  useEffect(() => {
+    if (web3) {
+      const fetchData = async () => {
+        const accounts = await web3.eth.getAccounts();
+        const myAccount = accounts[0];
+        let contractBuilder = new web3.eth.Contract(
+            contractValue.ABIContractBuilder,
+            contractValue.addressContractBuilder,
+        );
+        const votingTime = await contractBuilder.methods.getTimeTaskEnd(item.id).call();
+        console.log(votingTime);
+        const currentTime = new Date().getTime();
+        if (votingTime - currentTime < 0) {
+          setIsExpire(true);
+        };
+      };
+      fetchData();
+    }
+  }, [item]);
+
   const handleFundingWithPost = async () => {
     if (userFunding <= 0) {
       alert('Please, check input');
@@ -52,18 +77,19 @@ function TaskPostItem({
       }
     }
   };
+  console.log(item);
   return (
     <div className="card__item one post-item" key={item.id} style={{maxWidth: '100%'}}>
       <div className="card_body space-y-10">
         <div className="card_head">
           {/* <img src={item.img} alt="" /> */}
-          <img src="https://www.aprio.com/wp-content/uploads/494712.jpg" alt="" />
+          <img src={`${process.env.REACT_APP_SERVER_API}api/files/${item.link}`} alt="" />
           <div className="details d-flex justify-content-between">
-            {leftInfoComponent(item)}
+            {/* {leftInfoComponent(item)} */}
             <div className="auction_end text-right">
-              <p className="color_text txt_xs">{rightInfoTitle}</p>
+              <p className="color_text txt_xs">TASK TIME</p>
               <span className="counter txt_sm">
-                <Countdown date={item.date} renderer={ConnecusCountDown} />
+                <Countdown date={moment(item.time).format('YYYY-MM-DD HH:mm:ss')} renderer={ConnecusCountDown} />
               </span>
             </div>
           </div>
@@ -73,16 +99,12 @@ function TaskPostItem({
         <div className="hr"></div>
         {bodyComponent(item)}
         <div
-          className="card_footer justify-content-between flex-column
-                                                              flex-md-row">
+          className="card_footer justify-content-between flex-column flex-md-row">
           <div className="creators space-x-10">
             <div className="avatars space-x-3">
               <div className="-space-x-20">
                 <a href="Profile.html">
-                  <img src="img/avatars/avatar_3.png" alt="Avatar" className="avatar avatar-sm" />
-                </a>
-                <a href="Profile.html">
-                  <img src="img/avatars/avatar_2.png" alt="Avatar" className="avatar avatar-sm" />
+                  <img src={`${process.env.REACT_APP_SERVER_API}api/files/${token.link}`} alt="Avatar" className="avatar avatar-sm" />
                 </a>
               </div>
               <a href="Profile.html">

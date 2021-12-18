@@ -7,10 +7,10 @@ import VotingItem from './VotingItem';
 import apis from '../../../apis/apis';
 // import web3Selector from '../../../components/header/redux/Web3.Selector';
 
-const LeftInfoVotingComponent = (item) => (
+const LeftInfoVotingComponent = (item, totalVote) => (
   <div>
     <p className="color_text txt_xs">CURRENT VOTING</p>
-    <span className="txt_sm">{item.currentVotingAmount}</span>
+    <span className="txt_sm">{totalVote}</span>
   </div>
 );
 

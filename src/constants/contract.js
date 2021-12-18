@@ -362,7 +362,7 @@ const ABIToken = [
 const addressToken = '0x0230E3760B53b08426d15aaf5A327ED6d0Dd36B7';
 
 
-const ABIContractBuilder =[
+const ABIContractBuilder = [
   {
     'inputs': [
       {
@@ -397,6 +397,31 @@ const ABIContractBuilder =[
       },
     ],
     'name': 'NewFunding',
+    'type': 'event',
+  },
+  {
+    'anonymous': false,
+    'inputs': [
+      {
+        'indexed': false,
+        'internalType': 'uint256',
+        'name': 'id',
+        'type': 'uint256',
+      },
+      {
+        'indexed': false,
+        'internalType': 'uint256',
+        'name': 'sumTask',
+        'type': 'uint256',
+      },
+      {
+        'indexed': false,
+        'internalType': 'uint256',
+        'name': 'timeTaskEnd',
+        'type': 'uint256',
+      },
+    ],
+    'name': 'NewTask',
     'type': 'event',
   },
   {
@@ -486,6 +511,29 @@ const ABIContractBuilder =[
     ],
     'name': 'TransferBeneficiary',
     'type': 'event',
+  },
+  {
+    'inputs': [
+      {
+        'internalType': 'uint256',
+        'name': '_id',
+        'type': 'uint256',
+      },
+      {
+        'internalType': 'uint256',
+        'name': '_sumTask',
+        'type': 'uint256',
+      },
+      {
+        'internalType': 'uint256',
+        'name': '_timeEnd',
+        'type': 'uint256',
+      },
+    ],
+    'name': 'CreateTask',
+    'outputs': [],
+    'stateMutability': 'nonpayable',
+    'type': 'function',
   },
   {
     'inputs': [
@@ -915,6 +963,25 @@ const ABIContractBuilder =[
         'type': 'uint256',
       },
     ],
+    'name': 'getTimeTaskEnd',
+    'outputs': [
+      {
+        'internalType': 'uint256',
+        'name': '',
+        'type': 'uint256',
+      },
+    ],
+    'stateMutability': 'view',
+    'type': 'function',
+  },
+  {
+    'inputs': [
+      {
+        'internalType': 'uint256',
+        'name': '_id',
+        'type': 'uint256',
+      },
+    ],
     'name': 'getTotalFundPerson',
     'outputs': [
       {
@@ -924,6 +991,63 @@ const ABIContractBuilder =[
       },
     ],
     'stateMutability': 'view',
+    'type': 'function',
+  },
+  {
+    'inputs': [
+      {
+        'internalType': 'uint256',
+        'name': '',
+        'type': 'uint256',
+      },
+    ],
+    'name': 'ownerToTask',
+    'outputs': [
+      {
+        'internalType': 'address',
+        'name': 'chairPerson',
+        'type': 'address',
+      },
+      {
+        'internalType': 'uint256',
+        'name': 'sumTask',
+        'type': 'uint256',
+      },
+      {
+        'internalType': 'uint256',
+        'name': 'timeTaskEnd',
+        'type': 'uint256',
+      },
+      {
+        'internalType': 'uint256',
+        'name': 'totalReward',
+        'type': 'uint256',
+      },
+    ],
+    'stateMutability': 'view',
+    'type': 'function',
+  },
+  {
+    'inputs': [
+      {
+        'internalType': 'address',
+        'name': 'token_',
+        'type': 'address',
+      },
+      {
+        'internalType': 'uint256',
+        'name': '_id',
+        'type': 'uint256',
+      },
+      {
+        'internalType': 'uint256',
+        'name': '_sumTaskOk',
+        'type': 'uint256',
+      },
+    ],
+    'name': 'rewardTask',
+    'outputs': [],
+    'stateMutability': 'nonpayable',
     'type': 'function',
   },
   {
@@ -978,7 +1102,7 @@ const ABIContractBuilder =[
 ];
 
 
-const addressContractBuilder = '0x4494A3fFAf7219041Ce568406ff6fbD0696f06DB';
+const addressContractBuilder = '0x3101E4fDA6a84c14bC975668a71b1dE78066A4f5';
 
 const webDomain = 'http://ratp.link';
 

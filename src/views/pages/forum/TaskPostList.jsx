@@ -8,19 +8,21 @@ import TaskPostItem from './TaskPostItem';
 import apis from '../../../apis/apis';
 // import web3Selector from '../../../components/header/redux/Web3.Selector';
 
-const LeftInfoVotingComponent = (item) => (
-  <div className="bid space-x-10">
-    <div className="icon">
-      <img src="img/icons/ETH.svg" alt="..." />
+const LeftInfoVotingComponent = (item) => {
+  return (
+    <div className="bid space-x-10">
+      <div className="icon">
+        <img src="img/icons/ETH.svg" alt="..." />
+      </div>
+      <div>
+        <p className="color_text txt_xs">TOTAL REWARD</p>
+        <span className="txt_sm">
+          {item.tasks.map(({amount}) => amount).reduce((acc, cur) => acc + cur)} ETH
+        </span>
+      </div>
     </div>
-    <div>
-      <p className="color_text txt_xs">TOTAL REWARD</p>
-      <span className="txt_sm">
-        {item.tasks.map(({amount}) => amount).reduce((acc, cur) => acc + cur)} ETH
-      </span>
-    </div>
-  </div>
-);
+  );
+};
 
 const BodyComponent = (item) => {
   return (
@@ -32,7 +34,7 @@ const BodyComponent = (item) => {
     </>
   );
 };
-function TaskPostList() {
+function TaskPostList({token}) {
   const [taskPostList, setTaskPostList] = useState([]);
 
   useEffect(() => {
@@ -55,6 +57,7 @@ function TaskPostList() {
             rightInfoTitle: 'TASKS END',
             leftInfoComponent: LeftInfoVotingComponent,
             bodyComponent: BodyComponent,
+            token,
           }),
         )}
     </div>
