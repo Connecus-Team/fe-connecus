@@ -13,14 +13,12 @@ function Call2action() {
               <div className="space-y-20">
                 <h1 className="text-white">Turn your fans <span className="d-inline-block">into your partners now</span></h1>
                 <p className="color_light section__text">
-                  raroin is a shared liquidity NFT market smart contract which
-                  is used by multiple websites to provide the users the best
-                  possible experience.
+                  Let’s create your own strong community now
                 </p>
                 <Link
                   to="connect-wallet"
                   className="btn btn-primary">
-                  Create an Account
+                  Let’s start
                   <i className="ri-arrow-right-s-line"></i>
                 </Link>
               </div>

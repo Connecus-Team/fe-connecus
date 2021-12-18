@@ -7,19 +7,19 @@ export default function ConnecusExplain() {
       icon: 'ri-question-fill',
       title: 'What is Connecus?',
       desc: `A blockchain application platform that helps influencers manage and develop their community by connecting and interacting directly 
-      with fans through incentive activities, voting, fund-raising.`,
+      with fans through incentive activities, voting, fund-raising`,
     },
     {
       className: 'how',
       icon: 'ri-rocket-2-fill',
-      title: 'How does Connecus works?',
-      desc: `Launch your own community's token (CT) that enables more creative solutions for your economy.`,
+      title: 'How Connecus works?',
+      desc: `Launch your own community's token (CT) that enables more creative solutions for your economy`,
     },
     {
       className: 'why',
       icon: 'ri-service-fill',
-      title: 'Why must be Connecus?',
-      desc: 'No cryptocurrency experience required, influencers easily manage community interactions and fans gaining exclusive access and benefits with their influencers.',
+      title: 'Why must Connecus?',
+      desc: 'No cryptocurrency experience required, influencers easily manage community interactions and fans gaining exclusive access and benefits with their influencers',
     },
   ];
   return (

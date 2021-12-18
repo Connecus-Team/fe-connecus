@@ -23,16 +23,12 @@ const Hero1 = () => {
                 Your Community <span className="d-inline-block">Your Partners</span>
               </h1>
               <p className="hero__text txt">
-                <strong className="color_brand">Connecus</strong> is a blockchain application platform that helps influencers manage and develop their community
-                by connecting and interacting directly with fans through incentive activities, voting, fund-raising.
+                <strong className="color_brand">Connecus</strong> is a platform to help you promote, evolve your own community easier like never before.
               </p>
               <div
                 className="d-flex align-items-center space-x-20">
-                <Link className="btn btn-primary" to="marketplace">
-                  Reach out your idol
-                </Link>
-                <Link className="btn btn-dark" to="upload-type">
-                  Create an Account
+                <Link className="btn btn-primary" to="token">
+                  Own Community Token
                 </Link>
               </div>
             </div>

@@ -64,7 +64,7 @@ export default function TopArtist() {
       <div className="container">
         <div className="space-y-30">
           <div className="section_head">
-            <h2 className="section__title mt-10">Top Artists</h2>
+            <h2 className="section__title mt-10">Top Influencers</h2>
           </div>
           <div className="section_body swiper_artists">
             <Slider {...settings}>
