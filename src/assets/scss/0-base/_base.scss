@@ -9,15 +9,22 @@
   src: url('../../fonts/CircularStd-Regular.woff') format('woff'),
     url('../../fonts/CircularStd-Regular.woff2') format('woff2'),
     url('../../fonts/CircularStd-Regular.svg') format('svg'),
-    url('../../fonts/circular.ttf') format('truetype');
 }
 
 @font-face {
+  font-family: 'circular_medium';
+  src: 
+    url('../../fonts/CircularStd-Medium.woff') format('woff'),
+    url('../../fonts/CircularStd-Medium.woff2') format('woff2');
+  font-weight: 500;
+}
+
+
+@font-face {
   font-family: 'circular_bold';
-  src: url('../../fonts/CircularStd-Bold.svg') format('svg'),
+  src: 
     url('../../fonts/CircularStd-Bold.woff') format('woff'),
-    url('../../fonts/CircularStd-Bold.woff2') format('woff2'),
-    url('../../fonts/Circular-Bold.ttf') format('truetype');
+    url('../../fonts/CircularStd-Bold.woff2') format('woff2');
   font-weight: normal;
 }
 
@@ -107,6 +114,11 @@ li {
 p {
   font-family: $font-secondary;
   color: #6f7583;
+}
+
+strong {
+  font-family: 'circular_medium';
+  font-weight: 500;
 }
 
 /*--------------------------------------------------------------

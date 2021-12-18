@@ -161,7 +161,7 @@ const CreateToken = () => {
     <div>
       <Header />
       <div className="container">
-        <h1 className="mt-30">Create My Token</h1>
+        <h2 className="mt-30">Create My Token</h2>
         <div className="my-3 stepper">
           <Stepper
             steps={[{title: 'Stake CEUS'}, {title: 'Define Your Token'}]}

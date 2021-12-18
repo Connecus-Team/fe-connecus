@@ -13,8 +13,6 @@ import web3Selector from '../../../components/header/redux/Web3.Selector';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
-import contractValue from '../../../constants/contract';
-import apis from '../../../apis/apis';
 import data from './data';
 import FundingPostList from './FundingPostList';
 import VotingPostList from './VotingPostList';
@@ -55,26 +53,8 @@ const CardItems = [
   },
 ];
 
-// Random component
-const Completionist = () => <span>auction ending soon now!</span>;
-
-// Renderer callback with condition
-const renderer = ({hours, minutes, seconds, completed}) => {
-  if (completed) {
-    // Render a complete state
-    return <Completionist />;
-  } else {
-    // Render a countdown
-    return (
-      <span>
-        {hours} : {minutes} : {seconds}
-      </span>
-    );
-  }
-};
-
 function Forum() {
-  useDocumentTitle(' Forum');
+  useDocumentTitle('Forum');
   const web3 = useSelector(web3Selector.selectWeb3);
 
   const imageUploadRef = useRef();
@@ -89,7 +69,7 @@ function Forum() {
   const [convertDate, setConvertDate] = useState(moment(date).format('YYYY-MM-DD HH:mm:ss'));
 
   const [token, setToken] = useState();
-  const [isMyToken, setIsMyToken] = useState(true);
+  const [isMyToken, setIsMyToken] = useState(false);
 
   // Aside: Live funding & voting
   const [liveFundingList, setLiveFundingList] = useState(data.fundingCard.slice(0, 2));

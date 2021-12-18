@@ -44,7 +44,7 @@ function ForumRight() {
     fetchData();
   }, []);
 
-  return (
+  return fundingPostList.length !== 0 && (
     <div className="sidebar space-y-30 mb-30">
       <div className="space-y-10">
         <h5>Funding List</h5>
@@ -53,7 +53,7 @@ function ForumRight() {
             <img src={`img/icons/live.svg`} alt="live" style={{width: 13}} />
             <h5>Live Funding</h5>
           </div> */}
-          {fundingPostList.length !== 0 && fundingPostList.map((val) => (
+          {fundingPostList.map((val) => (
             <FundingPostItemRight val={val} web3={web3}/>
           ))}
         </div>

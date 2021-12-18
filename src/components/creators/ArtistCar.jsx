@@ -112,7 +112,7 @@ const Cards1 = () => {
     fetchToken();
   }, []);
   return (
-    <div className="mt-100">
+    <div className="mt-30">
       <div className="container">
         <div className="section__head">
           <div
@@ -120,8 +120,8 @@ const Cards1 = () => {
 				space-x-20
 				justify-content-between
 				align-items-center">
-            <h2 className="section__title text-center">Artists</h2>
-            <Link to="/marketplace" className="btn btn-sm btn-dark"> view all </Link>
+            <h2 className="section__title text-center">Influencers</h2>
+            <Link to="/marketplace" className="btn btn-sm btn-dark"> View all </Link>
 
           </div>
         </div>
@@ -448,12 +448,6 @@ const Cards1 = () => {
               </div>
             </div>
           ))}
-        </div>
-        <div className="d-flex justify-content-center">
-          <Link to="#" className="btn btn-sm btn-white">
-            <i className="ri-restart-line" />
-            View all artists
-          </Link>
         </div>
       </div>
     </div>
