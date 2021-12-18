@@ -1,12 +1,15 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import {Link} from 'react-router-dom';
 import {useSelector} from 'react-redux';
+import {getDataURLFromFile} from '../../../utils/getDataUrlFromFile';
 import useDocumentTitle from '../../../components/useDocumentTitle';
 import Header from '../../../components/header/Header';
 import web3Selector from '../../../components/header/redux/Web3.Selector';
 import contractValue from '../../../constants/contract';
 import Stepper from 'react-stepper-horizontal';
 import Image from '../../../assets/Image';
+import apis from '../../../apis/apis';
+import data from '../forum/data';
 
 const CreateToken = () => {
   useDocumentTitle('Create Token');
@@ -16,11 +19,16 @@ const CreateToken = () => {
   const [description, setDescription] = useState('');
   const [totalStake, setTotalStake] = useState(0);
 
-  const [doneStake, setDoneStake] = useState(false);
+  const [doneStake, setDoneStake] = useState(true);
   const [loadingEvent, setLoadingEvent] = useState(false);
   const [staking, setStaking] = useState(false);
 
+  const [file, setFile] = useState();
+  const [fileDataUrls, setFileDataUrls] = useState([]);
+
   const web3 = useSelector(web3Selector.selectWeb3);
+  const imageUploadRef = useRef();
+
   const handleClickCreateToken = async () => {
     try {
       if (web3 === null) {
@@ -34,17 +42,57 @@ const CreateToken = () => {
 
       setLoadingEvent(true);
       const accounts = await web3.eth.getAccounts();
+      const myAccount = accounts[0];
       let contract = new web3.eth.Contract(
           contractValue.ABIContractBuilder,
           contractValue.addressContractBuilder,
       );
-      await contract.methods.createToken(name, symBol, totalSupply).send({from: accounts[0]});
+      await contract.methods.createToken(name, symBol, totalSupply).send({from: myAccount});
+
+      // TODO check create successful
+      const params = {
+        name,
+        symBol,
+        totalSupply,
+        description,
+        tokenAddress: '111',
+        walletAddress: myAccount,
+      };
+
+      // TODO Check
+      const {size, type} = file[0];
+      let response = null;
+      if (size / 1000000 < 100) {
+        if (type === 'image/png' || type === 'image/jpg') {
+          try {
+            let data = new FormData();
+            data.append('file', file[0]);
+            data.append('params', JSON.stringify(params));
+            response = await apis.postToken(data);
+          } catch (error) {
+            console.log(error);
+            alert('Post a task server error');
+            return;
+          }
+        } else {
+          alert('Check image type');
+          return;
+        }
+      }
+      alert('Create token Success');
       setLoadingEvent(false);
     } catch (error) {
       alert('Call smartcontract error');
       console.log(error);
       setLoadingEvent(false);
     }
+  };
+
+  const onInputChange = (event) => {
+    Promise.all(Array.from(event.target?.files || []).map(getDataURLFromFile)).then(
+        (dataUrls) => setFileDataUrls(dataUrls),
+        setFile(event.target?.files),
+    );
   };
 
   const handleStake = async () => {
@@ -107,7 +155,7 @@ const CreateToken = () => {
             <div className="row">
               <h2 className="mb-30">Step 2. Define Your Token</h2>
               <div className="col-lg-6">
-                <div className="left__part space-y-40 md:mb-20 upload_file">
+                <div className="left__part space-y-40 md:mb-20 upload_file" onClick={() => imageUploadRef.current.click()}>
                   <div className="space-y-20">
                     <img className="icon" src={Image.upload} alt="upload" />
                     <h5>Drag and drop your file</h5>
@@ -118,8 +166,28 @@ const CreateToken = () => {
                     <Link to="#" className="btn btn-white">
                       Browse files
                     </Link>
-                    <input type="file" />
+                    <input type="file"
+                      id="imageUpload"
+                      name="profile_photo"
+                      placeholder="Photo"
+                      required
+                      multiple
+                      accept="image/png,image/jpg,image/jpeg"
+                      hidden
+                      ref={imageUploadRef}
+                      onChange={(event) => onInputChange(event)}
+                    />
                   </div>
+                  {fileDataUrls.map((dataUrl) => (
+                    <div
+                      className="box image_upload d-flex justify-content-center align-items-center"
+                      style={{
+                        backgroundImage: `url('${dataUrl}')`,
+                        backgroundPosition: 'center',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundSize: 'cover',
+                      }}></div>
+                  ))}
                 </div>
               </div>
               <div className="col-lg-6">
