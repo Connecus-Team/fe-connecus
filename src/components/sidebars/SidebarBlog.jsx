@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import {Link} from 'react-router-dom';
 const SidebarBlog = () => {
   return (
     <div>
@@ -178,7 +178,7 @@ const SidebarBlog = () => {
         </div> */}
       </aside>
     </div>
-  )
-}
+  );
+};
 
-export default SidebarBlog
+export default SidebarBlog;

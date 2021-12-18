@@ -143,7 +143,7 @@ function Forum() {
         <div className="container-md">
           <div className="row sm:space-y-30">
             <div className="col-lg-3">
-              <SidebarProfile />
+              <SidebarProfile token={token} />
             </div>
             <div className="col-lg-6 mt-40">
               {isMyToken && (
