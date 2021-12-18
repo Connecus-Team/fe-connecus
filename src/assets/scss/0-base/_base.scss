@@ -1,3 +1,5 @@
+@import '../1-helpers/colors';
+
 /*--------------------------------------------------------------
 ## Include Fonts
 --------------------------------------------------------------*/
@@ -176,4 +178,33 @@ p {
 
 .color_in_dark {
   color: #bec7d7;
+}
+
+// Resource: https://gist.github.com/spemer/a0e218bbb45433bd611e68446523a00b
+/* Customize website's scrollbar like Mac OS
+Not supports in Firefox and IE */
+
+/* total width */
+*::-webkit-scrollbar {
+  background: $color_grad;
+  width: 6px;
+  padding-left: 1px;
+  padding-right: 1px;
+}
+
+/* background of the scrollbar except button or resizer */
+*::-webkit-scrollbar-track {
+  background-color: #c9ebff;
+  border: 1px #00000020 solid;
+}
+
+/* scrollbar itself */
+*::-webkit-scrollbar-thumb {
+  background: $color_grad;
+  border-radius: 100px;
+  width: 4px;
+
+  &:hover {
+    background: $color_grad_shade;
+  }
 }
