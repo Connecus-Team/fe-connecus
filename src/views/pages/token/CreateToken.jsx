@@ -8,7 +8,7 @@ import contractValue from '../../../constants/contract';
 
 const CreateToken = () => {
   useDocumentTitle('Create Token');
-  const [doneStake, setDoneStake] = useState(true);
+  const [doneStake, setDoneStake] = useState(false);
   const [name, setName] = useState('');
   const [symBol, setSymBol] = useState('');
   const [totalSupply, setTotalSupply] = useState(0);
@@ -23,11 +23,11 @@ const CreateToken = () => {
       // console.log(type, category, productName, productCode, productDate, productDesc);
       if (web3 === null)
       {
-        alert('Chưa khởi tạo đối tượng Web3, Vui lòng liên kết ví với Website');
+        alert('Can\'t connect to web3');
         return;
       }
       if (!name || !symBol || !totalSupply) {
-        alert('Vui lòng kiểm tra lại thông tin');
+        alert('Please, Check enter input');
         return;
       }
 
@@ -37,7 +37,7 @@ const CreateToken = () => {
       await contract.methods.createToken(name, symBol, totalSupply).send({from: accounts[0]});
       setLoadingEvent(false);
     } catch (error) {
-      alert('Truy cập có lỗi, Vui lòng thử lại sau. Hãy đọc qua phần hướng dẫn sử dụng !!!');
+      alert('Call smartcontract error');
       console.log(error);
       setLoadingEvent(false);
     }
@@ -49,11 +49,11 @@ const CreateToken = () => {
       // console.log(type, category, productName, productCode, productDate, productDesc);
       if (web3 === null)
       {
-        alert('Chưa khởi tạo đối tượng Web3, Vui lòng liên kết ví với Website');
+        alert('Can\'t connect to web3');
         return;
       }
       if (!totalStake) {
-        alert('Vui lòng kiểm tra lại thông tin');
+        alert('Please, Check enter input');
         return;
       }
       setLoadingEvent(true);
