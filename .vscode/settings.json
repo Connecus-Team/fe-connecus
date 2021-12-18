@@ -1,3 +1,9 @@
 {
-  "cSpell.words": ["Connecus", "datepicker", "thanhhoa"]
+  "cSpell.words": ["Connecus", "datepicker", "thanhhoa"], 
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.validate": [
+    "javascript"
+  ],
 }

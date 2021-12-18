@@ -1,88 +1,88 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import useDocumentTitle from '../../../components/useDocumentTitle'
-import Header from '../../../components/header/Header'
-import web3Selector from '../../../components/header/redux/Web3.Selector'
-import contractValue from '../../../constants/contract'
-import Stepper from 'react-stepper-horizontal'
+import React, {useState} from 'react';
+import {Link} from 'react-router-dom';
+import {useSelector} from 'react-redux';
+import useDocumentTitle from '../../../components/useDocumentTitle';
+import Header from '../../../components/header/Header';
+import web3Selector from '../../../components/header/redux/Web3.Selector';
+import contractValue from '../../../constants/contract';
+import Stepper from 'react-stepper-horizontal';
 
 const CreateToken = () => {
-  useDocumentTitle('Create Token')
-  const [doneStake, setDoneStake] = useState(false)
-  const [name, setName] = useState('')
-  const [symBol, setSymBol] = useState('')
-  const [totalSupply, setTotalSupply] = useState(0)
-  const [description, setDescription] = useState('')
-  const [totalStake, setTotalStake] = useState(0)
-  const [loadingEvent, setLoadingEvent] = useState(false)
+  useDocumentTitle('Create Token');
+  const [doneStake, setDoneStake] = useState(false);
+  const [name, setName] = useState('');
+  const [symBol, setSymBol] = useState('');
+  const [totalSupply, setTotalSupply] = useState(0);
+  const [description, setDescription] = useState('');
+  const [totalStake, setTotalStake] = useState(0);
+  const [loadingEvent, setLoadingEvent] = useState(false);
 
-  const web3 = useSelector(web3Selector.selectWeb3)
+  const web3 = useSelector(web3Selector.selectWeb3);
   const handleClickCreateToken = async () => {
     try {
       // console.log(moment(productDate).format('L'));
       // console.log(type, category, productName, productCode, productDate, productDesc);
       if (web3 === null) {
-        alert('Chưa khởi tạo đối tượng Web3, Vui lòng liên kết ví với Website')
-        return
+        alert('Chưa khởi tạo đối tượng Web3, Vui lòng liên kết ví với Website');
+        return;
       }
       if (!name || !symBol || !totalSupply) {
-        alert('Vui lòng kiểm tra lại thông tin')
-        return
+        alert('Vui lòng kiểm tra lại thông tin');
+        return;
       }
 
-      setLoadingEvent(true)
-      const accounts = await web3.eth.getAccounts()
+      setLoadingEvent(true);
+      const accounts = await web3.eth.getAccounts();
       let contract = new web3.eth.Contract(
-        contractValue.ABIContractBuilder,
-        contractValue.addressContractBuilder
-      )
-      await contract.methods.createToken(name, symBol, totalSupply).send({ from: accounts[0] })
-      setLoadingEvent(false)
+          contractValue.ABIContractBuilder,
+          contractValue.addressContractBuilder,
+      );
+      await contract.methods.createToken(name, symBol, totalSupply).send({from: accounts[0]});
+      setLoadingEvent(false);
     } catch (error) {
-      alert('Truy cập có lỗi, Vui lòng thử lại sau. Hãy đọc qua phần hướng dẫn sử dụng !!!')
-      console.log(error)
-      setLoadingEvent(false)
+      alert('Truy cập có lỗi, Vui lòng thử lại sau. Hãy đọc qua phần hướng dẫn sử dụng !!!');
+      console.log(error);
+      setLoadingEvent(false);
     }
-  }
+  };
 
   const handleStake = async () => {
     // TODO: Remove this when API runs
-    setDoneStake(true)
+    setDoneStake(true);
     try {
       // console.log(moment(productDate).format('L'));
       // console.log(type, category, productName, productCode, productDate, productDesc);
       if (web3 === null) {
-        alert('Chưa khởi tạo đối tượng Web3, Vui lòng liên kết ví với Website')
-        return
+        alert('Chưa khởi tạo đối tượng Web3, Vui lòng liên kết ví với Website');
+        return;
       }
       if (!totalStake) {
-        alert('Vui lòng kiểm tra lại thông tin')
-        return
+        alert('Vui lòng kiểm tra lại thông tin');
+        return;
       }
-      setLoadingEvent(true)
-      const accounts = await web3.eth.getAccounts()
+      setLoadingEvent(true);
+      const accounts = await web3.eth.getAccounts();
       const tokenContract = new web3.eth.Contract(
-        contractValue.ABIToken,
-        contractValue.addressToken
-      )
+          contractValue.ABIToken,
+          contractValue.addressToken,
+      );
       tokenContract.methods
-        .approve(contractValue.addressContractBuilder, web3.utils.toWei(totalStake, 'Ether'))
-        .send({ from: accounts[0] })
-        .on('transactionHash', async hash => {
-          let contractBuilder = new web3.eth.Contract(
-            contractValue.ABIContractBuilder,
-            contractValue.addressContractBuilder
-          )
-          contractBuilder.methods.staking(totalStake).send({ from: accounts[0] })
-        })
-      setLoadingEvent(false)
+          .approve(contractValue.addressContractBuilder, web3.utils.toWei(totalStake, 'Ether'))
+          .send({from: accounts[0]})
+          .on('transactionHash', async (hash) => {
+            let contractBuilder = new web3.eth.Contract(
+                contractValue.ABIContractBuilder,
+                contractValue.addressContractBuilder,
+            );
+            contractBuilder.methods.staking(totalStake).send({from: accounts[0]});
+          });
+      setLoadingEvent(false);
     } catch (error) {
-      alert('Truy cập có lỗi, Vui lòng thử lại sau. Hãy đọc qua phần hướng dẫn sử dụng !!!')
-      console.log(error)
-      setLoadingEvent(false)
+      alert('Truy cập có lỗi, Vui lòng thử lại sau. Hãy đọc qua phần hướng dẫn sử dụng !!!');
+      console.log(error);
+      setLoadingEvent(false);
     }
-  }
+  };
   return (
     <div>
       <Header />
@@ -90,7 +90,7 @@ const CreateToken = () => {
         <h1 className="mt-30">Create My Token</h1>
         <div className="my-3 stepper">
           <Stepper
-            steps={[{ title: 'Stake CEUS' }, { title: 'Define Your Token' }]}
+            steps={[{title: 'Stake CEUS'}, {title: 'Define Your Token'}]}
             activeStep={doneStake ? 1 : 0}
             circleTop={0}
           />
@@ -124,7 +124,7 @@ const CreateToken = () => {
                         type="text"
                         className="form-control"
                         placeholder="e. g. `raroin design art`"
-                        onChange={e => setName(e.target.value)}
+                        onChange={(e) => setName(e.target.value)}
                         value={name}
                       />
                     </div>
@@ -137,7 +137,7 @@ const CreateToken = () => {
                         type="text"
                         className="form-control"
                         placeholder="e. g. `raroin design art`"
-                        onChange={e => setSymBol(e.target.value)}
+                        onChange={(e) => setSymBol(e.target.value)}
                         value={symBol}
                       />
                     </div>
@@ -147,7 +147,7 @@ const CreateToken = () => {
                         type="text"
                         className="form-control"
                         placeholder="e. g. `raroin design art`"
-                        onChange={e => setTotalSupply(e.target.value)}
+                        onChange={(e) => setTotalSupply(e.target.value)}
                         value={totalSupply}
                       />
                       {/* <select
@@ -169,7 +169,7 @@ const CreateToken = () => {
                         placeholder="Description"
                         value={description}
                         defaultValue={description}
-                        onChange={e => setDescription(e.target.value)}
+                        onChange={(e) => setDescription(e.target.value)}
                       />
                     </div>
 
@@ -209,14 +209,14 @@ const CreateToken = () => {
           ) : (
             <div className="row">
               <h2 className="mb-50">Step 1. Stake CEUS</h2>
-              <div style={{ maxWidth: '25rem' }} className="d-flex align-items-center gap-3">
+              <div style={{maxWidth: '25rem'}} className="d-flex align-items-center gap-3">
                 <input
                   type="number"
                   className="form-control"
                   placeholder="Total"
                   value={totalStake}
                   min="0"
-                  onChange={e => setTotalStake(e.target.value)}
+                  onChange={(e) => setTotalStake(e.target.value)}
                 />
                 <button
                   className="btn btn-primary square h-100 flex-shrink-0"
@@ -236,7 +236,7 @@ const CreateToken = () => {
                 <Link
                   to="/upload-type"
                   className="btn btn-white
-					        others_btn">
+                  others_btn">
                   Cancel
                 </Link>
                 <Link to="#" className="btn btn-dark others_btn">
@@ -248,7 +248,7 @@ const CreateToken = () => {
               <Link
                 to="item-details"
                 className="btn btn-grad
-					      btn_create">
+                btn_create">
                 Create item
               </Link>
             </div>
@@ -256,7 +256,7 @@ const CreateToken = () => {
         </div>
       </div> */}
     </div>
-  )
-}
+  );
+};
 
-export default CreateToken
+export default CreateToken;

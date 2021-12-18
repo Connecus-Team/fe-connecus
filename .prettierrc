@@ -3,10 +3,8 @@
   "tabWidth": 2,
   "useTabs": false,
   "singleQuote": true,
-  "arrowParens": "avoid",
   "bracketSameLine": true,
   "htmlWhitespaceSensitivity": "ignore",
   "semi": false,
-  "trailingComma": "none",
-  "endOfLine": "auto"
+  "trailingComma": "none"
 }
