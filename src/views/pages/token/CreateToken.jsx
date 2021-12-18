@@ -19,7 +19,7 @@ const CreateToken = () => {
   const [description, setDescription] = useState('');
   const [totalStake, setTotalStake] = useState(0);
 
-  const [doneStake, setDoneStake] = useState(true);
+  const [doneStake, setDoneStake] = useState(false);
   const [loadingEvent, setLoadingEvent] = useState(false);
   const [staking, setStaking] = useState(false);
 
@@ -47,6 +47,8 @@ const CreateToken = () => {
           contractValue.ABIContractBuilder,
           contractValue.addressContractBuilder,
       );
+
+      // TODO: get token address
       await contract.methods.createToken(name, symBol, totalSupply).send({from: myAccount});
 
       // TODO check create successful

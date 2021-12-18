@@ -9,6 +9,8 @@ import MegaMenu from './Menu/MegaMenu';
 import web3Action from '../../components/header/redux/Web3.Action';
 import Image from '../../assets/Image';
 
+import Snowfall from 'react-snowfall';
+
 // const HomesMenu = [
 //   {
 //     icon: 'home-smile-2',
@@ -136,6 +138,13 @@ const Header = () => {
   return (
     // <div className="box" ref={boxRef}>
     <header className="header__1">
+      {/* <Snowfall
+        color={'#dee4fd'}
+        snowflakeCount={200}
+        radius={[0.5, 3.0]}
+        speed={[0.5, 3.0]}
+        wind={[-0.5, 2.0]}
+      /> */}
       <div className="container">
         <div className="wrapper js-header-wrapper">
           <div className="header__logo">

@@ -66,11 +66,12 @@ const FundingForm = ({title, description, date, file}) => {
       tokenContract.methods
           .approve(contractValue.addressContractBuilder, web3.utils.toWei(totalFunding, 'Ether'))
           .send({from: accounts[0]})
-          .on('transactionHash', async (hash) => {
+          .on('transactionHash', async (hash) => { // TODO check
             let contractBuilder = new web3.eth.Contract(
                 contractValue.ABIContractBuilder,
                 contractValue.addressContractBuilder,
             );
+            // ! ERROR
             await contractBuilder.methods
                 .stakingAndFunding(data, totalFunding, date)
                 .send({from: accounts[0]});
