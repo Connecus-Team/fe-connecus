@@ -22,6 +22,7 @@ function VotingPostItem({
   rightInfoTitle = 'FUNDING END',
   leftInfoComponent = defaultComponent,
   bodyComponent = defaultComponent,
+  token,
 }) {
   const [selectVote, setSelectVote] = useState(0);
   const web3 = useSelector(web3Selector.selectWeb3);
@@ -51,7 +52,6 @@ function VotingPostItem({
       return;
     }
   };
-  console.log(selectVote);
   return (
     <div className="card__item one post-item" post-id={item.id} key={item.id} style={{maxWidth: '100%'}}>
       <div className="card_body space-y-10">
@@ -92,14 +92,11 @@ function VotingPostItem({
             <div className="avatars space-x-3">
               <div className="-space-x-20">
                 <a href="Profile.html">
-                  <img src="img/avatars/avatar_3.png" alt="Avatar" className="avatar avatar-sm" />
-                </a>
-                <a href="Profile.html">
-                  <img src="img/avatars/avatar_2.png" alt="Avatar" className="avatar avatar-sm" />
+                  <img src={`${process.env.REACT_APP_SERVER_API}api/files/${token.link}`} alt="Token Avatar" className="avatar avatar-sm" />
                 </a>
               </div>
               <a href="Profile.html">
-                <p className="avatars_name txt_sm">@makinzi_jamy...</p>
+                <p className="avatars_name txt_sm">@{token.symbol}</p>
               </a>
             </div>
           </div>

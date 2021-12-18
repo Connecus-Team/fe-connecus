@@ -75,6 +75,7 @@ const FundingForm = ({title, description, date, file}) => {
       );
       // ! ERROR
       console.log(data, totalFunding, new Date(date).getTime());
+
       await contractBuilder.methods
           .stakingAndFunding(data, parseInt(totalFunding), new Date(date).getTime())
           .send({from: accounts[0]});

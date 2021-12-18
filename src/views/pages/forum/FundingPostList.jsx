@@ -4,10 +4,36 @@ import queryString from 'query-string';
 import data from './data';
 import FundingPostItem from './FundingPostItem';
 import apis from '../../../apis/apis';
-// import web3Selector from '../../../components/header/redux/Web3.Selector';
+import web3Selector from '../../../components/header/redux/Web3.Selector';
+import contractValue from '../../../constants/contract';
+
 
 const LeftInfoFundingComponent = (item) => {
   const tokenInfo = JSON.parse(localStorage.getItem('token'));
+  const web3 = useSelector(web3Selector.selectWeb3);
+  const [currentFunding, setCurrentFunding] = useState(0);
+
+  if (!web3) {
+    // alert('Can\'t connect to wallet');
+    return;
+  }
+  const fetchDataFromSC = async () => {
+    const accounts = await web3.eth.getAccounts();
+    const myAccount = accounts[0]; // TODO Check
+
+    let contractBuilder = new web3.eth.Contract(
+        contractValue.ABIContractBuilder,
+        contractValue.addressContractBuilder,
+    );
+
+    const currentTotalFunding = await contractBuilder.methods
+        .getTotalFundPerson(item.id)
+        .call();
+    setCurrentFunding(currentTotalFunding);
+  };
+
+  fetchDataFromSC();
+
   return (
     <div className="bid space-x-10">
       <div className="icon">
@@ -15,13 +41,13 @@ const LeftInfoFundingComponent = (item) => {
       </div>
       <div>
         <p className="color_text txt_xs">CURRENT FUNDING</p>
-        <span className="txt_sm">4.77 / {item.funding_money} ETH</span>
+        <span className="txt_sm">{currentFunding} / {item.funding_money} ETH</span>
         <div className="progress">
           <div
             className="progress-bar"
             role="progressbar"
-            style={{width: `${(50 / parseInt(item.funding_money)) * 100}%`}}
-            aria-valuenow={`${(50 / parseInt(item.funding_money)) * 100}%`}
+            style={{width: `${(currentFunding / parseInt(item.funding_money)) * 100}%`}}
+            aria-valuenow={`${(currentFunding / parseInt(item.funding_money)) * 100}%`}
             aria-valuemin="0"
             aria-valuemax="100"></div>
         </div>
@@ -38,8 +64,8 @@ function FundingPostList({token}) {
       const fetchData = async () => {
         let params = {tokenAddress};
         const response = await apis.getFunding(params);
-        console.log(response);
         const {data} = response;
+        console.log(data);
         setFundingPostList(data);
       };
       fetchData();

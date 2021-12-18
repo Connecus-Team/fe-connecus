@@ -7,14 +7,18 @@ import {ConnectedRouter} from 'connected-react-router';
 import Snowfall from 'react-snowfall';
 import Router from './Router/routes';
 // import {SettingsContext} from './context/settings';
-import React, {useContext} from 'react';
+import React, {useEffect} from 'react';
 
 // Template: https://themeforest.net/item/raroin-nft-marketplace/33730631
 const store = configStore();
 function App() {
   // TODO: import error
-  // const settings = useContext(SettingsContext);
-
+  // useEffect(() => {
+  //   window.onbeforeunload = function(event)
+  //   {
+  //     return confirm('Confirm refresh');
+  //   };
+  // }, []);
   return (
     <div className="App overflow-hidden">
       <Snowfall
