@@ -16,51 +16,88 @@ import {Link} from 'react-router-dom';
 
 const FaqContent = [
   {
-    title: 'How does the free trial work?',
-    desc: `mea case duis tollit et. Etiam nusquam set minium eu sea, ei tale paulo elab. Noluisse mnesarch Et is vero incorrupte eos deserunt quaeren.`,
+    title: 'Intro to $CEUS?',
+    desc: `$CEUS is the collateral token for the CEUS platform, 
+    meaning users can collateralize a certain amount of $CEUS in exchange for a 
+    certain amount of their own community's token. In addition, $CEUS is also an intermediary for users to transact between community tokens.`,
     expand: 'a',
-    link: 'General',
+    link: 'Intro-to-CEUS',
   },
   {
-    title: 'How do you weigh different criteria in your process?',
-    desc: `mea case duis tollit et. Etiam nusquam set minium eu sea, ei tale paulo elab. Noluisse mnesarch Et is vero incorrupte eos deserunt quaeren.`,
+    title: 'What is the Connecus?',
+    desc: `Connecus is a blockchain application platform that helps influencers 
+    manage and develop their community by connecting and interacting directly with fans through incentive activities, voting, fund-raising.`,
     expand: 'b',
-    link: 'Support',
+    link: 'What-is-the-Connecus',
   },
   {
-    title: ' What does First Round look for in an idea?',
-    desc: `mea case duis tollit et. Etiam nusquam set minium eu sea, ei tale paulo elab. Noluisse mnesarch Et is vero incorrupte eos deserunt quaeren.`,
+    title: 'Who is Connecus for?',
+    desc: `CEUS is for any streamer, artist, musician, gamer, celebrity, athlete, 
+    or content Influencer that wants to reward and engage with their followers, and for all the fans and communities of these influencers. `,
     expand: 'c',
     link: 'Transaction',
   },
   {
-    title: '	What do you look for in a founding team?',
-    desc: `mea case duis tollit et. Etiam nusquam set minium eu sea, ei tale paulo elab. Noluisse mnesarch Et is vero incorrupte eos deserunt quaeren.`,
+    title: `What are community's tokens (CTs)?`,
+    desc: `Community's tokens are social tokens that are a fully customizable, branded cryptocurrency unique to the individual influencer and their communities.`,
     expand: 'd',
-    link: 'Fees',
+    link: 'CEUS-for-Influencers',
   },
   {
-    title: ' Do you recommend Pay as you go or Pre pay?',
-    desc: `mea case duis tollit et. Etiam nusquam set minium eu sea, ei tale paulo elab. Noluisse mnesarch Et is vero incorrupte eos deserunt quaeren.`,
+    title: 'What are the benefits of CTs to an influencer?',
+    desc: `CTs give influencers the power of their own digital economy, independent from any specific platform, allowing them to connect with their fan communities like never before.`,
     expand: 'e',
-    link: 'Fees',
+    link: 'CEUS-for-Influencers-1',
   },
   {
-    title: ' Can I pass the fees on to my customers?',
-    desc: `mea case duis tollit et. Etiam nusquam set minium eu sea, ei tale paulo elab. Noluisse mnesarch Et is vero incorrupte eos deserunt quaeren.`,
+    title: 'What can an influencer do with their CT?',
+    desc: `Influencers get to use their imagination to think of new ways to engage and reward their communities.`,
     expand: 'f',
-    link: 'Fees',
+    link: 'CEUS-for-Influencers-2',
   },
   {
-    title: 'Roem ipsum dummy  here will some questions?',
-    desc: `mea case duis tollit et. Etiam nusquam set minium eu sea, ei tale paulo elab. Noluisse mnesarch Et is vero incorrupte eos deserunt quaeren.`,
+    title: 'How are influencers selected?',
+    desc: `Anyone can participation in but we encourage influencers with engaged communities, who produce consistent content and have strong ideas about integrating their CT into their communities.`,
     expand: 'g',
-    link: 'Fees',
+    link: 'CEUS-for-Influencers-3',
+  },
+  {
+    title: 'How do I get my own CT?',
+    desc: `Apply for your own CT here`,
+    expand: 'h',
+    link: 'CEUS-for-Influencers-4',
+  },
+  {
+    title: `What are the benefits of an influencer's CT to fans?`,
+    desc: `By having, holding, tipping, and transacting with the CT, fans show their loyalty and support 
+    to influencers and gain the exclusive access and premium benefits the creator offers. CTs are not 
+    limited by the relationship between the influencers and their fans. Fans can also interact, engage, and reward one another.`,
+    expand: 'i',
+    link: 'CEUS-for-Fans',
+  },
+  {
+    title: `How do I buy my favorite influencer's CT?`,
+    desc: `You need to own $CEUS to buy CT you want, find the influencer's page and hit the 
+    “Buy” button. You also can purchase directly when CT is listed on the decentralized exchange (DEX).`,
+    expand: 'j',
+    link: 'CEUS-for-Fans-1',
+  },
+  {
+    title: 'Can I own multiple varieties of CTs?',
+    desc: `Fans can support as many creators as they'd like.`,
+    expand: 'k',
+    link: 'CEUS-for-Fans-2',
+  },
+  {
+    title: `How can I earn influencer's CTs?`,
+    desc: `Fans can participate in rewards activities that are organized by influencers or they can get rewards after their contributions to the influencer's project is released.`,
+    expand: 'l',
+    link: 'CEUS-for-Fans-3',
   },
 ];
 
 const Faq = () => {
-  useDocumentTitle('Faq');
+  useDocumentTitle('FAQ | Connecus');
   return (
     <div>
       <Header />
@@ -68,45 +105,35 @@ const Faq = () => {
       <div>
         <div className="questions__page mt-100">
           <div className="row justify-content-center">
-            <div className="col-lg-8">
+            <div className="col-lg-10">
               <div className="row">
-                <div className="col-lg-3 col-md-3 col-sm-4">
-                  <div className="box side">
+                <div className="col-sm-3">
+                  <div className="box side position-sticky top-0">
                     <div className="sidenav">
                       <ul>
                         <li className="d-flex align-items-center space-x-10">
                           <i className="ri-home-2-line" />
                           <HashLink
                             className="text__reset"
-                            to="#General"
-                            scroll={(el) =>
-                              el.scrollIntoView({block: 'start'})
-                            }>
-                            General
+                            to="#Intro-to-CEUS"
+                            scroll={(el) => el.scrollIntoView({block: 'start'})}>
+                            Introduction
                           </HashLink>
                         </li>
                         <li className="d-flex align-items-center space-x-10">
-                          <i className="ri-chat-1-line" />
-                          <Link className="text__reset" to="#Support">
-                            Support
+                          <i className="ri-medal-line"></i>
+                          <Link className="text__reset" to="#CEUS-for-Influencers"
+                            scroll={(el) => el.scrollIntoView({block: 'start'})}>
+                            CEUS for Influencers
                           </Link>
                         </li>
                         <li className="d-flex align-items-center space-x-10">
-                          <i className="ri-cloudy-line" />
-                          <Link className="text__reset" to="#Transaction">
-                            Transaction
+                          <i className="ri-group-fill"></i>
+                          <Link className="text__reset" to="#CEUS-for-Fans"
+                            scroll={(el) => el.scrollIntoView({block: 'start'})}>
+
+                            CEUS for Fans
                           </Link>
-                        </li>
-                        <li className="d-flex align-items-center space-x-10">
-                          <i className="ri-quill-pen-line" />
-                          <HashLink
-                            className="text__reset"
-                            to="#Fees"
-                            scroll={(el) =>
-                              el.scrollIntoView({block: 'start'})
-                            }>
-                            Fees
-                          </HashLink>
                         </li>
                       </ul>
                     </div>
@@ -114,10 +141,7 @@ const Faq = () => {
                 </div>
                 <div className="col-lg-9 col-md-9 col-sm-8">
                   <div className="questions__box space-y-30">
-                    <Accordion
-                      className="ff"
-                      preExpanded={['b']}
-                      allowZeroExpanded>
+                    <Accordion className="ff" preExpanded={['b']} allowZeroExpanded>
                       {FaqContent.map((item, i) => (
                         <AccordionItem
                           id={item.link}
@@ -126,9 +150,7 @@ const Faq = () => {
                           uuid={item.expand}>
                           <AccordionItemHeading className="accordion-header p-0">
                             <AccordionItemButton>
-                              <button className="accordion-button">
-                                {item.title}
-                              </button>
+                              <button className="accordion-button">{item.title}</button>
                             </AccordionItemButton>
                           </AccordionItemHeading>
                           {/* Accordion Heading */}
