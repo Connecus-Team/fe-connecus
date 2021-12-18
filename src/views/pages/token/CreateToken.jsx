@@ -54,7 +54,6 @@ const CreateToken = () => {
 
       // TODO: get token address
       const returnMethod = await contract.methods.createToken(name, symBol, totalSupply).send({from: myAccount});
-      console.log(returnMethod);
       let tokenAddress = null;
       if (!returnMethod) {
         alert('Create Token Error');
@@ -72,6 +71,7 @@ const CreateToken = () => {
         description,
         tokenAddress,
         walletAddress: myAccount,
+        facebookUrl,
       };
 
       // TODO Check

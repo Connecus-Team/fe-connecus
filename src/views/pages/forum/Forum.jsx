@@ -23,6 +23,7 @@ import TaskForm from './TaskForm';
 import VotingForm from './VotingForm';
 import FundingForm from './FundingForm';
 import ConnecusCountDown from './ConnecusCountDown';
+import ForumRight from './ForumRight';
 
 const CardItems = [
   {
@@ -122,17 +123,17 @@ function Forum() {
   };
 
   useEffect(() => {
-    // const comparisonToken = async () => {
-    //   if (web3 && token) {
-    //     const accounts = await web3.eth.getAccounts();
-    //     const walletAddress = accounts[0]; // TODO Check
-    //     const {wallet_address} = token;
-    //     if (wallet_address === walletAddress) {
-    //       setIsMyToken(true);
-    //     }
-    //   }
-    // };
-    // comparisonToken();
+    const comparisonToken = async () => {
+      if (web3 && token) {
+        const accounts = await web3.eth.getAccounts();
+        const myAddress = accounts[0]; // TODO Check
+        const {wallet_address} = token;
+        if (wallet_address === myAddress) {
+          setIsMyToken(true);
+        }
+      }
+    };
+    comparisonToken();
   }, [token, web3]);
   return (
     <div>
@@ -142,7 +143,7 @@ function Forum() {
         <div className="container-md">
           <div className="row sm:space-y-30">
             <div className="col-lg-3">
-              <SidebarProfile />
+              <SidebarProfile token={token} />
             </div>
             <div className="col-lg-6 mt-40">
               {isMyToken && (
@@ -319,61 +320,7 @@ function Forum() {
               </div>
             </div>
             <div className="col-lg-3">
-              <div className="sidebar space-y-30 mb-30">
-                <div className="space-y-10">
-                  <div className="box space-y-30">
-                    <div className="d-flex space-x-10">
-                      <img src={`img/icons/live.svg`} alt="live" style={{width: 13}} />
-                      <h5>Live Funding</h5>
-                    </div>
-                    {liveFundingList.map((val) => (
-                      <div className="card__item two my-3" key={val.id}>
-                        <div className="card_body space-y-10">
-                          {/* =============== */}
-                          <div className="card_head">
-                            <Link to="item-details">
-                              <img src={val.img} alt="item" />
-                            </Link>
-                            <div className="block_timer">
-                              <div
-                                className="d-flex justify-content-center
-                                                align-items-center txt_sm _bold box_counter">
-                                <Countdown date={new Date(val.date)} renderer={ConnecusCountDown} />
-                              </div>
-                            </div>
-                            <div
-                              className="details d-flex
-                                                justify-content-between position-absolute bottom-0 start-0 w-100 text-white px-3 pt-2"
-                              style={{height: '4rem', backgroundColor: '#00000090'}}>
-                              <small>
-                                <strong>Total Funding</strong>: 80/{val.totalFunding} ETH
-                              </small>
-                              <div className="progress">
-                                <div
-                                  className="progress-bar"
-                                  role="progressbar"
-                                  style={{width: '80%'}}
-                                  aria-valuenow={80}
-                                  aria-valuemin={0}
-                                  aria-valuemax={val.totalFunding}
-                                />
-                              </div>
-                            </div>
-                          </div>
-                          {/* =============== */}
-                          <h6 className="card_title">
-                            <Link className="color_black" to="item-details">
-                              {val.title}
-                            </Link>
-                          </h6>
-                          <p className="line-clamp-2 small mt-0">{val.description}</p>
-                          <div className="hr" />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
+              <ForumRight />
             </div>
           </div>
         </div>
