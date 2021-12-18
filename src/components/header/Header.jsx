@@ -213,15 +213,9 @@ const Header = () => {
                 <span className="header__wallet-text">Connect wallet</span>
               )}
             </Link>
-            <li className="has_popup2">
-              <Link className="color_black is_new rounded-circle hovered" to="/">
-                <i className="ri-wallet-2-line" />
-              </Link>
-              <p className="menu__popup2 space-y-20 small">
-                Current Balance: <strong>1000</strong> CEUS <br />
-                <button className="btn btn-primary square flex-shrink-0">Withdraw</button>
-              </p>
-            </li>
+            <Link className="color_black is_new rounded-circle" to="transfer">
+              <i className="ri-wallet-2-line" />
+            </Link>
           </div>
           <div className="header__burger js-header-burger" onClick={toggleClass} />
           <div className={` header__mobile js-header-mobile  ${isActive ? 'visible' : null} `}>

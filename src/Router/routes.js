@@ -52,6 +52,7 @@ import Contact from '../views/pages/Support/Contact';
 
 // Route Specific
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import Transfer from '../views/pages/account/Transfer';
 const Routes = () => {
   return (
     <>
@@ -91,6 +92,7 @@ const Routes = () => {
           <Route path="/token-view" component={Forum} />
           <Route path="/token" component={CreateToken} />
           <Route path="/community" component={CommunityList} />
+          <Route path="/transfer" component={Transfer} />
 
           {/* my contomize */}
           <Route component={NotFound} />
