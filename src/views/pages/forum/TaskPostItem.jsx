@@ -26,6 +26,7 @@ function TaskPostItem({
   token,
 }) {
   const web3 = useSelector(web3Selector.selectWeb3);
+  const [ísExpire, setIsExpire] = useState(false);
 
   useEffect(() => {
     if (web3) {
@@ -36,10 +37,9 @@ function TaskPostItem({
             contractValue.ABIContractBuilder,
             contractValue.addressContractBuilder,
         );
-        const votingTime = await contractBuilder.methods.getTimeTaskEnd(item.id).call();
-        console.log(votingTime);
+        const taskTime = await contractBuilder.methods.getTimeTaskEnd(item.id).call();
         const currentTime = new Date().getTime();
-        if (votingTime - currentTime < 0) {
+        if (taskTime - currentTime < 0) {
           setIsExpire(true);
         };
       };
@@ -77,7 +77,7 @@ function TaskPostItem({
       }
     }
   };
-  console.log(item);
+  // console.log(item);
   return (
     <div className="card__item one post-item" key={item.id} style={{maxWidth: '100%'}}>
       <div className="card_body space-y-10">
@@ -97,7 +97,7 @@ function TaskPostItem({
         <h4 className="card_title mt-3">{item.title}</h4>
         <p className="mt-1">{item.description}</p>
         <div className="hr"></div>
-        {bodyComponent(item)}
+        {bodyComponent(item, ísExpire)}
         <div
           className="card_footer justify-content-between flex-column flex-md-row">
           <div className="creators space-x-10">
@@ -108,7 +108,7 @@ function TaskPostItem({
                 </a>
               </div>
               <a href="Profile.html">
-                <p className="avatars_name txt_sm">@makinzi_jamy...</p>
+                <p className="avatars_name txt_sm">@{token.symbol}</p>
               </a>
             </div>
           </div>

@@ -24,11 +24,11 @@ const LeftInfoVotingComponent = (item) => {
   );
 };
 
-const BodyComponent = (item) => {
+const BodyComponent = (item, ísExpire) => {
   return (
     <>
       <div className="px-3">
-        <ul>{item.tasks.map(TaskItem)}</ul>
+        <ul>{item.tasks.map((task, idx) => <TaskItem item={task} post={item} index={idx} ísExpire={ísExpire}/>)}</ul>
       </div>
       <div className="hr"></div>
     </>
@@ -52,13 +52,13 @@ function TaskPostList({token}) {
     <div className="space-y-20">
       {taskPostList.length !== 0 &&
         taskPostList.map((item) =>
-          TaskPostItem({
-            item,
-            rightInfoTitle: 'TASKS END',
-            leftInfoComponent: LeftInfoVotingComponent,
-            bodyComponent: BodyComponent,
-            token,
-          }),
+          <TaskPostItem
+            item={item}
+            rightInfoTitle={'TASKS END'}
+            leftInfoComponent={LeftInfoVotingComponent}
+            bodyComponent={BodyComponent}
+            token={token}
+          />,
         )}
     </div>
   );
