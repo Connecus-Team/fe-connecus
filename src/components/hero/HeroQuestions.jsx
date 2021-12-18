@@ -6,7 +6,7 @@ function HeroQuestions() {
       <div className="hero_questions bg_white">
         <div className="container">
           <div className="space-y-20">
-            <h1 className="text-center">Frequently asked questions</h1>
+            <h1 className="text-center">Frequently Asked Questions</h1>
             <p className="text-center">
               You can set preferred display name, create your profile URL and
               manage other personal settings.

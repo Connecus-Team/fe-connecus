@@ -1,5 +1,6 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import {Link} from 'react-router-dom';
+import Images from '../../assets/Image';
 
 function Footer() {
   return (
@@ -11,10 +12,9 @@ function Footer() {
               <div className="footer__logo">
                 <Link to="/">
                   <img
-                    src={`img/logos/logo.png`}
+                    src={Images.logo}
                     alt="logo"
-                    id="logo_js_f"
-                    style={{ width: '120px' }}
+                    style={{width: '120px'}}
                   />
                 </Link>
               </div>
@@ -59,7 +59,7 @@ function Footer() {
         </div>
       </footer>
     </div>
-  )
+  );
 }
 
-export default Footer
+export default Footer;

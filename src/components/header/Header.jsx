@@ -205,7 +205,7 @@ const Header = () => {
               )}
             </Link>
             <li className="has_popup2">
-              <Link className="color_black is_new bg_light p-2 rounded-circle hovered" to="/">
+              <Link className="color_black is_new rounded-circle hovered" to="/">
                 <i className="ri-wallet-2-line" />
               </Link>
               <p className="menu__popup2 space-y-20 small">
