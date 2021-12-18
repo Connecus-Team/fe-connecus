@@ -53,7 +53,9 @@ const CreateToken = () => {
       );
 
       // TODO: get token address
-      const returnMethod = await contract.methods.createToken(name, symBol, totalSupply).send({from: myAccount});
+      const returnMethod = await contract.methods
+          .createToken(name, symBol, totalSupply)
+          .send({from: myAccount});
       let tokenAddress = null;
       if (!returnMethod) {
         alert('Create Token Error');
@@ -133,7 +135,7 @@ const CreateToken = () => {
       await tokenContract.methods
           .approve(contractValue.addressContractBuilder, web3.utils.toWei(totalStake, 'Ether'))
           .send({from: myAccount})
-          .on('transactionHash', async (hash) => { });
+          .on('transactionHash', async (hash) => {});
 
       try {
         let contractBuilder = new web3.eth.Contract(
@@ -169,47 +171,45 @@ const CreateToken = () => {
             circleTop={0}
           />
         </div>
-        <BlockUi tag="div" blocking={loadingEvent} loader={<Loader active type="ball-spin-fade-loader" color="#5691fd"/>} className="box in__upload mb-50">
+        <BlockUi
+          tag="div"
+          blocking={loadingEvent}
+          loader={<Loader active type="ball-spin-fade-loader" color="#5691fd" />}
+          className="box in__upload mb-50">
           {doneStake ? (
             <div className="row">
               <h2 className="mb-30">Step 2. Define Your Token</h2>
-              <div className="col-lg-6">
-                <div className="left__part space-y-40 md:mb-20 upload_file" onClick={() => imageUploadRef.current.click()}>
-                  <div className="space-y-20">
-                    <img className="icon" src={Image.upload} alt="upload" />
-                    <h5>Drag and drop your file</h5>
-                    <p className="color_text">PNG, GIF, WEBP, MP4 or MP3. Max 100mb.</p>
-                  </div>
-                  <div className="space-y-20">
-                    <p className="color_text">or choose a file</p>
-                    <Link to="#" className="btn btn-white">
-                      Browse files
-                    </Link>
-                    <input type="file"
-                      id="imageUpload"
-                      name="profile_photo"
-                      placeholder="Photo"
-                      required
-                      multiple
-                      accept="image/png,image/jpg,image/jpeg"
-                      hidden
-                      ref={imageUploadRef}
-                      onChange={(event) => onInputChange(event)}
-                    />
-                  </div>
-                  {fileDataUrls.map((dataUrl) => (
-                    <div
-                      className="box image_upload d-flex justify-content-center align-items-center"
-                      style={{
-                        backgroundImage: `url('${dataUrl}')`,
-                        backgroundPosition: 'center',
-                        backgroundRepeat: 'no-repeat',
-                        backgroundSize: 'cover',
-                      }}></div>
-                  ))}
+              <div className="col-sm-4 col-lg-3 offset-0">
+                <div className="nameInput mb-2">Your Token Image</div>
+                <div
+                  className="left__part md:mb-20 upload_file cursor-pointer"
+                  onClick={() => imageUploadRef.current.click()}
+                  style={{
+                    backgroundImage: `url('${fileDataUrls[0]}')`,
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat',
+                    backgroundSize: 'cover',
+                  }}>
+                  {fileDataUrls[0] ? null : (
+                    <>
+                      <i className="ri-upload-cloud-2-fill" style={{fontSize: '70px'}}></i>
+                      <p className="my-0 small">PNG, JPEG, JPG or GIF. Maximum at 100MB.</p>
+                    </>
+                  )}
+                  <Link to="#" className="btn btn-dark mt-4">
+                    Browse files
+                  </Link>
                 </div>
+                <input
+                  type="file"
+                  required
+                  accept="image/png,image/jpg,image/jpeg"
+                  hidden
+                  ref={imageUploadRef}
+                  onChange={(event) => onInputChange(event)}
+                />
               </div>
-              <div className="col-lg-6">
+              <div className="col-sm-7 col-lg-8 offset-1">
                 <div className="form-group space-y-10">
                   <div className="space-y-20">
                     <div className="space-y-10">
@@ -223,7 +223,7 @@ const CreateToken = () => {
                       />
                     </div>
                     <div className="space-y-10">
-                      <span >
+                      <span>
                         Symbol
                         {/* <span className="color_text">(optional) </span> */}
                       </span>
@@ -272,7 +272,7 @@ const CreateToken = () => {
                         type="text"
                         className="form-control"
                         placeholder="https://facebook.com/your-page"
-                        pattern='^https://facebook.com/'
+                        pattern="^https://facebook.com/"
                         onChange={(e) => setFacebookUrl(e.target.value)}
                         value={facebookUrl}
                       />
@@ -330,12 +330,7 @@ const CreateToken = () => {
                   Deposit
                 </button>
               </div>
-              {
-                staking &&
-                <div className="mt-50 text-center w-full">
-                  Staking...
-                </div>
-              }
+              {staking && <div className="mt-50 text-center w-full">Staking...</div>}
             </div>
           )}
         </BlockUi>
