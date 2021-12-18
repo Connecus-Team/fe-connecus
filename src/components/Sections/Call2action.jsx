@@ -25,7 +25,7 @@ function Call2action() {
                 </Link>
               </div>
             </div>
-            <div className="col-md-6">
+            <div className="d-none d-md-block col-md-6">
               <img
                 className="img-fluid img__logo"
                 alt="rr"

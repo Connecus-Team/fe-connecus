@@ -23,12 +23,11 @@ const Hero1 = () => {
                 Your Community <span className="d-inline-block">Your Partners</span>
               </h1>
               <p className="hero__text txt">
-                raroin is a shared liquidity NFT market smart contract which is
-                used by multiple websites to provide the users the best possible
-                experience.
+                <strong className="color_brand">Connecus</strong> is a blockchain application platform that helps influencers manage and develop their community
+                by connecting and interacting directly with fans through incentive activities, voting, fund-raising.
               </p>
               <div
-                className="space-x-20 d-flex flex-column flex-md-row sm:space-y-20">
+                className="d-flex align-items-center space-x-20">
                 <Link className="btn btn-primary" to="marketplace">
                   Reach out your idol
                 </Link>
@@ -38,7 +37,7 @@ const Hero1 = () => {
               </div>
             </div>
           </div>
-          <div className="col-lg-6">
+          <div className="d-none d-lg-block col-lg-6">
             <img
               className="img-fluid w-full p-5"
               src={Images.community1}

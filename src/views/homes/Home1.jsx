@@ -8,7 +8,7 @@ import Logos from '../../components/Sections/Logos';
 import Footer from '../../components/footer/Footer';
 import TopArtist from '../../components/creators/TopArtist';
 import Collection1 from '../../components/collection/Collection1';
-import ConnecusExplan from '../../components/Sections/ConnecusExplan';
+import ConnecusExplain from '../../components/Sections/ConnecusExplan';
 
 const Home1 = () => {
   useDocumentTitle('Home');
@@ -18,7 +18,7 @@ const Home1 = () => {
       <Hero1 />
       {/* <Cards1 /> */}
       {/* <Collection1 /> */}
-      <ConnecusExplan />
+      <ConnecusExplain />
       <TopArtist />
       <Call2action />
       {/* <Logos /> */}

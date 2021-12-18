@@ -1,15 +1,31 @@
 import React from 'react';
 
-export default function ConnecusExplan()
-{
+export default function ConnecusExplain() {
   const sectionInfos = [
-    {className: 'what', icon: 'ri-question-fill', title: 'What is Ceus?'},
-    {className: 'how', icon: 'ri-rocket-2-fill', title: 'How does Ceus works?'},
-    {className: 'why', icon: 'ri-service-fill', title: 'Why must be Ceus?'}];
+    {
+      className: 'what',
+      icon: 'ri-question-fill',
+      title: 'What is Connecus?',
+      desc: `A blockchain application platform that helps influencers manage and develop their community by connecting and interacting directly 
+      with fans through incentive activities, voting, fund-raising.`,
+    },
+    {
+      className: 'how',
+      icon: 'ri-rocket-2-fill',
+      title: 'How does Connecus works?',
+      desc: `Launch your own community's token (CT) that enables more creative solutions for your economy.`,
+    },
+    {
+      className: 'why',
+      icon: 'ri-service-fill',
+      title: 'Why must be Connecus?',
+      desc: 'No cryptocurrency experience required, influencers easily manage community interactions and fans gaining exclusive access and benefits with their influencers.',
+    },
+  ];
   return (
-    <div className="connecus-explain" >
-      {sectionInfos.map(({className, icon, title}, index) =>
-        <section className={className} key={index}>
+    <div className="connecus-explain">
+      {sectionInfos.map(({className, icon, title, desc}, index) => (
+        <section className={className + ' col-10 col-md-4 p-3'} key={index}>
           <span className="icon-wrapper-1">
             <span className="icon-wrapper-2">
               <i className={icon}></i>
@@ -18,10 +34,10 @@ export default function ConnecusExplan()
           <div className="divider"></div>
           <div className="content">
             <h3 className="mb-4">{title}</h3>
-            <p>One of the greatest things about Las Vegas, Reno and Atlantic City (but especially Las Vegas) is the number of shoerry Seinfeld, Ray Romano, Tim Allen  </p>
+            <p dangerouslySetInnerHTML={{__html: desc}}></p>
           </div>
-        </section>,
-      )}
+        </section>
+      ))}
     </div>
   );
 }
