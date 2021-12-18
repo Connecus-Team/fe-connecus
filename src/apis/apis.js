@@ -36,6 +36,10 @@ const userAPI = {
     const url = '/ceus/voting';
     return axiosClient.post(url, params);
   },
+  postToken: (params) => {
+    const url = '/ceus/token';
+    return axiosClient.post(url, params);
+  },
 };
 
 export default userAPI;
