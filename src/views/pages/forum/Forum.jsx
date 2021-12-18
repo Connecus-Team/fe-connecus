@@ -89,7 +89,7 @@ function Forum() {
   const [convertDate, setConvertDate] = useState(moment(date).format('YYYY-MM-DD HH:mm:ss'));
 
   const [token, setToken] = useState();
-  const [isMyToken, setIsMyToken] = useState(false);
+  const [isMyToken, setIsMyToken] = useState(true);
 
   // Aside: Live funding & voting
   const [liveFundingList, setLiveFundingList] = useState(data.fundingCard.slice(0, 2));
@@ -177,8 +177,15 @@ function Forum() {
                       <div className="d-flex gap-3">
                         <div
                           className="box image_upload d-flex justify-content-center w-full align-items-center"
-                          onClick={() => imageUploadRef.current.click()}>
-                          <img className="icon" src="img/icons/upload-plus.svg" alt="" />
+                          onClick={() => imageUploadRef.current.click()}
+                          style={{
+                            backgroundImage: `url('${fileDataUrls[0]}')`,
+                            backgroundPosition: 'center',
+                            backgroundRepeat: 'no-repeat',
+                            backgroundSize: 'cover',
+                          }}
+                        >
+                          <i className={(fileDataUrls[0] ? 'ri-edit-2-line bg_brand_light':'ri-add-circle-line' )}></i>
                           <input
                             id="imageUpload"
                             type="file"
@@ -192,7 +199,7 @@ function Forum() {
                             onChange={(event) => onInputChange(event)}
                           />
                         </div>
-                        {fileDataUrls.map((dataUrl) => (
+                        {/* {fileDataUrls.map((dataUrl) => (
                           <div
                             className="box image_upload d-flex justify-content-center align-items-center"
                             style={{
@@ -201,7 +208,7 @@ function Forum() {
                               backgroundRepeat: 'no-repeat',
                               backgroundSize: 'cover',
                             }}></div>
-                        ))}
+                        ))} */}
                       </div>
                     </div>
                   </div>

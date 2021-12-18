@@ -803,6 +803,11 @@ const ABIContractBuilder =[
         'name': '',
         'type': 'address[]',
       },
+      {
+        'internalType': 'uint256',
+        'name': '',
+        'type': 'uint256',
+      },
     ],
     'stateMutability': 'view',
     'type': 'function',
@@ -835,6 +840,63 @@ const ABIContractBuilder =[
       },
     ],
     'name': 'getSumMoneyPresonFund',
+    'outputs': [
+      {
+        'internalType': 'uint256',
+        'name': '',
+        'type': 'uint256',
+      },
+    ],
+    'stateMutability': 'view',
+    'type': 'function',
+  },
+  {
+    'inputs': [
+      {
+        'internalType': 'uint256',
+        'name': '_id',
+        'type': 'uint256',
+      },
+    ],
+    'name': 'getSumOptionVote',
+    'outputs': [
+      {
+        'internalType': 'uint256',
+        'name': '',
+        'type': 'uint256',
+      },
+    ],
+    'stateMutability': 'view',
+    'type': 'function',
+  },
+  {
+    'inputs': [
+      {
+        'internalType': 'uint256',
+        'name': '_id',
+        'type': 'uint256',
+      },
+    ],
+    'name': 'getTimeEndFund',
+    'outputs': [
+      {
+        'internalType': 'uint256',
+        'name': '',
+        'type': 'uint256',
+      },
+    ],
+    'stateMutability': 'view',
+    'type': 'function',
+  },
+  {
+    'inputs': [
+      {
+        'internalType': 'uint256',
+        'name': '_id',
+        'type': 'uint256',
+      },
+    ],
+    'name': 'getTimeEndVote',
     'outputs': [
       {
         'internalType': 'uint256',
@@ -916,7 +978,7 @@ const ABIContractBuilder =[
 ];
 
 
-const addressContractBuilder = '0xe4736C470737E6205dc439feED0C8944a69e6001';
+const addressContractBuilder = '0x4494A3fFAf7219041Ce568406ff6fbD0696f06DB';
 
 const webDomain = 'http://ratp.link';
 

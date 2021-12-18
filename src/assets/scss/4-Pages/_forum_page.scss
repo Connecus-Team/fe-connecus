@@ -224,9 +224,21 @@
   }
 
   .image_upload {
-    min-width: 10rem;
-    aspect-ratio: 1/0.4;
+    width: 16rem;
+    aspect-ratio: 1/1;
     background-color: $color_input;
+    cursor: pointer;
+
+    i {
+      font-size: 50px;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #ffffff80;
+    }
   }
 }
 .post__details {

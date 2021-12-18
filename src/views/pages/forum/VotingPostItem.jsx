@@ -25,8 +25,33 @@ function VotingPostItem({
   bodyComponent = defaultComponent,
   token,
 }) {
-  const [selectVote, setSelectVote] = useState(0);
   const web3 = useSelector(web3Selector.selectWeb3);
+
+  const [selectVote, setSelectVote] = useState(0);
+  const [doneVote, setDoneVote] = useState(0);
+  const [ísExpire, setIsExpire] = useState(false);
+
+
+  useEffect(() => {
+    if (web3) {
+      const fetchData = async () => {
+        const accounts = await web3.eth.getAccounts();
+        const myAccount = accounts[0];
+        let contractBuilder = new web3.eth.Contract(
+            contractValue.ABIContractBuilder,
+            contractValue.addressContractBuilder,
+        );
+        const _doneVote = await contractBuilder.methods.getCheckVote(item.id).call();
+        setDoneVote(_doneVote);
+
+        console.log(item.id);
+        const _ísExpire = await contractBuilder.methods.getTimeEndVote(item.id).call();
+        console.log(_ísExpire);
+      };
+      fetchData();
+    }
+  }, [item]);
+
   const handleVotePost = async () => {
     try {
       if (selectVote <= 0) {
@@ -54,22 +79,7 @@ function VotingPostItem({
     }
   };
 
-  useEffect(() => {
-    if (web3) {
-      const fetchData = async () => {
-        const accounts = await web3.eth.getAccounts();
-        const myAccount = accounts[0];
-        let contractBuilder = new web3.eth.Contract(
-            contractValue.ABIContractBuilder,
-            contractValue.addressContractBuilder,
-        );
-        const isVote = await contractBuilder.methods.getCheckVote(item.id).call();
-      };
-      fetchData();
-    }
-  }, []);
 
-  console.log(new Date().getTime());
   return (
     <div className="card__item one post-item" post-id={item.id} key={item.id} style={{maxWidth: '100%'}}>
       <div className="card_body space-y-10">

@@ -9,6 +9,7 @@ import Router from './Router/routes';
 // import {SettingsContext} from './context/settings';
 import React, {useEffect} from 'react';
 
+// Template: https://themeforest.net/item/raroin-nft-marketplace/33730631
 const store = configStore();
 function App() {
   // TODO: import error

@@ -1,6 +1,6 @@
-import React, { useRef } from 'react';
+import React, {useRef} from 'react';
 
-function VotingItem({ item, setSelectVote }) {
+function VotingItem({item, setSelectVote}) {
   const inputRef = useRef();
   return (
     <li className="d-flex align-items-center gap-2 mb-2">
