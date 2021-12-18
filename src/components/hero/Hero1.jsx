@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {Link} from 'react-router-dom';
 import {gsap} from 'gsap';
-import Image from '../../assets/Image';
+import Images from '../../assets/Image';
 
 const Hero1 = () => {
   const boxRef = useRef();
@@ -41,8 +41,7 @@ const Hero1 = () => {
           <div className="col-lg-6">
             <img
               className="img-fluid w-full p-5"
-              id="img_js"
-              src={Image.logo}
+              src={Images.community1}
               alt="img"
             />
           </div>

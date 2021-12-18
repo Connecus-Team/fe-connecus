@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
+import Images from '../../assets/Image';
 function Call2action() {
   return (
     <div>
@@ -28,7 +29,7 @@ function Call2action() {
               <img
                 className="img-fluid img__logo"
                 alt="rr"
-                src={`img/bg/home1/community.svg`}
+                src={Images.community}
               />
             </div>
           </div>
