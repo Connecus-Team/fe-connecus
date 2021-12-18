@@ -1,14 +1,14 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import React, {useRef, useState, useEffect} from 'react';
+import {useSelector} from 'react-redux';
+import {Link} from 'react-router-dom';
 import Footer from '../../../components/footer/Footer';
 import Header from '../../../components/header/Header';
 import HeroProfile from '../../../components/hero/HeroProfile';
-import { Tab, Tabs, TabList } from 'react-tabs';
+import {Tab, Tabs, TabList} from 'react-tabs';
 import Countdown from 'react-countdown';
 import useDocumentTitle from '../../../components/useDocumentTitle';
 import SidebarProfile from '../../../components/sidebars/SidebarProfile';
-import { getDataURLFromFile } from '../../../utils/getDataUrlFromFile';
+import {getDataURLFromFile} from '../../../utils/getDataUrlFromFile';
 import web3Selector from '../../../components/header/redux/Web3.Selector';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -32,7 +32,7 @@ const CardItems = [
     avatar_img1: '10',
     avatar_img2: '11',
     avatar_name: 'darian_barry',
-    price: '0.001'
+    price: '0.001',
   },
   {
     img: '2',
@@ -41,7 +41,7 @@ const CardItems = [
     avatar_img1: '12',
     avatar_img2: '13',
     avatar_name: 'makinzi_beck',
-    price: '0.047'
+    price: '0.047',
   },
   {
     img: '3',
@@ -50,15 +50,15 @@ const CardItems = [
     avatar_img1: '14',
     avatar_img2: '15',
     avatar_name: 'jaxon_duffy',
-    price: '0.074'
-  }
+    price: '0.074',
+  },
 ];
 
 // Random component
 const Completionist = () => <span>auction ending soon now!</span>;
 
 // Renderer callback with condition
-const renderer = ({ hours, minutes, seconds, completed }) => {
+const renderer = ({hours, minutes, seconds, completed}) => {
   if (completed) {
     // Render a complete state
     return <Completionist />;
@@ -98,17 +98,17 @@ function Forum() {
     setTitle('');
     setDescription('');
     setDate(new Date());
-    setOptions([{ content: '' }]);
+    setOptions([{content: ''}]);
   };
 
-  const onInputChange = event => {
+  const onInputChange = (event) => {
     Promise.all(Array.from(event.target?.files || []).map(getDataURLFromFile)).then(
-      dataUrls => setFileDataUrls(dataUrls),
-      setFile(event.target?.files)
+        (dataUrls) => setFileDataUrls(dataUrls),
+        setFile(event.target?.files),
     );
   };
 
-  const handleSetDate = date => {
+  const handleSetDate = (date) => {
     let convertDate = moment(date).format('YYYY-MM-DD HH:mm:ss');
     const currentTime = new Date(moment().locale('ko').format('YYYY-MM-DD HH:mm:ss')).getTime();
     let convertDateTime = new Date(convertDate).getTime();
@@ -126,7 +126,7 @@ function Forum() {
       if (web3 && token) {
         const accounts = await web3.eth.getAccounts();
         const walletAddress = accounts[0]; // TODO Check
-        const { wallet_address } = token;
+        const {wallet_address} = token;
         if (wallet_address === walletAddress) {
           setIsMyToken(true);
         }
@@ -156,7 +156,7 @@ function Forum() {
                       placeholder="Title"
                       value={title}
                       defaultValue={title}
-                      onChange={e => setTitle(e.target.value)}
+                      onChange={(e) => setTitle(e.target.value)}
                     />
                   </div>
                   <div className="form-group">
@@ -167,7 +167,7 @@ function Forum() {
                       placeholder="Description"
                       value={description}
                       defaultValue={description}
-                      onChange={e => setDescription(e.target.value)}
+                      onChange={(e) => setDescription(e.target.value)}
                     />
                   </div>
                   <div className="mb-50">
@@ -188,25 +188,25 @@ function Forum() {
                             accept="image/png,image/jpg,image/jpeg"
                             hidden
                             ref={imageUploadRef}
-                            onChange={event => onInputChange(event)}
+                            onChange={(event) => onInputChange(event)}
                           />
                         </div>
-                        {fileDataUrls.map(dataUrl => (
+                        {fileDataUrls.map((dataUrl) => (
                           <div
                             className="box image_upload d-flex justify-content-center align-items-center"
                             style={{
                               backgroundImage: `url('${dataUrl}')`,
                               backgroundPosition: 'center',
                               backgroundRepeat: 'no-repeat',
-                              backgroundSize: 'cover'
+                              backgroundSize: 'cover',
                             }}></div>
                         ))}
                       </div>
                     </div>
                   </div>
-                  <div className="mb-50" style={{ cursor: 'pointer' }}>
+                  <div className="mb-50" style={{cursor: 'pointer'}}>
                     <DatePicker
-                      onChange={date => handleSetDate(date)}
+                      onChange={(date) => handleSetDate(date)}
                       selected={date}
                       id="time"
                       timeInputLabel="Time:"
@@ -316,10 +316,10 @@ function Forum() {
                 <div className="space-y-10">
                   <div className="box space-y-30">
                     <div className="d-flex space-x-10">
-                      <img src={`img/icons/live.svg`} alt="live" style={{ width: 13 }} />
+                      <img src={`img/icons/live.svg`} alt="live" style={{width: 13}} />
                       <h5>Live Funding</h5>
                     </div>
-                    {liveFundingList.map(val => (
+                    {liveFundingList.map((val) => (
                       <div className="card__item two my-3" key={val.id}>
                         <div className="card_body space-y-10">
                           {/* =============== */}
@@ -337,7 +337,7 @@ function Forum() {
                             <div
                               className="details d-flex
                                                 justify-content-between position-absolute bottom-0 start-0 w-100 text-white px-3 pt-2"
-                              style={{ height: '4rem', backgroundColor: '#00000090' }}>
+                              style={{height: '4rem', backgroundColor: '#00000090'}}>
                               <small>
                                 <strong>Total Funding</strong>: 80/{val.totalFunding} ETH
                               </small>
@@ -345,7 +345,7 @@ function Forum() {
                                 <div
                                   className="progress-bar"
                                   role="progressbar"
-                                  style={{ width: '80%' }}
+                                  style={{width: '80%'}}
                                   aria-valuenow={80}
                                   aria-valuemin={0}
                                   aria-valuemax={val.totalFunding}

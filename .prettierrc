@@ -6,7 +6,7 @@
   "arrowParens": "avoid",
   "bracketSameLine": true,
   "htmlWhitespaceSensitivity": "ignore",
-  "semi": true,
+  "semi": false,
   "trailingComma": "none",
   "endOfLine": "auto"
 }

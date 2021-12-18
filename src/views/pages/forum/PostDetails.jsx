@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import Footer from '../../../components/footer/Footer';
 import Header from '../../../components/header/Header';
 import HeroForum from '../../../components/hero/HeroForum';
@@ -13,7 +13,7 @@ const CardItems = [
     avatar_img1: '10',
     avatar_img2: '11',
     avatar_name: 'darian_barry',
-    price: '0.001'
+    price: '0.001',
   },
   {
     img: '2',
@@ -21,7 +21,7 @@ const CardItems = [
     avatar_img1: '12',
     avatar_img2: '13',
     avatar_name: 'makinzi_beck',
-    price: '0.047'
+    price: '0.047',
   },
   {
     img: '3',
@@ -29,13 +29,13 @@ const CardItems = [
     avatar_img1: '14',
     avatar_img2: '15',
     avatar_name: 'jaxon_duffy',
-    price: '0.074'
-  }
+    price: '0.074',
+  },
 ];
 // Random component
 const Completionist = () => <span>auction ending soon now!</span>;
 // Renderer callback with condition
-const renderer = ({ hours, minutes, seconds, completed }) => {
+const renderer = ({hours, minutes, seconds, completed}) => {
   if (completed) {
     // Render a complete state
     return <Completionist />;
@@ -450,7 +450,7 @@ function PostDetails() {
                 </div>
                 <div className="space-y-10">
                   <div className="d-flex space-x-10">
-                    <img src={`img/icons/live.svg`} alt="live" style={{ width: 13 }} />
+                    <img src={`img/icons/live.svg`} alt="live" style={{width: 13}} />
 
                     <h5>Live auctions</h5>
                   </div>
@@ -477,7 +477,7 @@ function PostDetails() {
                                 <div
                                   className="progress-bar"
                                   role="progressbar"
-                                  style={{ width: '80%' }}
+                                  style={{width: '80%'}}
                                   aria-valuenow={80}
                                   aria-valuemin={0}
                                   aria-valuemax={100}

@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
-import Countdown from 'react-countdown'
-import ConnecusCountDown from './ConnecusCountDown'
-import web3Selector from '../../../components/header/redux/Web3.Selector'
-import contractValue from '../../../constants/contract'
-import VotingItem from './VotingItem'
+import React, {useState} from 'react';
+import Countdown from 'react-countdown';
+import ConnecusCountDown from './ConnecusCountDown';
+import web3Selector from '../../../components/header/redux/Web3.Selector';
+import contractValue from '../../../constants/contract';
+import VotingItem from './VotingItem';
 export const defaultItem = {
   id: 1,
   title: 'Colorful Painting',
@@ -11,40 +11,40 @@ export const defaultItem = {
     Hey guys! New exploration about NFT Marketplace Web Design, this time I'm inspired by one of my favorite NFT website called Rarible (with crypto payment)! What do you`,
   img: 'https://miro.medium.com/max/1024/1*kdYwtZPiNcz8djsFLfWTNQ.jpeg',
   totalFunding: '1000',
-  date: '10/01/2022 12:00:00'
-}
-const defaultComponent = () => null
+  date: '10/01/2022 12:00:00',
+};
+const defaultComponent = () => null;
 
 // Will use it later
 function VotingPostItem({
   item = defaultItem,
   rightInfoTitle = 'FUNDING END',
   leftInfoComponent = defaultComponent,
-  bodyComponent = defaultComponent
+  bodyComponent = defaultComponent,
 }) {
-  const [selectVote, setSelectVote] = useState(0)
+  const [selectVote, setSelectVote] = useState(0);
   const handleVotePost = async () => {
     if (selectVote <= 0) {
-      alert('Please, check input')
-      return
+      alert('Please, check input');
+      return;
     }
 
     if (window.confirm(`Are you sure you want to funding with ${userFunding}`)) {
-      const accounts = await web3.eth.getAccounts()
+      const accounts = await web3.eth.getAccounts();
       let contractBuilder = new web3.eth.Contract(
-        contractValue.ABIContractBuilder,
-        contractValue.addressContractBuilder
-      )
-      await contractBuilder.methods.PersonVote(item.id, selectVote).send({ from: walletAddress })
+          contractValue.ABIContractBuilder,
+          contractValue.addressContractBuilder,
+      );
+      await contractBuilder.methods.PersonVote(item.id, selectVote).send({from: walletAddress});
 
       // TODO save to database
-      alert('PersonVote Successful')
+      alert('PersonVote Successful');
     } else {
-      return
+      return;
     }
-  }
+  };
   return (
-    <div className="card__item one post-item" key={item.id} style={{ maxWidth: '100%' }}>
+    <div className="card__item one post-item" key={item.id} style={{maxWidth: '100%'}}>
       <div className="card_body space-y-10">
         <div className="card_head">
           {/* <img src={item.img} alt="" /> */}
@@ -100,7 +100,7 @@ function VotingPostItem({
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default VotingPostItem
+export default VotingPostItem;
