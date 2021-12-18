@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {useSelector} from 'react-redux';
 import Countdown from 'react-countdown';
 import ConnecusCountDown from './ConnecusCountDown';
 import web3Selector from '../../../components/header/redux/Web3.Selector';
@@ -23,28 +24,36 @@ function VotingPostItem({
   bodyComponent = defaultComponent,
 }) {
   const [selectVote, setSelectVote] = useState(0);
+  const web3 = useSelector(web3Selector.selectWeb3);
   const handleVotePost = async () => {
-    if (selectVote <= 0) {
-      alert('Please, check input');
-      return;
-    }
+    try {
+      if (selectVote <= 0) {
+        alert('Please, check input');
+        return;
+      }
 
-    if (window.confirm(`Are you sure you want to funding with ${userFunding}`)) {
-      const accounts = await web3.eth.getAccounts();
-      let contractBuilder = new web3.eth.Contract(
-          contractValue.ABIContractBuilder,
-          contractValue.addressContractBuilder,
-      );
-      await contractBuilder.methods.PersonVote(item.id, selectVote).send({from: walletAddress});
-
-      // TODO save to database
-      alert('PersonVote Successful');
-    } else {
+      if (window.confirm(`Are you sure you want to vote`)) {
+        const accounts = await web3.eth.getAccounts();
+        const myAccount = accounts[0];
+        let contractBuilder = new web3.eth.Contract(
+            contractValue.ABIContractBuilder,
+            contractValue.addressContractBuilder,
+        );
+        await contractBuilder.methods.PersonVote(item.id, selectVote).send({from: myAccount});
+        // TODO save to database
+        alert('PersonVote Successful');
+      } else {
+        return;
+      }
+    } catch (error) {
+      console.log(error);
+      alert('Voting error');
       return;
     }
   };
+  console.log(selectVote);
   return (
-    <div className="card__item one post-item" key={item.id} style={{maxWidth: '100%'}}>
+    <div className="card__item one post-item" post-id={item.id} key={item.id} style={{maxWidth: '100%'}}>
       <div className="card_body space-y-10">
         <div className="card_head">
           {/* <img src={item.img} alt="" /> */}
@@ -53,6 +62,7 @@ function VotingPostItem({
             {leftInfoComponent(item)}
             <div className="auction_end text-right">
               <p className="color_text txt_xs">{rightInfoTitle}</p>
+              <p className="color_text txt_xs">{item.time}</p>
               <span className="counter txt_sm">
                 <Countdown date={item.date} renderer={ConnecusCountDown} />
               </span>

@@ -49,7 +49,16 @@ const CreateToken = () => {
       );
 
       // TODO: get token address
-      await contract.methods.createToken(name, symBol, totalSupply).send({from: myAccount});
+      const returnMethod = await contract.methods.createToken(name, symBol, totalSupply).send({from: myAccount});
+      console.log(returnMethod);
+      let tokenAddress = null;
+      if (!returnMethod) {
+        alert('Create Token Error');
+        return;
+      } else {
+        let {tokenAddress: address} = returnMethod.events.TokenCreated.returnValues;
+        tokenAddress = address;
+      }
 
       // TODO check create successful
       const params = {
@@ -57,7 +66,7 @@ const CreateToken = () => {
         symBol,
         totalSupply,
         description,
-        tokenAddress: '111',
+        tokenAddress,
         walletAddress: myAccount,
       };
 
@@ -83,6 +92,8 @@ const CreateToken = () => {
       }
       alert('Create token Success');
       setLoadingEvent(false);
+
+      // TODO: redirect page
     } catch (error) {
       alert('Call smartcontract error');
       console.log(error);
@@ -114,26 +125,28 @@ const CreateToken = () => {
           contractValue.ABIToken,
           contractValue.addressToken,
       );
-      tokenContract.methods
+
+      await tokenContract.methods
           .approve(contractValue.addressContractBuilder, web3.utils.toWei(totalStake, 'Ether'))
           .send({from: myAccount})
-          .on('transactionHash', async (hash) => {
-            try {
-              let contractBuilder = new web3.eth.Contract(
-                  contractValue.ABIContractBuilder,
-                  contractValue.addressContractBuilder,
-              );
-              setStaking(true);
-              console.log(contractBuilder);
-              await contractBuilder.methods.staking(totalStake).send({from: myAccount});
-              setDoneStake(true);
-              setStaking(false);
-              alert('Stake Successfuly');
-            } catch (error) {
-              setStaking(false);
-              alert('Staking Error');
-            }
-          });
+          .on('transactionHash', async (hash) => { });
+
+      try {
+        let contractBuilder = new web3.eth.Contract(
+            contractValue.ABIContractBuilder,
+            contractValue.addressContractBuilder,
+        );
+        console.log(contractBuilder);
+        setStaking(true);
+
+        await contractBuilder.methods.staking(totalStake).send({from: myAccount});
+        setDoneStake(true);
+        setStaking(false);
+        alert('Stake Successfuly');
+      } catch (error) {
+        setStaking(false);
+        alert('Staking Error');
+      }
     } catch (error) {
       alert('Crete token error !!!');
       console.log(error);

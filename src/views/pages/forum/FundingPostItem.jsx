@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {useSelector} from 'react-redux';
 import Countdown from 'react-countdown';
 import ConnecusCountDown from './ConnecusCountDown';
 import web3Selector from '../../../components/header/redux/Web3.Selector';
@@ -24,32 +25,41 @@ function FundingPostItem({
   token,
 }) {
   const [userFunding, setUserFunding] = useState(0);
+  const web3 = useSelector(web3Selector.selectWeb3);
+
   const handleFundingWithPost = async () => {
+    if (!web3) {
+      alert('Can\'t connect to wallet');
+      return;
+    }
+
     if (userFunding <= 0) {
       alert('Please, check input');
       return;
     }
 
-    if (window.confirm(`Are you sure you want to funding with ${userFunding}`)) {
+    if (window.confirm(`Are you sure you want to funding with ${userFunding} ${token.symbol}`)) {
       const accounts = await web3.eth.getAccounts();
-      const walletAddress = accounts[0]; // TODO Check
+      const myAccount = accounts[0]; // TODO Check
       const tokenContract = new web3.eth.Contract(
           contractValue.ABIToken,
           contractValue.addressToken,
       );
-      tokenContract.methods
+      await tokenContract.methods
           .approve(contractValue.addressContractBuilder, web3.utils.toWei(userFunding, 'Ether'))
-          .send({from: walletAddress})
-          .on('transactionHash', async (hash) => {
-            let contractBuilder = new web3.eth.Contract(
-                contractValue.ABIContractBuilder,
-                contractValue.addressContractBuilder,
-            );
-            await contractBuilder.methods
-                .bidFunding(walletAddress, userFunding)
-                .send({from: walletAddress});
-            alert('Bid Fnding Successful');
-          });
+          .send({from: myAccount})
+          .on('transactionHash', async (hash) => {});
+
+      let contractBuilder = new web3.eth.Contract(
+          contractValue.ABIContractBuilder,
+          contractValue.addressContractBuilder,
+      );
+
+      await contractBuilder.methods
+          .bidFunding(item.id, userFunding)
+          .send({from: myAccount});
+
+      alert('Bid Fnding Successful');
     } else {
       return;
     }

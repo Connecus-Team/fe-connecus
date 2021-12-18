@@ -63,43 +63,46 @@ const FundingForm = ({title, description, date, file}) => {
           contractValue.ABIToken,
           contractValue.addressToken,
       );
-      tokenContract.methods
+      await tokenContract.methods
           .approve(contractValue.addressContractBuilder, web3.utils.toWei(totalFunding, 'Ether'))
           .send({from: accounts[0]})
           .on('transactionHash', async (hash) => { // TODO check
-            let contractBuilder = new web3.eth.Contract(
-                contractValue.ABIContractBuilder,
-                contractValue.addressContractBuilder,
-            );
-            // ! ERROR
-            await contractBuilder.methods
-                .stakingAndFunding(data, totalFunding, date)
-                .send({from: accounts[0]});
-            contractBuilder.events
-                .NewFunding({}, (err, event) => {
-                  if (err) {
-                    alert('New Funding Error');
-                    console.log(err);
-                    // TODO delete funding in database
-                    return;
-                  }
-                  // console.log( 'eror', err, event);
-                })
-                .on('connected', function(subscriptionId) {
-                  console.log('subscriptionId', subscriptionId);
-                })
-                .on('data', async function(event) {
-                  alert('Create Funding Successful \r\b Press ok to confirm');
-                  console.log('data', event);
-                })
-                .on('changed', function(event) {
-                  console.log('change');
-                })
-                .on('error', function(error, receipt) {
-                  alert('Event Error');
-                  // TODO delete funding in database
-                  return;
-                });
+          });
+
+      let contractBuilder = new web3.eth.Contract(
+          contractValue.ABIContractBuilder,
+          contractValue.addressContractBuilder,
+      );
+      // ! ERROR
+      console.log(data, totalFunding, new Date(date).getTime());
+      await contractBuilder.methods
+          .stakingAndFunding(data, parseInt(totalFunding), new Date(date).getTime())
+          .send({from: accounts[0]});
+
+      contractBuilder.events
+          .NewFunding({}, (err, event) => {
+            if (err) {
+              alert('New Funding Error');
+              console.log(err);
+              // TODO delete funding in database
+              return;
+            }
+            // console.log( 'eror', err, event);
+          })
+          .on('connected', function(subscriptionId) {
+            console.log('subscriptionId', subscriptionId);
+          })
+          .on('data', async function(event) {
+            alert('Create Funding Successful \r\b Press ok to confirm');
+            console.log('data', event);
+          })
+          .on('changed', function(event) {
+            console.log('change');
+          })
+          .on('error', function(error, receipt) {
+            alert('Event Error');
+            // TODO delete funding in database
+            return;
           });
     } catch (error) {
       console.log(error);

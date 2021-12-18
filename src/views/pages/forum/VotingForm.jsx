@@ -1,26 +1,26 @@
-import React, { useRef, useState } from 'react';
+import React, {useRef, useState} from 'react';
 import queryString from 'query-string';
-import { useSelector } from 'react-redux';
+import {useSelector} from 'react-redux';
 import web3Selector from '../../../components/header/redux/Web3.Selector';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import apis from '../../../apis/apis';
 import contractValue from '../../../constants/contract';
 
-const VotingForm = ({ title, description, date, file }) => {
+const VotingForm = ({title, description, date, file}) => {
   const web3 = useSelector(web3Selector.selectWeb3);
-  const [options, setOptions] = useState([{ content: '' }]);
+  const [options, setOptions] = useState([{content: ''}]);
 
   const handleClickAddOption = () => {
-    setOptions([...options, { content: '' }]);
+    setOptions([...options, {content: ''}]);
   };
 
   const handleInputVote = (idx, value) => {
     const _options = Object.assign([], options);
-    _options[idx] = { content: value };
+    _options[idx] = {content: value};
     setOptions(_options);
   };
 
-  const handleRemoveOption = index => {
+  const handleRemoveOption = (index) => {
     if (index === 0) {
       alert('Least option is 1');
       return;
@@ -34,75 +34,84 @@ const VotingForm = ({ title, description, date, file }) => {
     //   return;
     // }
 
-    if (web3 === null) {
-      alert("Can't connect to wallet");
-      return;
-    }
-    const accounts = await web3.eth.getAccounts();
-    const walletAddress = accounts[0]; // TODO Check
-    const { address: tokenAddress } = queryString.parse(window.location.search);
-    const params = {
-      title,
-      description,
-      date,
-      options,
-      walletAddress,
-      tokenAddress
-    };
-
-    const { size, type } = file[0];
-    let response = null;
-    if (size / 1000000 < 100) {
-      if (type === 'image/png' || type === 'image/jpg') {
-        try {
-          const data = new FormData();
-          data.append('file', file[0]);
-          data.append('params', JSON.stringify(params));
-          response = await apis.postVoting(data);
-          alert('Create OK');
-        } catch (error) {
-          console.log(error);
-          alert('Post a task server error');
-          return;
-        }
-      } else {
-        alert('Check image type');
+    try {
+      if (web3 === null) {
+        alert('Can\'t connect to wallet');
         return;
       }
-    }
+      const accounts = await web3.eth.getAccounts();
+      const walletAddress = accounts[0]; // TODO Check
+      const {address: tokenAddress} = queryString.parse(window.location.search);
+      const params = {
+        title,
+        description,
+        date,
+        options,
+        walletAddress,
+        tokenAddress,
+      };
 
-    const { data } = response; // id of post
-    // TODO Check server successful
-    const contract = new web3.eth.Contract(
-      contractValue.ABIContractBuilder,
-      contractValue.addressContractBuilder
-    );
-    await contract.methods.CreateVote(data, options.length, date).send({ from: accounts[0] });
-    contract.events
-      .NewVote({}, (err, event) => {
-        if (err) {
-          alert('New Vote Error');
-          console.log(err);
-          // TODO delete vote in database
+      const {size, type} = file[0];
+      let response = null;
+      if (size / 1000000 < 100) {
+        if (type === 'image/png' || type === 'image/jpg') {
+          try {
+            const data = new FormData();
+            data.append('file', file[0]);
+            data.append('params', JSON.stringify(params));
+            response = await apis.postVoting(data);
+          } catch (error) {
+            console.log(error);
+            alert('Post a task server error');
+            return;
+          }
+        } else {
+          alert('Check image type');
           return;
         }
-        // console.log( 'eror', err, event);
-      })
-      .on('connected', function (subscriptionId) {
-        console.log('subscriptionId', subscriptionId);
-      })
-      .on('data', async function (event) {
-        alert('Create Voting Successful \r\b Press ok to confirm');
-        console.log('data', event);
-      })
-      .on('changed', function (event) {
-        console.log('change');
-      })
-      .on('error', function (error, receipt) {
-        alert('Event Error');
-        // TODO delete vote in database
-        return;
-      });
+      }
+
+      const {data} = response; // id of post
+      // TODO Check server successful
+      const contract = new web3.eth.Contract(
+          contractValue.ABIContractBuilder,
+          contractValue.addressContractBuilder,
+      );
+
+
+      console.log(data, options.length, new Date(date).getTime());
+      await contract.methods.CreateVote(data, options.length, new Date(date).getTime()).send({from: walletAddress});
+      alert('Create Voting Successful \r\n Press ok to confirm');
+    } catch (error) {
+      alert('Create Voting error');
+    }
+
+
+    // contract.events.NewVote({}, (err, event) => {
+    //   if (err) {
+    //     alert('New Vote Error');
+    //     console.log(err);
+    //     // TODO delete vote in database
+    //     return;
+    //   }
+    //   // console.log( 'eror', err, event);
+    // })
+    //     // TODO
+    //     .on('connected', function(subscriptionId) {
+    //       console.log('subscriptionId', subscriptionId);
+    //     })
+    //     .on('data', async function(event) {
+    //       alert('Create Voting Successful \r\n Press ok to confirm');
+    //       console.log('data', event);
+    //     })
+    //     .on('changed', function(event) {
+    //       console.log('change');
+    //     })
+    //     .on('error', function(error, receipt) {
+    //       alert('Event Error');
+    //       // TODO delete vote in database
+    //       return;
+    //     });
   };
 
   return (
@@ -121,7 +130,7 @@ const VotingForm = ({ title, description, date, file }) => {
                       name="reply-name"
                       placeholder={`Option ${idx + 1}`}
                       value={item.content}
-                      onChange={e => handleInputVote(idx, e.target.value)}
+                      onChange={(e) => handleInputVote(idx, e.target.value)}
                     />
                     <button
                       className="btn close-icon-wrapper"
