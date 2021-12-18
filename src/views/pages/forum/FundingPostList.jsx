@@ -1,13 +1,12 @@
-import React, {useState, useEffect} from 'react';
-import {useSelector} from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import queryString from 'query-string';
 import data from './data';
 import FundingPostItem from './FundingPostItem';
 import apis from '../../../apis/apis';
 // import web3Selector from '../../../components/header/redux/Web3.Selector';
 
-
-const LeftInfoFundingComponent = (item) => (
+const LeftInfoFundingComponent = item => (
   <div className="bid space-x-10">
     <div className="icon">
       <img src="img/icons/ETH.svg" alt="..." />
@@ -19,7 +18,7 @@ const LeftInfoFundingComponent = (item) => (
         <div
           className="progress-bar"
           role="progressbar"
-          style={{width: '80%'}}
+          style={{ width: '80%' }}
           aria-valuenow={`${(5 / item.funding_money) * 100}%`}
           aria-valuemin="0"
           aria-valuemax="100"></div>
@@ -31,13 +30,13 @@ const LeftInfoFundingComponent = (item) => (
 function FundingPostList() {
   const [fundingPostList, setFundingPostList] = useState([]);
   useEffect(() => {
-    const {address: tokenAddress} = queryString.parse(window.location.search);
+    const { address: tokenAddress } = queryString.parse(window.location.search);
     if (tokenAddress) {
       const fetchData = async () => {
-        let params = {tokenAddress};
+        let params = { tokenAddress };
         const response = await apis.getFunding(params);
         console.log(response);
-        const {data} = response;
+        const { data } = response;
         setFundingPostList(data);
       };
       fetchData();
@@ -45,13 +44,10 @@ function FundingPostList() {
   }, []);
   return (
     <div className="space-y-20 post-item">
-      {fundingPostList.length !== 0 && fundingPostList.map((item, idx) =>
-        <FundingPostItem
-          item={item}
-          leftInfoComponent={LeftInfoFundingComponent}
-          key={idx}
-        />,
-      )}
+      {fundingPostList.length !== 0 &&
+        fundingPostList.map((item, idx) => (
+          <FundingPostItem item={item} leftInfoComponent={LeftInfoFundingComponent} key={idx} />
+        ))}
     </div>
   );
 }

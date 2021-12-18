@@ -1,12 +1,12 @@
-import React, {useRef, useState} from 'react';
-import {useSelector} from 'react-redux';
+import React, { useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import queryString from 'query-string';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import apis from '../../../apis/apis';
 import contractValue from '../../../constants/contract';
 import web3Selector from '../../../components/header/redux/Web3.Selector';
 
-const FundingForm = ({title, description, date, file}) => {
+const FundingForm = ({ title, description, date, file }) => {
   // funding
   const [totalFunding, setTotalFunding] = useState(0);
   const [interest, setInterest] = useState('');
@@ -21,12 +21,12 @@ const FundingForm = ({title, description, date, file}) => {
       // }
 
       if (web3 === null) {
-        alert('Can\'t connect to wallet');
+        alert("Can't connect to wallet");
         return;
       }
       const accounts = await web3.eth.getAccounts();
       const walletAddress = accounts[0]; // TODO Check
-      const {address: tokenAddress} = queryString.parse(window.location.search);
+      const { address: tokenAddress } = queryString.parse(window.location.search);
       let params = {
         title,
         description,
@@ -34,14 +34,14 @@ const FundingForm = ({title, description, date, file}) => {
         totalFunding,
         interest,
         walletAddress,
-        tokenAddress,
+        tokenAddress
       };
 
       // TODO Check
-      const {size, type} = file[0];
+      const { size, type } = file[0];
       let response = null;
       if (size / 1000000 < 100) {
-        if (type === 'image/png' || type === 'image/jpg' ) {
+        if (type === 'image/png' || type === 'image/jpg') {
           try {
             let data = new FormData();
             data.append('file', file[0]);
@@ -58,32 +58,48 @@ const FundingForm = ({title, description, date, file}) => {
         }
       }
 
-      const {data} = response;
-      const tokenContract = new web3.eth.Contract(contractValue.ABIToken, contractValue.addressToken);
-      tokenContract.methods.approve(contractValue.addressContractBuilder, web3.utils.toWei(totalFunding, 'Ether')).send({from: accounts[0]}).on('transactionHash', async (hash) => {
-        let contractBuilder = new web3.eth.Contract(contractValue.ABIContractBuilder, contractValue.addressContractBuilder);
-        await contractBuilder.methods.stakingAndFunding(data, totalFunding, date).send({from: accounts[0]});
-        contractBuilder.events.NewFunding({}, (err, event) => {
-          if (err) {
-            alert('New Funding Error');
-            console.log(err);
-            // TODO delete funding in database
-            return;
-          }
-          // console.log( 'eror', err, event);
-        }).on('connected', function(subscriptionId) {
-          console.log('subscriptionId', subscriptionId);
-        }).on('data', async function(event) {
-          alert('Create Funding Successful \r\b Press ok to confirm');
-          console.log('data', event);
-        }).on('changed', function(event) {
-          console.log('change');
-        }).on('error', function(error, receipt) {
-          alert('Event Error');
-          // TODO delete funding in database
-          return;
+      const { data } = response;
+      const tokenContract = new web3.eth.Contract(
+        contractValue.ABIToken,
+        contractValue.addressToken
+      );
+      tokenContract.methods
+        .approve(contractValue.addressContractBuilder, web3.utils.toWei(totalFunding, 'Ether'))
+        .send({ from: accounts[0] })
+        .on('transactionHash', async hash => {
+          let contractBuilder = new web3.eth.Contract(
+            contractValue.ABIContractBuilder,
+            contractValue.addressContractBuilder
+          );
+          await contractBuilder.methods
+            .stakingAndFunding(data, totalFunding, date)
+            .send({ from: accounts[0] });
+          contractBuilder.events
+            .NewFunding({}, (err, event) => {
+              if (err) {
+                alert('New Funding Error');
+                console.log(err);
+                // TODO delete funding in database
+                return;
+              }
+              // console.log( 'eror', err, event);
+            })
+            .on('connected', function (subscriptionId) {
+              console.log('subscriptionId', subscriptionId);
+            })
+            .on('data', async function (event) {
+              alert('Create Funding Successful \r\b Press ok to confirm');
+              console.log('data', event);
+            })
+            .on('changed', function (event) {
+              console.log('change');
+            })
+            .on('error', function (error, receipt) {
+              alert('Event Error');
+              // TODO delete funding in database
+              return;
+            });
         });
-      });
     } catch (error) {
       console.log(error);
       alert(' Post a funding error');
@@ -103,7 +119,7 @@ const FundingForm = ({title, description, date, file}) => {
               placeholder="Interest"
               value={interest}
               defaultValue={interest}
-              onChange={(e) => setInterest(e.target.value)}
+              onChange={e => setInterest(e.target.value)}
             />
           </div>
           <p className="mb-2">Total Funding</p>
@@ -113,13 +129,13 @@ const FundingForm = ({title, description, date, file}) => {
               className="form-control"
               name="funding-number"
               placeholder="Total funding $"
-              onChange={(e) => setTotalFunding(e.target.value)}
+              onChange={e => setTotalFunding(e.target.value)}
             />
           </div>
         </div>
       </div>
       <button className="btn btn-primary" onClick={() => handlePost()}>
-                  Post a funding
+        Post a funding
       </button>
     </div>
   );

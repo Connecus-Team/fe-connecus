@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
-import {useSelector} from 'react-redux';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import useDocumentTitle from '../../../components/useDocumentTitle';
 import Header from '../../../components/header/Header';
 import web3Selector from '../../../components/header/redux/Web3.Selector';
 import contractValue from '../../../constants/contract';
+import Stepper from 'react-stepper-horizontal';
 
 const CreateToken = () => {
   useDocumentTitle('Create Token');
@@ -21,9 +22,8 @@ const CreateToken = () => {
     try {
       // console.log(moment(productDate).format('L'));
       // console.log(type, category, productName, productCode, productDate, productDesc);
-      if (web3 === null)
-      {
-        alert('Can\'t connect to web3');
+      if (web3 === null) {
+        alert("Can't connect to web3");
         return;
       }
       if (!name || !symBol || !totalSupply) {
@@ -33,8 +33,11 @@ const CreateToken = () => {
 
       setLoadingEvent(true);
       const accounts = await web3.eth.getAccounts();
-      let contract = new web3.eth.Contract(contractValue.ABIContractBuilder, contractValue.addressContractBuilder);
-      await contract.methods.createToken(name, symBol, totalSupply).send({from: accounts[0]});
+      let contract = new web3.eth.Contract(
+        contractValue.ABIContractBuilder,
+        contractValue.addressContractBuilder
+      );
+      await contract.methods.createToken(name, symBol, totalSupply).send({ from: accounts[0] });
       setLoadingEvent(false);
     } catch (error) {
       alert('Call smartcontract error');
@@ -45,11 +48,8 @@ const CreateToken = () => {
 
   const handleStake = async () => {
     try {
-      // console.log(moment(productDate).format('L'));
-      // console.log(type, category, productName, productCode, productDate, productDesc);
-      if (web3 === null)
-      {
-        alert('Can\'t connect to web3');
+      if (web3 === null) {
+        alert("Can't connect to web3");
         return;
       }
       if (!totalStake) {
@@ -58,11 +58,21 @@ const CreateToken = () => {
       }
       setLoadingEvent(true);
       const accounts = await web3.eth.getAccounts();
-      const tokenContract = new web3.eth.Contract(contractValue.ABIToken, contractValue.addressToken);
-      tokenContract.methods.approve(contractValue.addressContractBuilder, web3.utils.toWei(totalStake, 'Ether')).send({from: accounts[0]}).on('transactionHash', async (hash) => {
-        let contractBuilder = new web3.eth.Contract(contractValue.ABIContractBuilder, contractValue.addressContractBuilder);
-        contractBuilder.methods.staking(totalStake).send({from: accounts[0]});
-      });
+      const tokenContract = new web3.eth.Contract(
+        contractValue.ABIToken,
+        contractValue.addressToken
+      );
+      tokenContract.methods
+        .approve(contractValue.addressContractBuilder, web3.utils.toWei(totalStake, 'Ether'))
+        .send({ from: accounts[0] })
+        .on('transactionHash', async hash => {
+          let contractBuilder = new web3.eth.Contract(
+            contractValue.ABIContractBuilder,
+            contractValue.addressContractBuilder
+          );
+          contractBuilder.methods.staking(totalStake).send({ from: accounts[0] });
+          setDoneEvent(true);
+        });
       setLoadingEvent(false);
     } catch (error) {
       alert('Truy cập có lỗi, Vui lòng thử lại sau. Hãy đọc qua phần hướng dẫn sử dụng !!!');
@@ -73,37 +83,25 @@ const CreateToken = () => {
   return (
     <div>
       <Header />
-      <div className="hero__upload">
-        <div className="container">
-          <div className="space-y-20">
-            <Link
-              to="/"
-              className="btn btn-white btn-sm
-                    switch">
-              Back to Home
-            </Link>
-            <h1 className="title">Create My Token</h1>
-          </div>
-        </div>
-      </div>
       <div className="container">
+        <h1 className="mt-30">Create My Token</h1>
+        <div className="my-3 stepper">
+          <Stepper
+            steps={[{ title: 'Stake CEUS' }, { title: 'Define Your Token' }]}
+            activeStep={doneStake ? 1 : 0}
+            circleTop={0}
+          />
+        </div>
         <div className="box in__upload mb-50">
-          {
-            doneStake ?
+          {doneStake ? (
             <div className="row">
-              <h2 className="mb-50">Step2. Input info token</h2>
+              <h2 className="mb-30">Step 2. Define Your Token</h2>
               <div className="col-lg-6">
                 <div className="left__part space-y-40 md:mb-20 upload_file">
                   <div className="space-y-20">
-                    <img
-                      className="icon"
-                      src={`img/icons/upload.svg`}
-                      alt="upload"
-                    />
+                    <img className="icon" src={`img/icons/upload.svg`} alt="upload" />
                     <h5>Drag and drop your file</h5>
-                    <p className="color_text">
-                      PNG, GIF, WEBP, MP4 or MP3. Max 100mb.
-                    </p>
+                    <p className="color_text">PNG, GIF, WEBP, MP4 or MP3. Max 100mb.</p>
                   </div>
                   <div className="space-y-20">
                     <p className="color_text">or choose a file</p>
@@ -123,7 +121,7 @@ const CreateToken = () => {
                         type="text"
                         className="form-control"
                         placeholder="e. g. `raroin design art`"
-                        onChange={(e) => setName(e.target.value)}
+                        onChange={e => setName(e.target.value)}
                         value={name}
                       />
                     </div>
@@ -136,7 +134,7 @@ const CreateToken = () => {
                         type="text"
                         className="form-control"
                         placeholder="e. g. `raroin design art`"
-                        onChange={(e) =>setSymBol(e.target.value)}
+                        onChange={e => setSymBol(e.target.value)}
                         value={symBol}
                       />
                     </div>
@@ -146,7 +144,7 @@ const CreateToken = () => {
                         type="text"
                         className="form-control"
                         placeholder="e. g. `raroin design art`"
-                        onChange={(e) => setTotalSupply(e.target.value)}
+                        onChange={e => setTotalSupply(e.target.value)}
                         value={totalSupply}
                       />
                       {/* <select
@@ -168,10 +166,15 @@ const CreateToken = () => {
                         placeholder="Description"
                         value={description}
                         defaultValue={description}
-                        onChange={(e) => setDescription(e.target.value)}
+                        onChange={e => setDescription(e.target.value)}
                       />
                     </div>
 
+                    <button
+                      className="btn btn-grad  h-100 flex-shrink-0"
+                      onClick={() => handleClickCreateToken()}>
+                      Create Token
+                    </button>
                     {/* <div className="space-y-10">
                       <span className="variationInput">Choose collection</span>
                       <div className="d-flex flex-column flex-md-row">
@@ -199,43 +202,27 @@ const CreateToken = () => {
                 </p>
                 <p></p> */}
               </div>
-            </div> :
-            <div className="row">
-              <h2 className="mb-50">Step1. Stake (CUES)</h2>
-              <input type="text" placeholder="Total" value={totalStake} onChange={(e) => setTotalStake(e.target.value)}/>
-              <button className="btn btn-primary mt-50"onClick={() => handleStake()}>Submit</button>
             </div>
-          }
-        </div>
-      </div>
-      <div className="bottom-0 left-0 right-0">
-        <div className="container">
-          <div className="row content justify-content-center mb-20_reset align-items-center">
-            {/* <div className="col-md-auto col-12 mb-20">
-              <div className="space-x-10">
-                <Link
-                  to="/upload-type"
-                  className="btn btn-white
-						      others_btn">
-                  Cancel
-                </Link>
-                <Link to="#" className="btn btn-dark others_btn">
-                  Preview
-                </Link>
+          ) : (
+            <div className="row">
+              <h2 className="mb-50">Step 1. Stake CEUS</h2>
+              <div style={{ maxWidth: '25rem' }} className="d-flex align-items-center gap-3">
+                <input
+                  type="number"
+                  className="form-control"
+                  placeholder="Total"
+                  value={totalStake}
+                  min="0"
+                  onChange={e => setTotalStake(e.target.value)}
+                />
+                <button
+                  className="btn btn-primary square h-100 flex-shrink-0"
+                  onClick={() => handleStake()}>
+                  Deposit
+                </button>
               </div>
-            </div> */}
-            {
-              doneStake ?
-              <div className="col-md-auto col-24 mb-50">
-                <Link
-                  onClick={() => handleClickCreateToken()}
-                  to="#"
-                  className="btn btn-grad btn_create">
-                  Create Token
-                </Link>
-              </div> : ''
-            }
-          </div>
+            </div>
+          )}
         </div>
       </div>
       {/* <div className="fixed_row bottom-0 left-0 right-0">

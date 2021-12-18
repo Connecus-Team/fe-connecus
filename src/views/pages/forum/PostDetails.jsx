@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Footer from '../../../components/footer/Footer';
 import Header from '../../../components/header/Header';
 import HeroForum from '../../../components/hero/HeroForum';
@@ -13,7 +13,7 @@ const CardItems = [
     avatar_img1: '10',
     avatar_img2: '11',
     avatar_name: 'darian_barry',
-    price: '0.001',
+    price: '0.001'
   },
   {
     img: '2',
@@ -21,7 +21,7 @@ const CardItems = [
     avatar_img1: '12',
     avatar_img2: '13',
     avatar_name: 'makinzi_beck',
-    price: '0.047',
+    price: '0.047'
   },
   {
     img: '3',
@@ -29,13 +29,13 @@ const CardItems = [
     avatar_img1: '14',
     avatar_img2: '15',
     avatar_name: 'jaxon_duffy',
-    price: '0.074',
-  },
+    price: '0.074'
+  }
 ];
 // Random component
 const Completionist = () => <span>auction ending soon now!</span>;
 // Renderer callback with condition
-const renderer = ({hours, minutes, seconds, completed}) => {
+const renderer = ({ hours, minutes, seconds, completed }) => {
   if (completed) {
     // Render a complete state
     return <Completionist />;
@@ -135,15 +135,11 @@ function PostDetails() {
                       <span>42</span>
                     </div>
                     <div className="space-y-20">
-                      <h3>
-                        Localbitcoins Clone Script | Localbitcoins Clone
-                        Software
-                      </h3>
+                      <h3>Localbitcoins Clone Script | Localbitcoins Clone Software</h3>
                       <p className="forum__desc">
-                        Hey guys! New exploration about NFT Marketplace Web
-                        Design, this time I'm inspired by one of my favorite NFT
-                        website called Rarible (with crypto payment)! What do
-                        you
+                        Hey guys! New exploration about NFT Marketplace Web Design, this time I'm
+                        inspired by one of my favorite NFT website called Rarible (with crypto
+                        payment)! What do you
                       </p>
                       <div className="tags">
                         <span>#NFT Marketplace</span>
@@ -172,7 +168,6 @@ function PostDetails() {
                             <span>8 days ago</span>
                           </span>
                         </div>
-
                       </div>
                     </div>
                   </div>
@@ -190,11 +185,7 @@ function PostDetails() {
                     </div>
                   </div>
                   <div className="inupt__comment">
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Add your Answer"
-                    />
+                    <input type="text" className="form-control" placeholder="Add your Answer" />
                   </div>
                   <div className="answer">
                     <Link to="#" className="btn btn-primary btn-sm">
@@ -236,12 +227,10 @@ function PostDetails() {
                       <div className="v__line"></div>
                       <div className="space-y-20">
                         <p className="forum__desc">
-                          I’m willing to send an invite if anyone can bid on my
-                          art, once it gets auctioned and sold, my invite code
-                          will be unlocked so I can send invite. I have no
-                          interest in selling invites for money but I realized I
-                          need to make one sell before I can be able to invite
-                          others
+                          I’m willing to send an invite if anyone can bid on my art, once it gets
+                          auctioned and sold, my invite code will be unlocked so I can send invite.
+                          I have no interest in selling invites for money but I realized I need to
+                          make one sell before I can be able to invite others
                         </p>
                         <div className="reaction space-x-15">
                           <span className="like space-x-5">
@@ -290,11 +279,10 @@ function PostDetails() {
                       <div className="v__line"></div>
                       <div className="space-y-20">
                         <p className="forum__desc">
-                          Check regularly the website, cause I’m in the same
-                          situation. They will add more artists sooner or later,
-                          check also the discord channel they have. But most
-                          important, be patient and keep sharing your work in
-                          other social media
+                          Check regularly the website, cause I’m in the same situation. They will
+                          add more artists sooner or later, check also the discord channel they
+                          have. But most important, be patient and keep sharing your work in other
+                          social media
                         </p>
                         <div className="reaction space-x-15">
                           <span className="like space-x-5">
@@ -343,10 +331,9 @@ function PostDetails() {
                       <div className="v__line"></div>
                       <div className="space-y-20">
                         <p className="forum__desc">
-                          The best way to start to learn is to make one of your
-                          own on https://mintbase.io and then see it pop up
-                          immediately on OpenSea in your items. You can also
-                          transfer and sell it on your own market in Mintbase
+                          The best way to start to learn is to make one of your own on
+                          https://mintbase.io and then see it pop up immediately on OpenSea in your
+                          items. You can also transfer and sell it on your own market in Mintbase
                           where you can embed on your own site.
                         </p>
                         <div className="reaction space-x-15">
@@ -396,9 +383,9 @@ function PostDetails() {
                       <div className="v__line last"></div>
                       <div className="space-y-20">
                         <p className="forum__desc">
-                          Hi! To my part I was bored losing my time during days
-                          sharing my art on the discord chan… That’s why I
-                          decided to bought the invitation! I’m so happy now
+                          Hi! To my part I was bored losing my time during days sharing my art on
+                          the discord chan… That’s why I decided to bought the invitation! I’m so
+                          happy now
                         </p>
                         <div className="reaction space-x-15">
                           <span className="like space-x-5">
@@ -422,7 +409,6 @@ function PostDetails() {
             </div>
             <div className="col-lg-4">
               <div className="sidebar space-y-30">
-
                 <div className="space-y-10">
                   <h5>Categories</h5>
                   <div className="box space-y-10 is__big">
@@ -464,11 +450,7 @@ function PostDetails() {
                 </div>
                 <div className="space-y-10">
                   <div className="d-flex space-x-10">
-                    <img
-                      src={`img/icons/live.svg`}
-                      alt="live"
-                      style={{width: 13}}
-                    />
+                    <img src={`img/icons/live.svg`} alt="live" style={{ width: 13 }} />
 
                     <h5>Live auctions</h5>
                   </div>
@@ -479,19 +461,13 @@ function PostDetails() {
                           {/* =============== */}
                           <div className="card_head">
                             <Link to="item-details">
-                              <img
-                                src={`img/items/item_${val.img}.png`}
-                                alt="item"
-                              />
+                              <img src={`img/items/item_${val.img}.png`} alt="item" />
                             </Link>
                             <div className="block_timer">
                               <div
                                 className="d-flex justify-content-center
                                                 align-items-center txt_sm _bold box_counter">
-                                <Countdown
-                                  date={Date.now() + 60000000}
-                                  renderer={renderer}
-                                />
+                                <Countdown date={Date.now() + 60000000} renderer={renderer} />
                               </div>
                             </div>
                             <div
@@ -501,7 +477,7 @@ function PostDetails() {
                                 <div
                                   className="progress-bar"
                                   role="progressbar"
-                                  style={{width: '80%'}}
+                                  style={{ width: '80%' }}
                                   aria-valuenow={80}
                                   aria-valuemin={0}
                                   aria-valuemax={100}

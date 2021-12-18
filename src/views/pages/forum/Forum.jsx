@@ -1,14 +1,14 @@
-import React, {useRef, useState, useEffect} from 'react';
-import {useSelector} from 'react-redux';
-import {Link} from 'react-router-dom';
+import React, { useRef, useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Footer from '../../../components/footer/Footer';
 import Header from '../../../components/header/Header';
 import HeroProfile from '../../../components/hero/HeroProfile';
-import {Tab, Tabs, TabList} from 'react-tabs';
+import { Tab, Tabs, TabList } from 'react-tabs';
 import Countdown from 'react-countdown';
 import useDocumentTitle from '../../../components/useDocumentTitle';
 import SidebarProfile from '../../../components/sidebars/SidebarProfile';
-import {getDataURLFromFile} from '../../../utils/getDataUrlFromFile';
+import { getDataURLFromFile } from '../../../utils/getDataUrlFromFile';
 import web3Selector from '../../../components/header/redux/Web3.Selector';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -22,6 +22,7 @@ import TaskPostList from './TaskPostList';
 import TaskForm from './TaskForm';
 import VotingForm from './VotingForm';
 import FundingForm from './FundingForm';
+import ConnecusCountDown from './ConnecusCountDown';
 
 const CardItems = [
   {
@@ -31,7 +32,7 @@ const CardItems = [
     avatar_img1: '10',
     avatar_img2: '11',
     avatar_name: 'darian_barry',
-    price: '0.001',
+    price: '0.001'
   },
   {
     img: '2',
@@ -40,7 +41,7 @@ const CardItems = [
     avatar_img1: '12',
     avatar_img2: '13',
     avatar_name: 'makinzi_beck',
-    price: '0.047',
+    price: '0.047'
   },
   {
     img: '3',
@@ -49,15 +50,15 @@ const CardItems = [
     avatar_img1: '14',
     avatar_img2: '15',
     avatar_name: 'jaxon_duffy',
-    price: '0.074',
-  },
+    price: '0.074'
+  }
 ];
 
 // Random component
 const Completionist = () => <span>auction ending soon now!</span>;
 
 // Renderer callback with condition
-const renderer = ({hours, minutes, seconds, completed}) => {
+const renderer = ({ hours, minutes, seconds, completed }) => {
   if (completed) {
     // Render a complete state
     return <Completionist />;
@@ -89,21 +90,25 @@ function Forum() {
   const [token, setToken] = useState();
   const [isMyToken, setIsMyToken] = useState(false);
 
+  // Aside: Live funding & voting
+  const [liveFundingList, setLiveFundingList] = useState(data.fundingCard.slice(0, 2));
+  const [liveVotingList, setLiveVotingList] = useState(data.votingCard.slice(0, 2));
+
   const initialState = () => {
     setTitle('');
     setDescription('');
     setDate(new Date());
-    setOptions([{content: ''}]);
+    setOptions([{ content: '' }]);
   };
 
-  const onInputChange = (event) => {
-    Promise.all(Array.from(event.target?.files || []).map(getDataURLFromFile)).then((dataUrls) =>
-      setFileDataUrls(dataUrls),
-    setFile(event.target?.files),
+  const onInputChange = event => {
+    Promise.all(Array.from(event.target?.files || []).map(getDataURLFromFile)).then(
+      dataUrls => setFileDataUrls(dataUrls),
+      setFile(event.target?.files)
     );
   };
 
-  const handleSetDate = (date) => {
+  const handleSetDate = date => {
     let convertDate = moment(date).format('YYYY-MM-DD HH:mm:ss');
     const currentTime = new Date(moment().locale('ko').format('YYYY-MM-DD HH:mm:ss')).getTime();
     let convertDateTime = new Date(convertDate).getTime();
@@ -121,7 +126,7 @@ function Forum() {
       if (web3 && token) {
         const accounts = await web3.eth.getAccounts();
         const walletAddress = accounts[0]; // TODO Check
-        const {wallet_address} = token;
+        const { wallet_address } = token;
         if (wallet_address === walletAddress) {
           setIsMyToken(true);
         }
@@ -132,7 +137,7 @@ function Forum() {
   return (
     <div>
       <Header />
-      <HeroProfile setToken={setToken}/>
+      <HeroProfile setToken={setToken} />
       <section className="section forum mt-20">
         <div className="container-md">
           <div className="row sm:space-y-30">
@@ -140,8 +145,7 @@ function Forum() {
               <SidebarProfile />
             </div>
             <div className="col-lg-6 mt-40">
-              {
-                isMyToken &&
+              {isMyToken && (
                 <div className="box is__big space-y-20 mb-20 create-post">
                   <h3>Create your post</h3>
                   <div className="form-group">
@@ -152,7 +156,7 @@ function Forum() {
                       placeholder="Title"
                       value={title}
                       defaultValue={title}
-                      onChange={(e) => setTitle(e.target.value)}
+                      onChange={e => setTitle(e.target.value)}
                     />
                   </div>
                   <div className="form-group">
@@ -163,7 +167,7 @@ function Forum() {
                       placeholder="Description"
                       value={description}
                       defaultValue={description}
-                      onChange={(e) => setDescription(e.target.value)}
+                      onChange={e => setDescription(e.target.value)}
                     />
                   </div>
                   <div className="mb-50">
@@ -184,25 +188,25 @@ function Forum() {
                             accept="image/png,image/jpg,image/jpeg"
                             hidden
                             ref={imageUploadRef}
-                            onChange={(event) => onInputChange(event)}
+                            onChange={event => onInputChange(event)}
                           />
                         </div>
-                        {fileDataUrls.map((dataUrl) => (
+                        {fileDataUrls.map(dataUrl => (
                           <div
                             className="box image_upload d-flex justify-content-center align-items-center"
                             style={{
                               backgroundImage: `url('${dataUrl}')`,
                               backgroundPosition: 'center',
                               backgroundRepeat: 'no-repeat',
-                              backgroundSize: 'cover',
+                              backgroundSize: 'cover'
                             }}></div>
                         ))}
                       </div>
                     </div>
                   </div>
-                  <div className="mb-50" style={{cursor: 'pointer'}}>
+                  <div className="mb-50" style={{ cursor: 'pointer' }}>
                     <DatePicker
-                      onChange={(date) => handleSetDate(date)}
+                      onChange={date => handleSetDate(date)}
                       selected={date}
                       id="time"
                       timeInputLabel="Time:"
@@ -218,7 +222,7 @@ function Forum() {
                           data-toggle="tab"
                           onClick={() => setFormType('funding')}
                           role="tab">
-                        Funding
+                          Funding
                         </span>
                       </Tab>
                       <Tab>
@@ -227,7 +231,7 @@ function Forum() {
                           data-toggle="tab"
                           onClick={() => setFormType('voting')}
                           role="tab">
-                        Voting
+                          Voting
                         </span>
                       </Tab>
                       <Tab>
@@ -236,40 +240,40 @@ function Forum() {
                           data-toggle="tab"
                           onClick={() => setFormType('task')}
                           role="tab">
-                        Task
+                          Task
                         </button>
                       </Tab>
                     </TabList>
                     <div className="tab-content">
                       {formType === 'funding' ? (
-                      <FundingForm
-                        title={title}
-                        description={description}
-                        file={file}
-                        date={convertDate}
-                        initialState={initialState}
-                      />
-                    ) : formType === 'voting' ? (
-                      <VotingForm
-                        title={title}
-                        description={description}
-                        file={file}
-                        date={convertDate}
-                        initialState={initialState}
-                      />
-                    ) : (
-                      <TaskForm
-                        title={title}
-                        description={description}
-                        file={file}
-                        date={convertDate}
-                        initialState={initialState}
-                      />
-                    )}
+                        <FundingForm
+                          title={title}
+                          description={description}
+                          file={file}
+                          date={convertDate}
+                          initialState={initialState}
+                        />
+                      ) : formType === 'voting' ? (
+                        <VotingForm
+                          title={title}
+                          description={description}
+                          file={file}
+                          date={convertDate}
+                          initialState={initialState}
+                        />
+                      ) : (
+                        <TaskForm
+                          title={title}
+                          description={description}
+                          file={file}
+                          date={convertDate}
+                          initialState={initialState}
+                        />
+                      )}
                     </div>
                   </Tabs>
                 </div>
-              }
+              )}
               <Tabs className="forum__content">
                 <TabList className="d-flex space-x-10 mb-30 nav-tabs">
                   <Tab className="nav-item">
@@ -308,79 +312,43 @@ function Forum() {
               </div>
             </div>
             <div className="col-lg-3">
-              <div className="sidebar space-y-30">
+              <div className="sidebar space-y-30 mb-30">
                 <div className="space-y-10">
-                  <h5>Categories</h5>
-                  <div className="box space-y-10 is__big">
-                    <div className="d-flex justify-content-between">
-                      <span className="color-black">General</span>
-                      <span className="light_bg">346</span>
-                    </div>
-                    <div className="hr" />
-                    <div className="d-flex justify-content-between">
-                      <span className="color-black">NFT Update</span>
-                      <span className="light_bg">346</span>
-                    </div>
-                    <div className="hr" />
-                    <div className="d-flex justify-content-between">
-                      <span className="color-black">Marketplace</span>
-                      <span className="light_bg">346</span>
-                    </div>
-                    <div className="hr" />
-                    <div className="d-flex justify-content-between">
-                      <span className="color-black">Platform Update</span>
-                      <span className="light_bg">346</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="space-y-10">
-                  <h5>Popular Tags</h5>
-                  <div className="box popular-tags is__big">
-                    <div className="tags_items">
-                      <span className="light_bg mr-10">#bitcoinpr</span>
-                      <span className="light_bg">#cryptopressrelease</span>
-                      <span className="light_bg">#nftcommunity</span>
-                      <span className="light_bg">#nftcollector</span>
-                      <span className="light_bg">#nftartist </span>
-                      <span className="light_bg">#opensea</span>
-                      <span className="light_bg">#nftartbtc</span>
-                      <span className="light_bg">#nftartbtc</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="space-y-10">
-                  <div className="d-flex space-x-10">
-                    <img src={`img/icons/live.svg`} alt="live" style={{width: 13}} />
-
-                    <h5>Live auctions</h5>
-                  </div>
                   <div className="box space-y-30">
-                    {CardItems.map((val, i) => (
-                      <div className="card__item two" key={i}>
+                    <div className="d-flex space-x-10">
+                      <img src={`img/icons/live.svg`} alt="live" style={{ width: 13 }} />
+                      <h5>Live Funding</h5>
+                    </div>
+                    {liveFundingList.map(val => (
+                      <div className="card__item two my-3" key={val.id}>
                         <div className="card_body space-y-10">
                           {/* =============== */}
                           <div className="card_head">
                             <Link to="item-details">
-                              <img src={`img/items/item_${val.img}.png`} alt="item" />
+                              <img src={val.img} alt="item" />
                             </Link>
                             <div className="block_timer">
                               <div
                                 className="d-flex justify-content-center
                                                 align-items-center txt_sm _bold box_counter">
-                                <Countdown date={Date.now() + 60000000} renderer={renderer} />
+                                <Countdown date={new Date(val.date)} renderer={ConnecusCountDown} />
                               </div>
                             </div>
                             <div
                               className="details d-flex
-                                                justify-content-between">
+                                                justify-content-between position-absolute bottom-0 start-0 w-100 text-white px-3 pt-2"
+                              style={{ height: '4rem', backgroundColor: '#00000090' }}>
+                              <small>
+                                <strong>Total Funding</strong>: 80/{val.totalFunding} ETH
+                              </small>
                               <div className="progress">
                                 <div
                                   className="progress-bar"
                                   role="progressbar"
-                                  style={{width: '80%'}}
+                                  style={{ width: '80%' }}
                                   aria-valuenow={80}
                                   aria-valuemin={0}
-                                  aria-valuemax={100}
+                                  aria-valuemax={val.totalFunding}
                                 />
                               </div>
                             </div>
@@ -391,45 +359,8 @@ function Forum() {
                               {val.title}
                             </Link>
                           </h6>
+                          <p className="line-clamp-2 small mt-0">{val.description}</p>
                           <div className="hr" />
-                          <div
-                            className="card_footer
-                                            justify-content-between">
-                            <div className="creators">
-                              <div className="avatars space-x-3">
-                                <div className="-space-x-20">
-                                  <Link to="profil">
-                                    <img
-                                      src={`img/avatars/avatar_${val.avatar_img1}.png`}
-                                      alt="Avatar"
-                                      className="avatar avatar-sm"
-                                    />
-                                  </Link>
-                                  <Link to="profil">
-                                    <img
-                                      src={`img/avatars/avatar_${val.avatar_img2}.png`}
-                                      alt="Avatar"
-                                      className="avatar avatar-sm"
-                                    />
-                                  </Link>
-                                </div>
-                                <Link to="profil">
-                                  <p
-                                    className="avatars_name
-                                                            txt_sm
-                                                            color_black">
-                                    @{val.avatar_name}
-                                  </p>
-                                </Link>
-                              </div>
-                            </div>
-                            <Link to="#" className="space-x-3">
-                              <p className="color_green txt_sm">
-                                {val.price}
-                                ETH
-                              </p>
-                            </Link>
-                          </div>
                         </div>
                       </div>
                     ))}

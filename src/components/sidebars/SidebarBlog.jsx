@@ -1,5 +1,5 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
+import React from 'react'
+import { Link } from 'react-router-dom'
 const SidebarBlog = () => {
   return (
     <div>
@@ -36,8 +36,7 @@ const SidebarBlog = () => {
         <div className="widget">
           <h3 className="widget-title">Stay updated</h3>
           <small className="mb-20">
-            Don’t miss our newest business blog posts. Sign up for the
-            newsletter!
+            Don’t miss our newest business blog posts. Sign up for the newsletter!
           </small>
           <div className="widget-wrap">
             <input
@@ -46,17 +45,60 @@ const SidebarBlog = () => {
               id="exampleFormControlInput1"
               placeholder="name@example.com"
             />
-            <Link
-              to="#"
-              className="btn w-100 btn-secondary sweep_letter sweep_top">
+            <Link to="#" className="btn w-100 btn-secondary sweep_letter sweep_top">
               <div className="inside_item">
                 <span data-hover="Join with us!"> Join with us! </span>
               </div>
             </Link>
           </div>
         </div>
-        {/* ============== widget */}
         <div className="widget">
+          <h3 className="widget-title text-dark">Leave a reply</h3>
+          <div className="widget-wrap">
+            <form>
+              <div className="form-row">
+                <div className="col-sm">
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="reply-name"
+                      placeholder="Your Name"
+                    />
+                  </div>
+                </div>
+                <div className="col-sm">
+                  <div className="form-group">
+                    <input
+                      type="email"
+                      className="form-control"
+                      name="reply-email"
+                      placeholder="Email Address"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="form-group">
+                <textarea
+                  name="reply-message"
+                  rows={8}
+                  className="form-control"
+                  placeholder="Your Reply"
+                  defaultValue={''}
+                />
+              </div>
+              <div className="d-flex justify-content-end">
+                <Link to="#" className="btn btn-primary sweep_letter sweep_top">
+                  <div className="inside_item">
+                    <span data-hover="Reply"> Reply </span>
+                  </div>
+                </Link>
+              </div>
+            </form>
+          </div>
+        </div>
+        {/* ============== widget */}
+        {/* <div className="widget">
           <h3 className="widget-title">Categories</h3>
           <div className="widget-wrap">
             <ul>
@@ -74,9 +116,9 @@ const SidebarBlog = () => {
               </li>
             </ul>
           </div>
-        </div>
+        </div> */}
         {/* ============== widget */}
-        <div className="widget">
+        {/* <div className="widget">
           <h3 className="widget-title">Tags</h3>
           <div className="widget-wrap">
             <div className="tag_cloud">
@@ -133,10 +175,10 @@ const SidebarBlog = () => {
               </Link>
             </div>
           </div>
-        </div>
+        </div> */}
       </aside>
     </div>
-  );
-};
+  )
+}
 
-export default SidebarBlog;
+export default SidebarBlog

@@ -1,5 +1,5 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
+import React from 'react'
+import { Link } from 'react-router-dom'
 
 function Footer() {
   return (
@@ -10,31 +10,34 @@ function Footer() {
             <div className="col-lg-6 space-y-20">
               <div className="footer__logo">
                 <Link to="/">
-                  <img src={`img/logos/logo.png`} alt="logo" id="logo_js_f" style={{ width: '120px' }} />
+                  <img
+                    src={`img/logos/logo.png`}
+                    alt="logo"
+                    id="logo_js_f"
+                    style={{ width: '120px' }}
+                  />
                 </Link>
               </div>
-              <p className="footer__text">
-                raroin is a shared liquidity NFT market smart contract
-              </p>
+              <p className="footer__text">raroin is a shared liquidity NFT market smart contract</p>
               <div>
                 <ul className="footer__social space-x-10 mb-40">
                   <li>
-                    <a href="https://www.facebook.com/" rel="noreferrer"  target="_blank">
+                    <a href="https://www.facebook.com/" rel="noreferrer" target="_blank">
                       <i className="ri-facebook-line" />
                     </a>
                   </li>
                   <li>
-                    <a href="https://www.messenger.com/" rel="noreferrer"  target="_blank">
+                    <a href="https://www.messenger.com/" rel="noreferrer" target="_blank">
                       <i className="ri-messenger-line" />
                     </a>
                   </li>
                   <li>
-                    <a href="https://whatsapp.com" target="_blank" rel="noreferrer" >
-                      <i className="ri-whatsapp-line"  />
+                    <a href="https://whatsapp.com" target="_blank" rel="noreferrer">
+                      <i className="ri-whatsapp-line" />
                     </a>
                   </li>
                   <li>
-                    <a href="https://youtube.com" target="_blank" rel="noreferrer" >
+                    <a href="https://youtube.com" target="_blank" rel="noreferrer">
                       <i className="ri-youtube-line" />
                     </a>
                   </li>
@@ -42,64 +45,21 @@ function Footer() {
               </div>
             </div>
             <div className="col-lg-2 col-6">
-              <h6 className="footer__title">Raroin</h6>
+              <h6 className="footer__title">Connecus</h6>
               <ul className="footer__list">
                 <li>
-                  <Link to="home-1"> Home1 </Link>
+                  <Link to="home-1"> Document </Link>
                 </li>
                 <li>
-                  <Link to="home-2"> Home2</Link>
-                </li>
-                <li>
-                  <Link to="home-3"> Home3 </Link>
-                </li>
-                <li>
-                  <Link to="marketplace"> Marketplace</Link>
-                </li>
-              </ul>
-            </div>
-            <div className="col-lg-2 col-6">
-              <h6 className="footer__title">Assets</h6>
-              <ul className="footer__list">
-                <li>
-                  <Link to="profile"> Profile </Link>
-                </li>
-                <li>
-                  <Link to="creators"> Creators </Link>
-                </li>
-                <li>
-                  <Link to="collections"> Colletctions </Link>
-                </li>
-                <li>
-                  <Link to="Activity"> Activity</Link>
-                </li>
-              </ul>
-            </div>
-            <div className="col-lg-2 col-6">
-              <h6 className="footer__title">Company</h6>
-              <ul className="footer__list">
-                <li>
-                  <Link to="upload-type"> Upload Types </Link>
-                </li>
-                <li>
-                  <Link to="upload"> Upload </Link>
-                </li>
-                <li>
-                  <Link to="connect-wallet"> Connect wallet</Link>
-                </li>
-                <li>
-                  <Link to="item-details"> Item details </Link>
+                  <Link to="home-2"> FAQ </Link>
                 </li>
               </ul>
             </div>
           </div>
-          <p className="copyright text-center">
-            Copyright © 2021. Created with love by creabik.
-          </p>
         </div>
       </footer>
     </div>
-  );
+  )
 }
 
-export default Footer;
+export default Footer

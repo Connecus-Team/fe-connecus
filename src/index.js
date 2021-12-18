@@ -4,6 +4,6 @@ import App from './App';
 import {I18nextProvider} from 'react-i18next';
 
 ReactDOM.render(
-  <App />,
-  document.getElementById('root')
+    <App />,
+    document.getElementById('root'),
 );
