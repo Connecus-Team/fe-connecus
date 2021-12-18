@@ -10,6 +10,10 @@ import Stepper from 'react-stepper-horizontal';
 import Image from '../../../assets/Image';
 import apis from '../../../apis/apis';
 import data from '../forum/data';
+import BlockUi from 'react-block-ui';
+import {Loader, Types} from 'react-loaders';
+import 'react-block-ui/style.css';
+import 'loaders.css/loaders.min.css';
 
 const CreateToken = () => {
   useDocumentTitle('Create Token');
@@ -165,7 +169,7 @@ const CreateToken = () => {
             circleTop={0}
           />
         </div>
-        <div className="box in__upload mb-50">
+        <BlockUi tag="div" blocking={loadingEvent} loader={<Loader active type="ball-spin-fade-loader" color="#5691fd"/>} className="box in__upload mb-50">
           {doneStake ? (
             <div className="row">
               <h2 className="mb-30">Step 2. Define Your Token</h2>
@@ -298,7 +302,8 @@ const CreateToken = () => {
             </div>
           ) : (
             <div className="row">
-              <h2 className="mb-50">Step 1. Stake CEUS</h2>
+              <h2 className="mb-30">Step 1. Stake CEUS</h2>
+              <p>Deposit amount</p>
               <div style={{maxWidth: '25rem'}} className="d-flex align-items-center gap-3">
                 <input
                   type="number"
@@ -322,7 +327,7 @@ const CreateToken = () => {
               }
             </div>
           )}
-        </div>
+        </BlockUi>
       </div>
       {/* <div className="fixed_row bottom-0 left-0 right-0">
         <div className="container">
