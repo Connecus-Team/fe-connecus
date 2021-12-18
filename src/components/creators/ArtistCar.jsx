@@ -2,6 +2,7 @@ import React, {useRef, useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import Popup from 'reactjs-popup';
 import apis from '../../apis/apis';
+import moment from 'moment';
 
 import 'reactjs-popup/dist/index.css';
 
@@ -335,8 +336,8 @@ const Cards1 = () => {
                                 <span aria-hidden="true">×</span>
                               </button>
                               <div className=" space-y-20">
-                                <h3>Place a Bid</h3>
-                                <p>
+                                <h3>Information</h3>
+                                {/* <p>
                                   You must bid at least
                                   <span className="color_black">15 ETH</span>
                                 </p>
@@ -355,31 +356,44 @@ const Cards1 = () => {
                                   type="text"
                                   className="form-control"
                                   defaultValue={1}
-                                />
+                                /> */}
                                 <div className="hr" />
                                 <div className="d-flex justify-content-between">
-                                  <p> You must bid at least:</p>
+                                  <p> Name:</p>
                                   <p className="text-right color_black txt _bold">
-                                    67,000 ETH
+                                    {val.token_name}
                                   </p>
                                 </div>
                                 <div className="d-flex justify-content-between">
-                                  <p> service free:</p>
+                                  <p> Symbol:</p>
                                   <p className="text-right color_black txt _bold">
-                                    0,901 ETH
+                                    {val.symbol}
                                   </p>
                                 </div>
                                 <div className="d-flex justify-content-between">
                                   <p> Total bid amount:</p>
                                   <p className="text-right color_black txt _bold">
-                                    56,031 ETH
+                                    {val.total_supply}
                                   </p>
                                 </div>
-                                <Popup
+                                <div className="d-flex justify-content-between">
+                                  <p> Created Date:</p>
+                                  <p className="text-right color_black txt _bold">
+                                    {moment(val.created).format('YYYY-MM-DD HH:mm:ss')}
+                                  </p>
+                                </div>
+                                <div className=" justify-content-between">
+                                  <p> Description:</p>
+                                  <p className="text-left color_black txt _bold">
+                                    {val.token_description}
+                                  </p>
+                                </div>
+                                <button className="btn btn-primary w-full" onClick={closeTooltip}>Close</button>
+                                {/* <Popup
                                   className="custom"
                                   ref={ref}
                                   trigger={
-                                    <button className="btn btn-primary w-full">
+                                    <button className="btn btn-primary w-full" >
                                       Place a bid
                                     </button>
                                   }
@@ -422,7 +436,7 @@ const Cards1 = () => {
                                       </div>
                                     </div>
                                   </div>
-                                </Popup>
+                                </Popup>*/}
                               </div>
                             </div>
                           </div>

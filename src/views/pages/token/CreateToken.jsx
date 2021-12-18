@@ -133,7 +133,7 @@ const CreateToken = () => {
             }
           });
     } catch (error) {
-      alert('Truy cập có lỗi, Vui lòng thử lại sau. Hãy đọc qua phần hướng dẫn sử dụng !!!');
+      alert('Crete token error !!!');
       console.log(error);
       setLoadingEvent(false);
     }
