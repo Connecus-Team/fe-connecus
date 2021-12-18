@@ -29,7 +29,7 @@ const BodyComponent = (item) => {
   );
 };
 
-function VotingPostList() {
+function VotingPostList({token}) {
   const [votingPostList, setVotingPostList] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
@@ -51,6 +51,7 @@ function VotingPostList() {
             leftInfoComponent={LeftInfoVotingComponent}
             rightInfoTitle={'VOTING END'}
             key={idx}
+            token={token}
             // bodyComponent: BodyComponent,
           />
         ))}

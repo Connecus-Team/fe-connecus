@@ -14,7 +14,7 @@ export const defaultItem = {
   totalFunding: '1000',
   date: '10/01/2022 12:00:00',
 };
-const defaultComponent = () => null;
+const defaultComponent = async () => null;
 
 // Will use it later
 function FundingPostItem({
@@ -74,6 +74,7 @@ function FundingPostItem({
             {leftInfoComponent(item)}
             <div className="auction_end text-right">
               <p className="color_text txt_xs">{rightInfoTitle}</p>
+              <p className="color_text txt_xs">{item.time}</p>
               <span className="counter txt_sm">
                 <Countdown date={item.date} renderer={ConnecusCountDown} />
               </span>
@@ -102,14 +103,11 @@ function FundingPostItem({
                                                               flex-md-row">
           <div className="creators space-x-10">
             <div className="avatars space-x-3">
-              {/* <div className="-space-x-20">
+              <div className="-space-x-20">
                 <a href="Profile.html">
-                  <img src="img/avatars/avatar_3.png" alt="Avatar" className="avatar avatar-sm" />
+                  <img src={`${process.env.REACT_APP_SERVER_API}api/files/${token.link}`} alt="Token Avatar" className="avatar avatar-sm" />
                 </a>
-                <a href="Profile.html">
-                  <img src="img/avatars/avatar_2.png" alt="Avatar" className="avatar avatar-sm" />
-                </a>
-              </div> */}
+              </div>
               <a href="Profile.html">
                 <p className="avatars_name txt_sm">@{token.token_name}</p>
               </a>
