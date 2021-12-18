@@ -233,6 +233,7 @@ const CreateToken = () => {
                 <Link
                   to="/upload-type"
                   className="btn btn-white
+<<<<<<< HEAD
                     others_btn">
                     Cancel
                   </Link>
@@ -246,6 +247,21 @@ const CreateToken = () => {
                   to="item-details"
                   className="btn btn-grad
                   btn_create">
+=======
+                  others_btn">
+                  Cancel
+                </Link>
+                <Link to="#" className="btn btn-dark others_btn">
+                  Preview
+                </Link>
+              </div>
+            </div>
+            <div className="col-md-auto col-12 mb-20">
+              <Link
+                to="item-details"
+                className="btn btn-grad
+                btn_create">
+>>>>>>> ded0fff36cee4e2143aed9753df1e29dc12b3809
                 Create item
               </Link>
             </div>

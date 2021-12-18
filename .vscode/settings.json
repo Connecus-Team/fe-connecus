@@ -1,9 +1,17 @@
 {
+<<<<<<< HEAD
   "cSpell.words": ["Connecus", "datepicker", "thanhhoa"],
+=======
+  "cSpell.words": ["Connecus", "datepicker", "thanhhoa"], 
+>>>>>>> ded0fff36cee4e2143aed9753df1e29dc12b3809
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
   "eslint.validate": [
+<<<<<<< HEAD
       "javascript"
+=======
+    "javascript"
+>>>>>>> ded0fff36cee4e2143aed9753df1e29dc12b3809
   ],
 }
