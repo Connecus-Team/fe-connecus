@@ -60,7 +60,7 @@ export default function TopArtist() {
     ],
   };
   return (
-    <div className="section__artists mt-100">
+    <div className="section__artists mt-30">
       <div className="container">
         <div className="space-y-30">
           <div className="section_head">
