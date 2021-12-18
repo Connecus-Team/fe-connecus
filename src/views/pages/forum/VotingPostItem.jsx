@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useSelector} from 'react-redux';
 import Countdown from 'react-countdown';
 import ConnecusCountDown from './ConnecusCountDown';
 import web3Selector from '../../../components/header/redux/Web3.Selector';
 import contractValue from '../../../constants/contract';
 import VotingItem from './VotingItem';
+import moment from 'moment';
 export const defaultItem = {
   id: 1,
   title: 'Colorful Painting',
@@ -52,6 +53,23 @@ function VotingPostItem({
       return;
     }
   };
+
+  useEffect(() => {
+    if (web3) {
+      const fetchData = async () => {
+        const accounts = await web3.eth.getAccounts();
+        const myAccount = accounts[0];
+        let contractBuilder = new web3.eth.Contract(
+            contractValue.ABIContractBuilder,
+            contractValue.addressContractBuilder,
+        );
+        const isVote = await contractBuilder.methods.getCheckVote(item.id).call();
+      };
+      fetchData();
+    }
+  }, []);
+
+  console.log(new Date().getTime());
   return (
     <div className="card__item one post-item" post-id={item.id} key={item.id} style={{maxWidth: '100%'}}>
       <div className="card_body space-y-10">
