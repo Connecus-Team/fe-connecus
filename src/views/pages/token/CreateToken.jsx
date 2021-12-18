@@ -9,7 +9,6 @@ import contractValue from '../../../constants/contract';
 import Stepper from 'react-stepper-horizontal';
 import Image from '../../../assets/Image';
 import apis from '../../../apis/apis';
-import data from '../forum/data';
 import BlockUi from 'react-block-ui';
 import {Loader, Types} from 'react-loaders';
 import 'react-block-ui/style.css';
@@ -22,6 +21,7 @@ const CreateToken = () => {
   const [totalSupply, setTotalSupply] = useState(0);
   const [description, setDescription] = useState('');
   const [totalStake, setTotalStake] = useState(0);
+  const [facebookUrl, setFacebookUrl] = useState('');
 
   const [doneStake, setDoneStake] = useState(false);
   const [loadingEvent, setLoadingEvent] = useState(false);
@@ -217,20 +217,20 @@ const CreateToken = () => {
                       <input
                         type="text"
                         className="form-control"
-                        placeholder="e. g. `raroin design art`"
+                        placeholder="Enter your display name"
                         onChange={(e) => setName(e.target.value)}
                         value={name}
                       />
                     </div>
                     <div className="space-y-10">
-                      <span className="nameInput">
+                      <span >
                         Symbol
                         {/* <span className="color_text">(optional) </span> */}
                       </span>
                       <input
                         type="text"
                         className="form-control"
-                        placeholder="e. g. `raroin design art`"
+                        placeholder="Enter your token name (STM, VNV, ...)"
                         onChange={(e) => setSymBol(e.target.value)}
                         value={symBol}
                       />
@@ -264,6 +264,17 @@ const CreateToken = () => {
                         value={description}
                         defaultValue={description}
                         onChange={(e) => setDescription(e.target.value)}
+                      />
+                    </div>
+                    <div className="space-y-10">
+                      <span className="nameInput">Your facebook URL</span>
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="https://facebook.com/your-page"
+                        pattern='^https://facebook.com/'
+                        onChange={(e) => setFacebookUrl(e.target.value)}
+                        value={facebookUrl}
                       />
                     </div>
 
