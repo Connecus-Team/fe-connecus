@@ -6,11 +6,6 @@
   "bracketSameLine": true,
   "htmlWhitespaceSensitivity": "ignore",
   "semi": false,
-<<<<<<< HEAD
   "trailingComma": "none",
-  "endOfLine": "auto"
+  "endOfLine": "lf"
 }
-=======
-  "trailingComma": "none"
-}
->>>>>>> ded0fff36cee4e2143aed9753df1e29dc12b3809
