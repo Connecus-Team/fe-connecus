@@ -65,8 +65,7 @@ function FundingPostList({token}) {
         let params = {tokenAddress};
         const response = await apis.getFunding(params);
         const {data} = response;
-        console.log(data);
-        setFundingPostList(data);
+        setFundingPostList(data.reverse());
       };
       fetchData();
     }

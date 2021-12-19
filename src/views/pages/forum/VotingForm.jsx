@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom';
 import apis from '../../../apis/apis';
 import contractValue from '../../../constants/contract';
 
-const VotingForm = ({title, description, date, file}) => {
+const VotingForm = ({title, description, date, file, setLoadingCreatePost}) => {
   const web3 = useSelector(web3Selector.selectWeb3);
   const [options, setOptions] = useState([{content: ''}]);
 
@@ -83,7 +83,9 @@ const VotingForm = ({title, description, date, file}) => {
       alert('Create Voting Successful \r\n Press ok to confirm');
       window.location.reload();
     } catch (error) {
+      console.log(error);
       alert('Create Voting error');
+      return null;
     }
 
 

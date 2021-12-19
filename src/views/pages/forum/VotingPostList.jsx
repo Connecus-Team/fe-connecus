@@ -37,7 +37,7 @@ function VotingPostList({token}) {
       let params = {tokenAddress};
       const response = await apis.getVoting(params);
       const {data} = response;
-      setVotingPostList(data);
+      setVotingPostList(data.reverse());
     };
     fetchData();
   }, []);

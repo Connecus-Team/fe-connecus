@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useSelector} from 'react-redux';
 import Countdown from 'react-countdown';
 import ConnecusCountDown from './ConnecusCountDown';
@@ -26,6 +26,16 @@ function FundingPostItem({
 }) {
   const [userFunding, setUserFunding] = useState(0);
   const web3 = useSelector(web3Selector.selectWeb3);
+  const [isExpire, setIsExpire] = useState(false);
+
+  useEffect(() => {
+    const currentTime = new Date().getTime();
+    const {time} = item;
+    const fundingTime = new Date(time).getTime();
+    if (fundingTime - currentTime < 0) {
+      setIsExpire(true);
+    };
+  }, []);
 
   const handleFundingWithPost = async () => {
     try {
@@ -80,7 +90,7 @@ function FundingPostItem({
           <div className="details d-flex justify-content-between">
             {leftInfoComponent(item)}
             <div className="auction_end text-right">
-              <p className="color_text txt_xs">{rightInfoTitle}</p>
+              <p className="color_text txt_xs" style={isExpire ? {color: 'red'}: {}}>{rightInfoTitle}</p>
               <p className="color_text txt_xs">{item.time}</p>
               <span className="counter txt_sm">
                 <Countdown date={item.date} renderer={ConnecusCountDown} />
@@ -101,7 +111,7 @@ function FundingPostItem({
             value={userFunding}
             onChange={(e) => setUserFunding(e.target.value)}
           />
-          <button className="btn btn-primary" onClick={() => handleFundingWithPost()}>
+          <button className="btn btn-primary" disabled={isExpire} onClick={() => handleFundingWithPost()}>
             Funding
           </button>
         </div>

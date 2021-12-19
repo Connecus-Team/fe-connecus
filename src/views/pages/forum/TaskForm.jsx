@@ -6,7 +6,7 @@ import contractValue from '../../../constants/contract';
 import apis from '../../../apis/apis';
 import web3Selector from '../../../components/header/redux/Web3.Selector';
 
-const TaskForm = ({title, description, date, file}) => {
+const TaskForm = ({title, description, date, file, setLoadingCreatePost}) => {
   const web3 = useSelector(web3Selector.selectWeb3);
   // task
   const [tasks, setTasks] = useState([{content: '', amount: '0'}]);

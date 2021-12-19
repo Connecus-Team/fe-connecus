@@ -43,7 +43,7 @@ function TaskPostList({token}) {
       let params = {tokenAddress};
       const response = await apis.getTask(params);
       const {data} = response;
-      setTaskPostList(data);
+      setTaskPostList(data.reverse());
     };
     fetchData();
   }, []);

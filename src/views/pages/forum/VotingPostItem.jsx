@@ -31,7 +31,7 @@ function VotingPostItem({
 
   const [selectVote, setSelectVote] = useState(0);
   const [doneVote, setDoneVote] = useState(0);
-  const [ísExpire, setIsExpire] = useState(false);
+  const [isExpire, setIsExpire] = useState(false);
   const [totalVote, setTotalVote] = useState(0);
 
 
@@ -98,7 +98,7 @@ function VotingPostItem({
           <div className="details d-flex justify-content-between">
             {leftInfoComponent(item, totalVote)}
             <div className="auction_end text-right">
-              <p className="color_text txt_xs" style={ísExpire ? {color: 'red'}: {}}>{rightInfoTitle}</p>
+              <p className="color_text txt_xs" style={isExpire ? {color: 'red'}: {}}>{rightInfoTitle}</p>
               <p className="color_text txt_xs">{item.time}</p>
               <span className="counter txt_sm">
                 <Countdown date={item.date} renderer={ConnecusCountDown} />
@@ -116,7 +116,7 @@ function VotingPostItem({
                 <VotingItem item={option} setSelectVote={setSelectVote} post={item} setCountVoteByPost={setCountVoteByPost} />
               ))}
           </ul>
-          <button className="btn btn-primary btn-sm" onClick={() => handleVotePost()}>
+          <button className="btn btn-primary btn-sm" disabled={isExpire} onClick={() => handleVotePost()}>
             Vote
           </button>
         </div>
