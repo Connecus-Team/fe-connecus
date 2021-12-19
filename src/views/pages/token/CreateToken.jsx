@@ -169,8 +169,8 @@ const CreateToken = () => {
             circleTop={0}
           />
         </div>
-        <BlockUi tag="div" blocking={loadingEvent} loader={<Loader active type="ball-spin-fade-loader" color="#5691fd"/>} className="box in__upload mb-50">
-          {doneStake ? (
+        {/* <BlockUi tag="div" blocking={loadingEvent} loader={<Loader active type="ball-spin-fade-loader" color="#5691fd"/>} className="box in__upload mb-50"> */}
+        {doneStake ? (
             <div className="row">
               <h2 className="mb-30">Step 2. Define Your Token</h2>
               <div className="col-lg-6">
@@ -338,7 +338,7 @@ const CreateToken = () => {
               }
             </div>
           )}
-        </BlockUi>
+        {/* </BlockUi> */}
       </div>
       {/* <div className="fixed_row bottom-0 left-0 right-0">
         <div className="container">
