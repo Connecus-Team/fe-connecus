@@ -13,12 +13,12 @@ import React, {useEffect} from 'react';
 const store = configStore();
 function App() {
   // TODO: import error
-  // useEffect(() => {
-  //   window.onbeforeunload = function(event)
-  //   {
-  //     return confirm('Confirm refresh');
-  //   };
-  // }, []);
+  useEffect(() => {
+    window.onbeforeunload = function(event)
+    {
+      return confirm('Confirm refresh');
+    };
+  }, []);
   return (
     <div className="App overflow-hidden">
       <Snowfall

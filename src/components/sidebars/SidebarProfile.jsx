@@ -53,7 +53,7 @@ const SidebarProfile = ({token}) => {
           <div className="box">
             <ul className="social_profile space-y-10 overflow-hidden">
               <li>
-                <a href="https://www.facebook.com/" rel="noreferrer" target="_blank">
+                <a href={`${tokenInfo.facebook_url}`} rel="noreferrer" target="_blank">
                   <i className="ri-facebook-line" />
                   <span style={{...styleText, width: '200px'}} className="color_text">/{tokenInfo.facebook_url.slice(25)}</span>
                 </a>

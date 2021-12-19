@@ -22,6 +22,11 @@ import VotingForm from './VotingForm';
 import FundingForm from './FundingForm';
 import ConnecusCountDown from './ConnecusCountDown';
 import ForumRight from './ForumRight';
+import BlockUi from 'react-block-ui';
+import {Loader, Types} from 'react-loaders';
+import 'react-block-ui/style.css';
+import 'loaders.css/loaders.min.css';
+
 
 const CardItems = [
   {
@@ -75,6 +80,8 @@ function Forum() {
   const [liveFundingList, setLiveFundingList] = useState(data.fundingCard.slice(0, 2));
   const [liveVotingList, setLiveVotingList] = useState(data.votingCard.slice(0, 2));
 
+  const [loadingCreatePost, setLoadingCreatePost] = useState(false);
+
   const initialState = () => {
     setTitle('');
     setDescription('');
@@ -127,59 +134,64 @@ function Forum() {
             </div>
             <div className="col-lg-6 mt-40">
               {isMyToken && (
-                <div className="box is__big space-y-20 mb-20 create-post">
-                  <h3>Create your post</h3>
-                  <div className="form-group">
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="reply-name"
-                      placeholder="Title"
-                      value={title}
-                      defaultValue={title}
-                      onChange={(e) => setTitle(e.target.value)}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <textarea
-                      name="reply-message"
-                      rows={4}
-                      className="form-control"
-                      placeholder="Description"
-                      value={description}
-                      defaultValue={description}
-                      onChange={(e) => setDescription(e.target.value)}
-                    />
-                  </div>
-                  <div className="mb-50">
-                    <p className="mb-2">Choose your image or video</p>
-                    <div className="row profile-img">
-                      <div className="d-flex gap-3">
-                        <div
-                          className="box image_upload d-flex justify-content-center w-full align-items-center"
-                          onClick={() => imageUploadRef.current.click()}
-                          style={{
-                            backgroundImage: `url('${fileDataUrls[0]}')`,
-                            backgroundPosition: 'center',
-                            backgroundRepeat: 'no-repeat',
-                            backgroundSize: 'cover',
-                          }}
-                        >
-                          <i className={(fileDataUrls[0] ? 'ri-edit-2-line bg_brand_light':'ri-add-circle-line' )}></i>
-                          <input
-                            id="imageUpload"
-                            type="file"
-                            name="profile_photo"
-                            placeholder="Photo"
-                            required
-                            multiple
-                            accept="image/png,image/jpg,image/jpeg"
-                            hidden
-                            ref={imageUploadRef}
-                            onChange={(event) => onInputChange(event)}
-                          />
-                        </div>
-                        {/* {fileDataUrls.map((dataUrl) => (
+                <BlockUi
+                  tag="div"
+                  blocking={loadingCreatePost}
+                  loader={<Loader active type="ball-spin-fade-loader" color="#5691fd" />}
+                  className="box in__upload mb-50">
+                  <div className="box is__big space-y-20 mb-20 create-post">
+                    <h3>Create your post</h3>
+                    <div className="form-group">
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="reply-name"
+                        placeholder="Title"
+                        value={title}
+                        defaultValue={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <textarea
+                        name="reply-message"
+                        rows={4}
+                        className="form-control"
+                        placeholder="Description"
+                        value={description}
+                        defaultValue={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                      />
+                    </div>
+                    <div className="mb-50">
+                      <p className="mb-2">Choose your image or video (jpg, png)</p>
+                      <div className="row profile-img">
+                        <div className="d-flex gap-3">
+                          <div
+                            className="box image_upload d-flex justify-content-center w-full align-items-center"
+                            onClick={() => imageUploadRef.current.click()}
+                            style={{
+                              backgroundImage: `url('${fileDataUrls[0]}')`,
+                              backgroundPosition: 'center',
+                              backgroundRepeat: 'no-repeat',
+                              backgroundSize: 'cover',
+                            }}
+                          >
+                            <i className={(fileDataUrls[0] ? 'ri-edit-2-line bg_brand_light':'ri-add-circle-line' )}></i>
+                            <input
+                              id="imageUpload"
+                              type="file"
+                              name="profile_photo"
+                              placeholder="Photo"
+                              required
+                              multiple
+                              accept="image/png,image/jpg,image/jpeg"
+                              hidden
+                              ref={imageUploadRef}
+                              onChange={(event) => onInputChange(event)}
+                            />
+                          </div>
+                          {/* {fileDataUrls.map((dataUrl) => (
                           <div
                             className="box image_upload d-flex justify-content-center align-items-center"
                             style={{
@@ -189,57 +201,58 @@ function Forum() {
                               backgroundSize: 'cover',
                             }}></div>
                         ))} */}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="mb-50" style={{cursor: 'pointer'}}>
-                    <DatePicker
-                      onChange={(date) => handleSetDate(date)}
-                      selected={date}
-                      id="time"
-                      timeInputLabel="Time:"
-                      dateFormat="MM/dd/yyyy h:mm aa"
-                      showTimeInput
-                    />
-                  </div>
-                  <Tabs className="form__content">
-                    <TabList className="d-flex space-x-10 mb-30 nav-tabs">
-                      <Tab>
-                        <span
-                          className="btn btn-white btn-sm"
-                          data-toggle="tab"
-                          onClick={() => setFormType('funding')}
-                          role="tab">
+                    <div className="mb-50" style={{cursor: 'pointer'}}>
+                      <DatePicker
+                        onChange={(date) => handleSetDate(date)}
+                        selected={date}
+                        id="time"
+                        timeInputLabel="Time:"
+                        dateFormat="MM/dd/yyyy h:mm aa"
+                        showTimeInput
+                      />
+                    </div>
+                    <Tabs className="form__content">
+                      <TabList className="d-flex space-x-10 mb-30 nav-tabs">
+                        <Tab>
+                          <span
+                            className="btn btn-white btn-sm"
+                            data-toggle="tab"
+                            onClick={() => setFormType('funding')}
+                            role="tab">
                           Funding
-                        </span>
-                      </Tab>
-                      <Tab>
-                        <span
-                          className="btn btn-white btn-sm"
-                          data-toggle="tab"
-                          onClick={() => setFormType('voting')}
-                          role="tab">
+                          </span>
+                        </Tab>
+                        <Tab>
+                          <span
+                            className="btn btn-white btn-sm"
+                            data-toggle="tab"
+                            onClick={() => setFormType('voting')}
+                            role="tab">
                           Voting
-                        </span>
-                      </Tab>
-                      <Tab>
-                        <button
-                          className="btn btn-white btn-sm"
-                          data-toggle="tab"
-                          onClick={() => setFormType('task')}
-                          role="tab">
+                          </span>
+                        </Tab>
+                        <Tab>
+                          <button
+                            className="btn btn-white btn-sm"
+                            data-toggle="tab"
+                            onClick={() => setFormType('task')}
+                            role="tab">
                           Task
-                        </button>
-                      </Tab>
-                    </TabList>
-                    <div className="tab-content">
-                      {formType === 'funding' ? (
+                          </button>
+                        </Tab>
+                      </TabList>
+                      <div className="tab-content">
+                        {formType === 'funding' ? (
                         <FundingForm
                           title={title}
                           description={description}
                           file={file}
                           date={convertDate}
                           initialState={initialState}
+                          setLoadingCreatePost={setLoadingCreatePost}
                         />
                       ) : formType === 'voting' ? (
                         <VotingForm
@@ -248,6 +261,7 @@ function Forum() {
                           file={file}
                           date={convertDate}
                           initialState={initialState}
+                          setLoadingCreatePost={setLoadingCreatePost}
                         />
                       ) : (
                         <TaskForm
@@ -256,11 +270,13 @@ function Forum() {
                           file={file}
                           date={convertDate}
                           initialState={initialState}
+                          setLoadingCreatePost={setLoadingCreatePost}
                         />
                       )}
-                    </div>
-                  </Tabs>
-                </div>
+                      </div>
+                    </Tabs>
+                  </div>
+                </BlockUi>
               )}
               <Tabs className="forum__content">
                 <TabList className="d-flex space-x-10 mb-30 nav-tabs">

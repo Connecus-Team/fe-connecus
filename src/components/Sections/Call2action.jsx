@@ -16,7 +16,7 @@ function Call2action() {
                   Let’s create your own strong community now
                 </p>
                 <Link
-                  to="connect-wallet"
+                  to="token"
                   className="btn btn-primary">
                   Let’s start
                   <i className="ri-arrow-right-s-line"></i>

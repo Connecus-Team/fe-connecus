@@ -27,6 +27,9 @@ const Hero1 = () => {
               </p>
               <div
                 className="d-flex align-items-center space-x-20">
+                <Link className="btn btn-dark" to="token">
+                  Create Token
+                </Link>
                 <Link className="btn btn-primary" to="community">
                   Own Community Token
                 </Link>

@@ -6,7 +6,7 @@ import apis from '../../../apis/apis';
 import contractValue from '../../../constants/contract';
 import web3Selector from '../../../components/header/redux/Web3.Selector';
 
-const FundingForm = ({title, description, date, file}) => {
+const FundingForm = ({title, description, date, file, setLoadingCreatePost}) => {
   // funding
   const [totalFunding, setTotalFunding] = useState(0);
   const [interest, setInterest] = useState('');
@@ -15,15 +15,17 @@ const FundingForm = ({title, description, date, file}) => {
 
   const handlePost = async () => {
     try {
-      // if (!title || !description || !date) {
-      //   alert('Please Check Enter Data');
-      //   return;
-      // }
+      if (!title || !description || !date || !file) {
+        alert('Please Check Enter Data');
+        return;
+      }
 
       if (web3 === null) {
         alert('Can\'t connect to wallet');
         return;
       }
+
+      setLoadingCreatePost(true);
       const accounts = await web3.eth.getAccounts();
       const walletAddress = accounts[0]; // TODO Check
       const {address: tokenAddress} = queryString.parse(window.location.search);
@@ -40,8 +42,9 @@ const FundingForm = ({title, description, date, file}) => {
       // TODO Check
       const {size, type} = file[0];
       let response = null;
+      console.log(type);
       if (size / 1000000 < 100) {
-        if (type === 'image/png' || type === 'image/jpg') {
+        if (type === 'image/png' || type === 'image/jpg' || 'image/jpeg') {
           try {
             let data = new FormData();
             data.append('file', file[0]);
@@ -80,6 +83,11 @@ const FundingForm = ({title, description, date, file}) => {
           .stakingAndFunding(data, parseInt(totalFunding), new Date(date).getTime())
           .send({from: accounts[0]});
 
+      alert('Create Funding Successful \r\b Press ok to confirm');
+      window.location.reload();
+
+      // TODO check
+      /*
       contractBuilder.events
           .NewFunding({}, (err, event) => {
             if (err) {
@@ -95,6 +103,7 @@ const FundingForm = ({title, description, date, file}) => {
           })
           .on('data', async function(event) {
             alert('Create Funding Successful \r\b Press ok to confirm');
+            window.location.reload();
             console.log('data', event);
           })
           .on('changed', function(event) {
@@ -105,9 +114,10 @@ const FundingForm = ({title, description, date, file}) => {
             // TODO delete funding in database
             return;
           });
+          */
     } catch (error) {
       console.log(error);
-      alert(' Post a funding error');
+      alert('Create funding post failure');
       return;
     }
   };

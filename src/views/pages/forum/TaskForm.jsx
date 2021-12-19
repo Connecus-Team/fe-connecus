@@ -13,56 +13,63 @@ const TaskForm = ({title, description, date, file}) => {
   const [totalToken, setTotalToken] = useState(0);
 
   const handlePost = async () => {
-    // if (!title || !description || !date) {
-    //   alert('Please Check Enter Data');
-    //   return;
-    // }
-    if (web3 === null) {
-      alert('Can\'t connect to wallet');
-      return;
-    }
-
-    const accounts = await web3.eth.getAccounts();
-    const walletAddress = accounts[0]; // TODO Check
-    const {address: tokenAddress} = queryString.parse(window.location.search);
-    let params = {
-      title,
-      description,
-      date,
-      totalToken,
-      tasks,
-      walletAddress,
-      tokenAddress,
-    };
-    const {size, type} = file[0];
-    let response = null;
-    if (size / 1000000 < 100) {
-      if (type === 'image/png' || type === 'image/jpg') {
-        try {
-          let data = new FormData();
-          data.append('file', file[0]);
-          data.append('params', JSON.stringify(params));
-          response = await apis.postTask(data);
-        } catch (error) {
-          console.log(error);
-          alert('Post a task server error');
-          return;
-        }
-      } else {
-        alert('Check image type');
+    try {
+      if (!title || !description || !date || !file) {
+        alert('Please Check Enter Data');
         return;
       }
+      if (web3 === null) {
+        alert('Can\'t connect to wallet');
+        return;
+      }
+
+      const accounts = await web3.eth.getAccounts();
+      const walletAddress = accounts[0]; // TODO Check
+      const {address: tokenAddress} = queryString.parse(window.location.search);
+      let params = {
+        title,
+        description,
+        date,
+        totalToken,
+        tasks,
+        walletAddress,
+        tokenAddress,
+      };
+      const {size, type} = file[0];
+      let response = null;
+      if (size / 1000000 < 100) {
+        if (type === 'image/png' || type === 'image/jpg') {
+          try {
+            let data = new FormData();
+            data.append('file', file[0]);
+            data.append('params', JSON.stringify(params));
+            response = await apis.postTask(data);
+          } catch (error) {
+            console.log(error);
+            alert('Post a task server error');
+            return;
+          }
+        } else {
+          alert('Check image type');
+          return;
+        }
+      }
+      const {data} = response; // id of post
+
+      // TODO fix
+      let contract = new web3.eth.Contract(
+          contractValue.ABIContractBuilder,
+          contractValue.addressContractBuilder,
+      );
+
+      await contract.methods.CreateTask(data, tasks.length, new Date(date).getTime()).send({from: walletAddress});
+      alert('Create Voting Successful \r\n Press ok to confirm');
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+      alert('Create voting post failure');
+      return;
     }
-    const {data} = response; // id of post
-
-    // TODO fix
-    let contract = new web3.eth.Contract(
-        contractValue.ABIContractBuilder,
-        contractValue.addressContractBuilder,
-    );
-
-    await contract.methods.CreateTask(data, tasks.length, new Date(date).getTime()).send({from: walletAddress});
-    alert('Create Voting Successful \r\n Press ok to confirm');
   };
 
   const handleInputTask = (idx, type, value) => {
