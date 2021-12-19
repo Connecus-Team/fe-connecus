@@ -10,18 +10,20 @@ function VotingItem({post, item, setSelectVote, setCountVoteByPost}) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const accounts = await web3.eth.getAccounts();
-      const myAccount = accounts[0]; // TODO Check
-      let contractBuilder = new web3.eth.Contract(
-          contractValue.ABIContractBuilder,
-          contractValue.addressContractBuilder,
-      );
-      const response = await contractBuilder.methods.getOption(post.id, item.id).call();
-      setCountVoteByOption(response[1]);
-      setCountVoteByPost(response[1]);
+      if (web3) {
+        const accounts = await web3.eth.getAccounts();
+        const myAccount = accounts[0]; // TODO Check
+        let contractBuilder = new web3.eth.Contract(
+            contractValue.ABIContractBuilder,
+            contractValue.addressContractBuilder,
+        );
+        const response = await contractBuilder.methods.getOption(post.id, item.id).call();
+        setCountVoteByOption(response[1]);
+        setCountVoteByPost(response[1]);
+      }
     };
     fetchData();
-  }, []);
+  }, [web3]);
   return (
     <li className="d-flex align-items-center gap-2 mb-2">
       <input
