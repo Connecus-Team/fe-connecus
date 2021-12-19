@@ -55,6 +55,7 @@ const FundingForm = ({title, description, date, file, setLoadingCreatePost}) => 
             return;
           }
         } else {
+          setLoadingCreatePost(false);
           alert('Check image type');
           return;
         }

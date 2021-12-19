@@ -39,7 +39,7 @@ const TaskForm = ({title, description, date, file, setLoadingCreatePost}) => {
       const {size, type} = file[0];
       let response = null;
       if (size / 1000000 < 100) {
-        if (type === 'image/png' || type === 'image/jpg') {
+        if (type === 'image/png' || type === 'image/jpg' || 'image/jpeg') {
           try {
             let data = new FormData();
             data.append('file', file[0]);
@@ -51,6 +51,7 @@ const TaskForm = ({title, description, date, file, setLoadingCreatePost}) => {
             return;
           }
         } else {
+          setLoadingCreatePost(false);
           alert('Check image type');
           return;
         }
@@ -65,11 +66,11 @@ const TaskForm = ({title, description, date, file, setLoadingCreatePost}) => {
 
       await contract.methods.CreateTask(data, tasks.length, new Date(date).getTime()).send({from: walletAddress});
       setLoadingCreatePost(true);
-      alert('Create Voting Successful \r\n Press ok to confirm');
+      alert('Create task post successful \r\n Press ok to confirm');
       window.location.reload();
     } catch (error) {
       console.log(error);
-      alert('Create voting post failure');
+      alert('Create task post failure');
       return;
     }
   };

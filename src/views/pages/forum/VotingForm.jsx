@@ -55,7 +55,7 @@ const VotingForm = ({title, description, date, file, setLoadingCreatePost}) => {
       const {size, type} = file[0];
       let response = null;
       if (size / 1000000 < 100) {
-        if (type === 'image/png' || type === 'image/jpg') {
+        if (type === 'image/png' || type === 'image/jpg' || 'image/jpeg') {
           try {
             const data = new FormData();
             data.append('file', file[0]);
@@ -67,8 +67,9 @@ const VotingForm = ({title, description, date, file, setLoadingCreatePost}) => {
             return;
           }
         } else {
+          setLoadingCreatePost(false);
           alert('Check image type');
-          return;
+          return null;
         }
       }
 
