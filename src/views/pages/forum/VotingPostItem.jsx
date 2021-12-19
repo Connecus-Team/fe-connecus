@@ -73,7 +73,8 @@ function VotingPostItem({
         );
         await contractBuilder.methods.PersonVote(item.id, selectVote).send({from: myAccount});
         // TODO save to database
-        alert('PersonVote Successful');
+        alert('Vote Successful');
+        window.location.reload();
       } else {
         return;
       }
