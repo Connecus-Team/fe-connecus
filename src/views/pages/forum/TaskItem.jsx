@@ -17,12 +17,13 @@ function TaskItem({item, index, ísExpire, post}) {
       }
       const accounts = await web3.eth.getAccounts();
       const myAccount = accounts[0]; // TODO Check
-      console.log(contractValue);
       let contractBuilder = new web3.eth.Contract(
           contractValue.ABIContractBuilder,
           contractValue.addressContractBuilder,
       );
-      const response = await contractBuilder.methods.rewardTask(`${tokenInfo.token_address}`, post.id, 10).call();
+      // console.log(`${tokenInfo.token_address}`, post.id, 10);
+      console.log(tokenInfo.token_address);
+      const response = await contractBuilder.methods.rewardTask(`${tokenInfo.token_address}`, post.id, 10).send({from: myAccount});
       alert('Verify Successful');
     } catch (error) {
       console.log(error);
@@ -43,7 +44,7 @@ function TaskItem({item, index, ísExpire, post}) {
         <span className="mr-1">
           Task {index + 1}. {item.content}
         </span>{' '}
-        (<strong>{item.amount}{tokenInfo.symbol}</strong>)
+        (<strong>{item.reward} - {tokenInfo.symbol}</strong>)
       </h5>
       <div className="w-100 d-flex align-items-center">
         <div className="d-flex align-items-center gap-3 flex-grow-1">

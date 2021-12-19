@@ -41,7 +41,7 @@ const LeftInfoFundingComponent = (item) => {
       </div>
       <div>
         <p className="color_text txt_xs">CURRENT FUNDING</p>
-        <span className="txt_sm">{currentFunding} / {item.funding_money} ETH</span>
+        <span className="txt_sm">{currentFunding} / {item.funding_money} {tokenInfo.symbol} </span>
         <div className="progress">
           <div
             className="progress-bar"

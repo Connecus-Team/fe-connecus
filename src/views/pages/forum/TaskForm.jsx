@@ -65,11 +65,12 @@ const TaskForm = ({title, description, date, file, setLoadingCreatePost}) => {
       );
 
       await contract.methods.CreateTask(data, tasks.length, new Date(date).getTime()).send({from: walletAddress});
-      setLoadingCreatePost(true);
+      setLoadingCreatePost(false);
       alert('Create task post successful \r\n Press ok to confirm');
       window.location.reload();
     } catch (error) {
       console.log(error);
+      setLoadingCreatePost(false);
       alert('Create task post failure');
       return;
     }
@@ -112,7 +113,7 @@ const TaskForm = ({title, description, date, file, setLoadingCreatePost}) => {
               return (
                 <li className="d-flex gap-3" key={idx}>
                   <div className="form-group w-75">
-                    <p>Task {idx}</p>
+                    <p>Task {idx + 1}</p>
                     <input
                       type="text"
                       className="form-control"

@@ -55,7 +55,7 @@ const PagesMenu = [
   },
   {
     title: ' Document',
-    link: '/article',
+    link: 'https://nguyenmanhdung3007.gitbook.io/connecus.site/',
   },
   {
     title: ' FAQ',
@@ -175,8 +175,36 @@ const Header = () => {
                     ))}
                   </ul> */}
               </li>
-              {PagesMenu.map((val, i) => (
-                <li key={i}>
+              <li >
+                <NavLink
+                  className="color_black"
+                  activeClassName="active-link"
+                  exact={true}
+                  to='/token'>
+                  Token
+                </NavLink>
+              </li>
+              <li >
+                <NavLink
+                  className="color_black"
+                  activeClassName="active-link"
+                  exact={true}
+                  to='/community'>
+                  Community
+                </NavLink>
+              </li>
+              <li >
+                <a
+                  className="color_black"
+                  activeClassName="active-link"
+                  exact={true}
+                  target="_blank"
+                  href='https://nguyenmanhdung3007.gitbook.io/connecus.site/' rel="noreferrer">
+                  Document
+                </a>
+              </li>
+              {/* {PagesMenu.map((val, i) => (
+                <li >
                   <NavLink
                     className="color_black"
                     activeClassName="active-link"
@@ -185,7 +213,7 @@ const Header = () => {
                     {val.title}
                   </NavLink>
                 </li>
-              ))}
+              ))} */}
 
               {/* <li className="has_popup2">
                 <Link className="color_black is_new hovered" to="/">
