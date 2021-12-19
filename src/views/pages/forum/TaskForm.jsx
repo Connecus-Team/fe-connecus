@@ -23,6 +23,7 @@ const TaskForm = ({title, description, date, file}) => {
         return;
       }
 
+      setLoadingCreatePost(true);
       const accounts = await web3.eth.getAccounts();
       const walletAddress = accounts[0]; // TODO Check
       const {address: tokenAddress} = queryString.parse(window.location.search);
@@ -63,6 +64,7 @@ const TaskForm = ({title, description, date, file}) => {
       );
 
       await contract.methods.CreateTask(data, tasks.length, new Date(date).getTime()).send({from: walletAddress});
+      setLoadingCreatePost(true);
       alert('Create Voting Successful \r\n Press ok to confirm');
       window.location.reload();
     } catch (error) {

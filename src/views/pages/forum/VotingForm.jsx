@@ -29,16 +29,17 @@ const VotingForm = ({title, description, date, file}) => {
   };
 
   const handlePost = async () => {
-    // if (!title || !description || !date) {
-    //   alert('Please Check Enter Data');
-    //   return;
-    // }
+    if (!title || !description || !date || !file) {
+      alert('Please Check Enter Data');
+      return;
+    }
 
     try {
       if (web3 === null) {
         alert('Can\'t connect to wallet');
         return;
       }
+      setLoadingCreatePost(true);
       const accounts = await web3.eth.getAccounts();
       const walletAddress = accounts[0]; // TODO Check
       const {address: tokenAddress} = queryString.parse(window.location.search);
@@ -77,11 +78,10 @@ const VotingForm = ({title, description, date, file}) => {
           contractValue.ABIContractBuilder,
           contractValue.addressContractBuilder,
       );
-
-
-      console.log(data, options.length, new Date(date).getTime());
       await contract.methods.CreateVote(data, options.length, new Date(date).getTime()).send({from: walletAddress});
+      setLoadingCreatePost(false);
       alert('Create Voting Successful \r\n Press ok to confirm');
+      window.location.reload();
     } catch (error) {
       alert('Create Voting error');
     }

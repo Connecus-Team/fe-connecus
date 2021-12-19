@@ -47,36 +47,6 @@ function TaskPostItem({
     }
   }, [item]);
 
-  const handleFundingWithPost = async () => {
-    if (userFunding <= 0) {
-      alert('Please, check input');
-      return;
-
-      if (window.confirm(`Are you sure you want to funding with ${userFunding}`)) {
-        const accounts = await web3.eth.getAccounts();
-        const walletAddress = accounts[0]; // TODO Check
-        const tokenContract = new web3.eth.Contract(
-            contractValue.ABIToken,
-            contractValue.addressToken,
-        );
-        tokenContract.methods
-            .approve(contractValue.addressContractBuilder, web3.utils.toWei(userFunding, 'Ether'))
-            .send({from: walletAddress})
-            .on('transactionHash', async (hash) => {
-              let contractBuilder = new web3.eth.Contract(
-                  contractValue.ABIContractBuilder,
-                  contractValue.addressContractBuilder,
-              );
-              await contractBuilder.methods
-                  .bidFunding(walletAddress, userFunding)
-                  .send({from: walletAddress});
-              alert('Bid Fnding Successful');
-            });
-      } else {
-        return;
-      }
-    }
-  };
   // console.log(item);
   return (
     <div className="card__item one post-item" key={item.id} style={{maxWidth: '100%'}}>

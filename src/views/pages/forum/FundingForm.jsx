@@ -42,7 +42,6 @@ const FundingForm = ({title, description, date, file, setLoadingCreatePost}) => 
       // TODO Check
       const {size, type} = file[0];
       let response = null;
-      console.log(type);
       if (size / 1000000 < 100) {
         if (type === 'image/png' || type === 'image/jpg' || 'image/jpeg') {
           try {
@@ -76,13 +75,11 @@ const FundingForm = ({title, description, date, file, setLoadingCreatePost}) => 
           contractValue.ABIContractBuilder,
           contractValue.addressContractBuilder,
       );
-      // ! ERROR
-      console.log(data, totalFunding, new Date(date).getTime());
-
       await contractBuilder.methods
           .stakingAndFunding(data, parseInt(totalFunding), new Date(date).getTime())
           .send({from: accounts[0]});
 
+      setLoadingCreatePost(false);
       alert('Create Funding Successful \r\b Press ok to confirm');
       window.location.reload();
 

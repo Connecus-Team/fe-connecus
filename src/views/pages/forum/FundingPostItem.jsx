@@ -28,39 +28,46 @@ function FundingPostItem({
   const web3 = useSelector(web3Selector.selectWeb3);
 
   const handleFundingWithPost = async () => {
-    if (!web3) {
-      alert('Can\'t connect to wallet');
-      return;
-    }
+    try {
+      if (!web3) {
+        alert('Can\'t connect to wallet');
+        return;
+      }
 
-    if (userFunding <= 0) {
-      alert('Please, check input');
-      return;
-    }
+      if (userFunding <= 0) {
+        alert('Please, check input');
+        return;
+      }
 
-    if (window.confirm(`Are you sure you want to funding with ${userFunding} ${token.symbol}`)) {
-      const accounts = await web3.eth.getAccounts();
-      const myAccount = accounts[0]; // TODO Check
-      const tokenContract = new web3.eth.Contract(
-          contractValue.ABIToken,
-          contractValue.addressToken,
-      );
-      await tokenContract.methods
-          .approve(contractValue.addressContractBuilder, web3.utils.toWei(userFunding, 'Ether'))
-          .send({from: myAccount})
-          .on('transactionHash', async (hash) => {});
+      if (window.confirm(`Are you sure you want to funding with ${userFunding} ${token.symbol}`)) {
+        const accounts = await web3.eth.getAccounts();
+        const myAccount = accounts[0]; // TODO Check
+        const tokenContract = new web3.eth.Contract(
+            contractValue.ABIToken,
+            contractValue.addressToken,
+        );
+        await tokenContract.methods
+            .approve(contractValue.addressContractBuilder, web3.utils.toWei(userFunding, 'Ether'))
+            .send({from: myAccount})
+            .on('transactionHash', async (hash) => {});
 
-      let contractBuilder = new web3.eth.Contract(
-          contractValue.ABIContractBuilder,
-          contractValue.addressContractBuilder,
-      );
+        let contractBuilder = new web3.eth.Contract(
+            contractValue.ABIContractBuilder,
+            contractValue.addressContractBuilder,
+        );
 
-      await contractBuilder.methods
-          .bidFunding(item.id, userFunding)
-          .send({from: myAccount});
+        await contractBuilder.methods
+            .bidFunding(item.id, userFunding)
+            .send({from: myAccount});
 
-      alert('Bid Fnding Successful');
-    } else {
+        alert('Funding successful !!!');
+        window.location.reload();
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.log(error);
+      alert('Funding failed');
       return;
     }
   };

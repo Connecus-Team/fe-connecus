@@ -9,21 +9,27 @@ function TaskItem({item, index, ísExpire, post}) {
   const web3 = useSelector(web3Selector.selectWeb3);
   const [countVoteByOption, setCountVoteByOption] = useState(0);
   const handleVerify = async () =>{
-    if (web3) {
-      alert('Can\'t connect to web3');
-      return;
+    try {
+      if (web3) {
+        alert('Can\'t connect to web3');
+        return;
+      }
+
+      const accounts = await web3.eth.getAccounts();
+      const myAccount = accounts[0]; // TODO Check
+      let contractBuilder = new web3.eth.Contract(
+          contractValue.ABIContractBuilder,
+          contractValue.addressContractBuilder,
+      );
+
+      const tokenAddress = JSON.parse(localStorage.getItem('token'));
+      const response = await contractBuilder.methods.rewardTask(tokenAddress.token_address, post.id, 10).call();
+      alert('Verify Successful');
+    } catch (error) {
+      console.log(error);
+      alert('Verify failed');
+      return null;
     }
-
-    const accounts = await web3.eth.getAccounts();
-    const myAccount = accounts[0]; // TODO Check
-    let contractBuilder = new web3.eth.Contract(
-        contractValue.ABIContractBuilder,
-        contractValue.addressContractBuilder,
-    );
-
-    const tokenAddress = JSON.parse(localStorage.getItem('token'));
-    const response = await contractBuilder.methods.rewardTask(tokenAddress.token_address, post.id, 10).call();
-    alert('Verify Successful');
   };
   return (
     <li className="w-100 mb-4">
