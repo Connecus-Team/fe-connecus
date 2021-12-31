@@ -1,6 +1,5 @@
 import React, {createContext, useState, FC} from 'react';
 import {SnowfallProps} from 'react-snowfall';
-
 export interface SnowfallSettings extends SnowfallProps {
   setColor: (color: string) => void,
   setSnowflakeCount: (count: number) => void,
@@ -8,9 +7,7 @@ export interface SnowfallSettings extends SnowfallProps {
   setWind: (wind: [number, number]) => void,
   setRadius: (radius: [number, number]) => void,
 }
-
 export const SettingsContext = createContext<Partial<SnowfallSettings>>({});
-
 export const StateProvider: FC = ({children}) => {
   const [color, setColor] = useState('#dee4fd');
   const [snowflakeCount, setSnowflakeCount] = useState(200);
