@@ -80,7 +80,7 @@ const CreateToken = (props) => {
       const {size, type} = file[0];
       let response = null;
       if (size / 1000000 < 100) {
-        if (type === 'image/png' || type === 'image/jpg') {
+        if (type === 'image/png' || type === 'image/jpg' || 'image/jpeg') {
           try {
             let data = new FormData();
             data.append('file', file[0]);
@@ -89,10 +89,12 @@ const CreateToken = (props) => {
           } catch (error) {
             console.log(error);
             alert('Post a task server error');
+            setLoadingEvent(false);
             return;
           }
         } else {
           alert('Check image type');
+          setLoadingEvent(false);
           return;
         }
       }

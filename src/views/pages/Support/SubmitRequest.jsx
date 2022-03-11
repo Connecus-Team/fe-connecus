@@ -3,14 +3,14 @@ import {Link} from 'react-router-dom';
 import Footer from '../../../components/footer/Footer';
 import Header from '../../../components/header/Header';
 import useDocumentTitle from '../../../components/useDocumentTitle';
-import { ToastContainer, toast } from 'react-toastify';
+import {ToastContainer, toast} from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
 
 
 const SubmitRequest = () => {
   useDocumentTitle(' Submit Request');
-  const sending = () => toast.success("your request has been sent");
+  const sending = () => toast.success('your request has been sent');
 
   return (
     <div>
@@ -77,9 +77,9 @@ const SubmitRequest = () => {
                           Submit message
                         </Link>
                         <ToastContainer
-                  position="bottom-right"
+                          position="bottom-right"
 
-                   />
+                        />
                       </div>
                     </div>
                   </div>

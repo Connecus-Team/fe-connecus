@@ -79,7 +79,7 @@ export default function TopArtist() {
                         </div> */}
                           <Link to={`/token-view?address=${val.token_address}`}>
                             <img
-                              src={`${process.env.REACT_APP_SERVER_API}api/files/${val.link}`}
+                              src={`${process.env.REACT_APP_SERVER_API}api/files${val.link}`}
                               alt="Avatar"
                               className="avatar avatar-md"
                             />

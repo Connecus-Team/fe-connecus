@@ -49,7 +49,7 @@
     "web3": "^1.6.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "export PORT=5112 && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

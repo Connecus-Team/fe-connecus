@@ -29,22 +29,22 @@ import Snowfall from 'react-snowfall';
 //   },
 // ];
 const PagesMenu = [
-  // {
-  //   title: 'Marketplace',
-  //   link: '/marketplace',
-  // },
-  // {
-  //   title: 'Collections',
-  //   link: '/collections',
-  // },
-  // {
-  //   title: ' Profile',
-  //   link: '/profile',
-  // },
-  // {
-  //   title: ' Creators',
-  //   link: '/creators',
-  // },
+  {
+    title: 'Marketplace',
+    link: '/marketplace',
+  },
+  {
+    title: 'Collections',
+    link: '/collections',
+  },
+  {
+    title: ' Profile',
+    link: '/profile',
+  },
+  {
+    title: ' Creators',
+    link: '/creators',
+  },
   {
     title: ' Token',
     link: '/token',
